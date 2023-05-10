@@ -1,5 +1,14 @@
+import React from 'react';
+import UserRegistration from './components/UserRegistration.jsx';
+
 function App() {
-  return <h2>HotelSpotter</h2>;
+  return (
+    <div className="App">
+      <div className="container text-center">
+        <UserRegistration/>
+      </div>
+    </div>
+  );
 }
 
 export default App;
