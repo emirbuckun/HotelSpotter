@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 const ReservationSchema = new mongoose.Schema({
-  ReservationID: { type: Number, required: true },
-  HotelID: { type: Number, required: true },
-  UserID: { type: Number, required: true },
+  ReservationID: { type: mongoose.Schema.Types.ObjectId, required: true },
+  HotelID: { type: mongoose.Schema.Types.ObjectId, required: true },
+  UserID: { type: mongoose.Schema.Types.ObjectId, required: true },
   CheckIn: { type: Date, required: true },
   CheckOut: { type: Date, required: true },
   GuestCount: { type: Number, required: true },
