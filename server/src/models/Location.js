@@ -1,7 +1,11 @@
 import mongoose from "mongoose";
 
 const LocationSchema = new mongoose.Schema({
-  HotelID: { type: mongoose.Schema.Types.ObjectId, required: true },
+  HotelID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "hotel",
+    required: true,
+  },
   Country: { type: String, required: true },
   City: { type: String, required: true },
   Street: { type: String, required: true },
