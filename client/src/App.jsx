@@ -1,5 +1,6 @@
 import React from 'react';
-import UserRegistration from '/src/components/UserRegistration';
+import Register from '/src/components/Register';
+import Login from '/src/components/Login';
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
      {
       <div class="container text-center">
   
-      <UserRegistration/>
+      <Register/>
       </div>
       }
     </div>
