@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const ReviewSchema = new mongoose.Schema({
-  ReviewID: { type: mongoose.Schema.Types.ObjectId, required: true },
   UserID: { type: mongoose.Schema.Types.ObjectId, required: true },
   HotelID: { type: mongoose.Schema.Types.ObjectId, required: true },
   Rating: { type: Number, required: true },

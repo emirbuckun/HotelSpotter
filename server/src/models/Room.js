@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const RoomSchema = new mongoose.Schema({
-  RoomID: { type: mongoose.Schema.Types.ObjectId, required: true },
   HotelID: { type: mongoose.Schema.Types.ObjectId, required: true },
   RoomType: { type: mongoose.Schema.Types.ObjectId, required: true },
   Price: { type: Number, required: true },
@@ -17,4 +16,4 @@ const RoomSchema = new mongoose.Schema({
   HasHeating: { type: Boolean, required: true },
 });
 
-export const RoomModel = mongoose.model("Room", RoomSchema);
+export const RoomModel = mongoose.model("room", RoomSchema);
