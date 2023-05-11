@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SignIn() {
+function Login() {
   return (
   <section className="vh-100" style={{ backgroundColor: "#ffff", fontFamily: "'Oswald', sans-serif"}}>
 
@@ -13,7 +13,7 @@ function SignIn() {
               <div className="row justify-content-center">
                 <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
   
-                  <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In To HotelSpotter</p>
+                  <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login To HotelSpotter</p>
   
                   <form className="mx-1 mx-md-4">
   
@@ -41,7 +41,7 @@ function SignIn() {
                     </div>
   
                     <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="button" className="btn btn-primary btn-lg">Log In</button>
+                      <button type="button" className="btn btn-primary btn-lg">Login</button>
                     </div>
   
                   </form>
@@ -63,4 +63,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default Login;

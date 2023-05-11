@@ -1,6 +1,6 @@
 import React from 'react';
 
-function UserRegistration() {
+function Register() {
   return (
     <section className="vh-100" style={{ backgroundColor: "#fff", fontFamily: "'Oswald', sans-serif"}}>
 
@@ -13,7 +13,7 @@ function UserRegistration() {
               <div className="row justify-content-center">
                 <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
   
-                  <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registration To HotelSpotter</p>
+                  <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Register To HotelSpotter</p>
   
                   <form className="mx-1 mx-md-4">
   
@@ -71,4 +71,4 @@ function UserRegistration() {
   );
 }
 
-export default UserRegistration;
+export default Register;
