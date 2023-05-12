@@ -1,9 +1,9 @@
 import React from "react";
 import Register from "/src/components/Register";
 import Login from "/src/components/Login";
-import HotelListingHeader from "/src/components/HotelListingHeader";
+import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
-import HotelListingFooter from "/src/components/HotelListingFooter";
+import Footer from "/src/components/Footer";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -21,7 +21,7 @@ function App() {
           element={
             <React.Fragment>
               <div className="container mb-4 mx-4">
-                <HotelListingHeader />
+                <Header />
               </div>
 
               <div class="container text-center mb-4">
@@ -66,7 +66,7 @@ function App() {
                 </div>
               </div>
 
-              <HotelListingFooter />
+              <Footer />
             </React.Fragment>
           }
         />
