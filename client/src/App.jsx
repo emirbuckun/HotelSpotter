@@ -5,6 +5,7 @@ import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
 import Footer from "/src/components/Footer";
 import Payment from "/src/components/Payment";
+import SearchBar from "/src/components/SearchBar";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -18,6 +19,8 @@ function App() {
 
         <Route path="/payment" element={<Payment />} />
 
+        <Route path="/searchbar" element={<SearchBar />} />
+
         <Route
           path="/home"
           exact
@@ -25,6 +28,10 @@ function App() {
             <React.Fragment>
               <div className="container mb-4 mx-4">
                 <Header />
+              </div>
+
+              <div className="container mb-4 mx-4">
+                <SearchBar />
               </div>
 
               <div class="container text-center mb-4">
