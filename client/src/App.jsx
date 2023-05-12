@@ -1,10 +1,9 @@
 import React from "react";
 import Register from "/src/components/Register";
 import Login from "/src/components/Login";
-/*import HotelListingHeader from "/src/components/HotelListingHeader";
+import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
-import HotelListingFooter from "/src/components/HotelListingFooter"; */
-import Payment from "/src/components/Payment";
+import Footer from "/src/components/Footer";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -16,15 +15,13 @@ function App() {
 
         <Route path="/register" element={<Register />} />
 
-        <Route path="/payment" element={<Payment />} />
-
-        {/*  <Route
+        <Route
           path="/home"
           exact
           element={
             <React.Fragment>
-              <div className="container mb-4">
-                <HotelListingHeader />
+              <div className="container mb-4 mx-4">
+                <Header />
               </div>
 
               <div class="container text-center mb-4">
@@ -69,10 +66,10 @@ function App() {
                 </div>
               </div>
 
-              <HotelListingFooter />
+              <Footer />
             </React.Fragment>
           }
-        /> */}
+        />
       </Routes>
     </Router>
   );
