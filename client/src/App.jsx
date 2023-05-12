@@ -4,6 +4,7 @@ import Login from "/src/components/Login";
 import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
 import Footer from "/src/components/Footer";
+import Payment from "/src/components/Payment";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -14,6 +15,8 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/register" element={<Register />} />
+
+        <Route path="/payment" element={<Payment />} />
 
         <Route
           path="/home"

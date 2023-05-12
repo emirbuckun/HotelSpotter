@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
-const HotelListingHeader = () => {
+const Header = () => {
   const navigate = useNavigate();
 
   const navigateRegister = (e) => {
@@ -66,4 +66,4 @@ const HotelListingHeader = () => {
   );
 };
 
-export default HotelListingHeader;
+export default Header;

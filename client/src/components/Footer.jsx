@@ -1,6 +1,6 @@
 import React from "react";
 
-const HotelListingFooter = () => {
+const Footer = () => {
   return (
     <div>
       <div class="container">
@@ -41,4 +41,4 @@ const HotelListingFooter = () => {
   );
 };
 
-export default HotelListingFooter;
+export default Footer;
