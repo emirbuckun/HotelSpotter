@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 class HotelListing extends React.Component {
   static defaultProps = {
+    cardText: "Default Card Text",
     cardTitle: "Default Card Title",
   };
 

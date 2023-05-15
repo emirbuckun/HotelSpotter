@@ -27,43 +27,43 @@ function App() {
                 <Header />
               </div>
 
-              <div class="container text-center mb-4">
-                <div class="row">
-                  <div class="col">
+              <div className="container text-center mb-4">
+                <div className="row">
+                  <div className="col">
                     <HotelListing />
                   </div>
-                  <div class="col">
+                  <div className="col">
                     <HotelListing />
                   </div>
-                  <div class="col">
-                    <HotelListing />
-                  </div>
-                </div>
-              </div>
-
-              <div class="container text-center mb-4">
-                <div class="row">
-                  <div class="col">
-                    <HotelListing />
-                  </div>
-                  <div class="col">
-                    <HotelListing />
-                  </div>
-                  <div class="col">
+                  <div className="col">
                     <HotelListing />
                   </div>
                 </div>
               </div>
 
-              <div class="container text-center mb-4">
-                <div class="row">
-                  <div class="col">
+              <div className="container text-center mb-4">
+                <div className="row">
+                  <div className="col">
                     <HotelListing />
                   </div>
-                  <div class="col">
+                  <div className="col">
                     <HotelListing />
                   </div>
-                  <div class="col">
+                  <div className="col">
+                    <HotelListing />
+                  </div>
+                </div>
+              </div>
+
+              <div className="container text-center mb-4">
+                <div className="row">
+                  <div className="col">
+                    <HotelListing />
+                  </div>
+                  <div className="col">
+                    <HotelListing />
+                  </div>
+                  <div className="col">
                     <HotelListing />
                   </div>
                 </div>
