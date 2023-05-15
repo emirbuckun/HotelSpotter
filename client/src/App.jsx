@@ -1,10 +1,10 @@
 import React from "react";
-import Register from "/src/components/Register";
-import Login from "/src/components/Login";
-import Header from "/src/components/Header";
-import HotelListing from "/src/components/HotelListing";
-import Footer from "/src/components/Footer";
-import Payment from "/src/components/Payment";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Header from "./components/Header";
+import HotelListing from "./components/HotelListing";
+import Footer from "./components/Footer";
+import Payment from "./components/Payment";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
