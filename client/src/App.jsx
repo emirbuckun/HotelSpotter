@@ -19,7 +19,7 @@ function App() {
         <Route path="/payment" element={<Payment />} />
 
         <Route
-          path="/home"
+          path="/"
           exact
           element={
             <React.Fragment>
