@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const AmenitySchema = new mongoose.Schema({
-  HotelID: {
+  hotelID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "hotel",
+    ref: "hotels",
     required: true,
   },
-  Amenity: { type: String, required: true },
+  amenity: { type: String, required: true },
 });
 
-export const AmenityModel = mongoose.model("amenity", AmenitySchema);
+export const AmenityModel = mongoose.model("amenities", AmenitySchema);

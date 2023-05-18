@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
 const LogSchema = new mongoose.Schema({
-  LogType: { type: String, required: true },
-  Description: { type: String, required: true },
-  LogDate: { type: Date, default: Date.now() },
-  IsSuccess: { type: Boolean, required: true },
+  logType: { type: String, required: true },
+  description: { type: String, required: true },
+  logDate: { type: Date, default: Date.now() },
+  isSuccess: { type: Boolean, required: true },
 });
 
-export const LogModel = mongoose.model("log", LogSchema);
+export const LogModel = mongoose.model("logs", LogSchema);
