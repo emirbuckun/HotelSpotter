@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const OwnershipSchema = new mongoose.Schema({
-  UserID: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-  HotelID: {
+  userID: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
+  hotelID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "hotel",
+    ref: "hotels",
     required: true,
   },
 });
 
-export const OwnershipModel = mongoose.model("ownership", OwnershipSchema);
+export const OwnershipModel = mongoose.model("ownerships", OwnershipSchema);
