@@ -21,13 +21,47 @@ function Register() {
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
-                          <label className="form-label" htmlFor="name">
-                            Your Name
+                          <label className="form-label" htmlFor="username">
+                            Username
                           </label>
                           <input
                             type="text"
-                            id="name"
+                            id="username"
+                            placeholder="smart leopard"
                             className="form-control"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="firstName">
+                            First Name
+                          </label>
+                          <input
+                            type="text"
+                            id="firstName"
+                            placeholder="Leonard"
+                            className="form-control"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="lastName">
+                            Last Name
+                          </label>
+                          <input
+                            type="text"
+                            id="lastName"
+                            placeholder="Floyd"
+                            className="form-control"
+                            required
                           />
                         </div>
                       </div>
@@ -36,12 +70,31 @@ function Register() {
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
                           <label className="form-label" htmlFor="mail">
-                            Your Email
+                            E-mail
                           </label>
                           <input
                             type="email"
                             id="mail"
+                            placeholder="leonardfloyd@icloud.com"
                             className="form-control"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="phoneNumber">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            id="phoneNumber"
+                            placeholder="545-512-3224"
+                            className="form-control"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            required
                           />
                         </div>
                       </div>
@@ -55,17 +108,18 @@ function Register() {
                           <input
                             type="password"
                             id="password"
+                            placeholder="**********"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
 
                       <div className="form-check d-flex justify-content-center mb-5">
                         <input
-                          className="form-check-input me-2"
                           type="checkbox"
-                          value=""
                           id="terms"
+                          className="form-check-input me-2"
                         />
                         <label className="form-check-label" htmlFor="terms">
                           I agree all statements in{" "}
@@ -83,6 +137,7 @@ function Register() {
                       </div>
                     </form>
                   </div>
+
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                     <img
                       src="https://a.cdn-hotels.com/gdcs/production0/d1374/2fe2ac0d-4abe-4316-9dd2-011fb65a5587.jpg?impolicy=fcrop&w=800&h=533&q=medium"
