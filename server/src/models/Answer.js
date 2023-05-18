@@ -1,15 +1,19 @@
 import mongoose from "mongoose";
 
 const AnswerSchema = new mongoose.Schema({
-  UserID: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-  QuestionID: {
+  userID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "question",
+    ref: "users",
     required: true,
   },
-  Description: { type: String, required: true },
-  CreateDate: { type: Date, default: Date.now() },
-  UpdateDate: { type: Date, required: false },
+  questionID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "questions",
+    required: true,
+  },
+  description: { type: String, required: true },
+  createDate: { type: Date, default: Date.now() },
+  updateDate: { type: Date, required: false },
 });
 
-export const AnswerModel = mongoose.model("answer", AnswerSchema);
+export const AnswerModel = mongoose.model("answers", AnswerSchema);
