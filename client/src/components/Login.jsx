@@ -21,13 +21,15 @@ function Login() {
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
-                          <label className="form-label" htmlFor="mail">
-                            Your Email
+                          <label className="form-label" htmlFor="username">
+                            Username
                           </label>
                           <input
-                            type="email"
-                            id="mail"
+                            type="text"
+                            id="username"
+                            placeholder="smart leopard"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
@@ -41,7 +43,9 @@ function Login() {
                           <input
                             type="password"
                             id="password"
+                            placeholder="**********"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
