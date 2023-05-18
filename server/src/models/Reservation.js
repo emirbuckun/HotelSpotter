@@ -1,21 +1,25 @@
 import mongoose from "mongoose";
 
 const ReservationSchema = new mongoose.Schema({
-  HotelID: {
+  hotelID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "hotel",
+    ref: "hotels",
     required: true,
   },
-  UserID: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-  CheckIn: { type: Date, required: true },
-  CheckOut: { type: Date, required: true },
-  GuestCount: { type: Number, required: true },
-  RoomType: { type: String, required: true },
-  CreateDate: { type: Date, default: Date.now() },
-  UpdateDate: { type: Date, required: false },
+  userID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
+  checkIn: { type: Date, required: true },
+  checkOut: { type: Date, required: true },
+  guestCount: { type: Number, required: true },
+  roomType: { type: String, required: true },
+  createDate: { type: Date, default: Date.now() },
+  updateDate: { type: Date, required: false },
 });
 
 export const ReservationModel = mongoose.model(
-  "Reservation",
+  "reservations",
   ReservationSchema
 );
