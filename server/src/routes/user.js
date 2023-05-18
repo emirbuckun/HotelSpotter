@@ -16,7 +16,7 @@ router.get("/getUsers", async (req, res) => {
 router.post("/register", async (req, res) => {
   const { username, firstName, lastName, mail, phoneNumber, password } =
     req.body;
-  const user = await UserModel.findOne({ Username: username });
+  const user = await UserModel.findOne({ username });
 
   if (user) {
     return res.json({ message: "User already exists!" });
