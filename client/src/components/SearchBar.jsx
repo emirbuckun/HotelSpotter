@@ -1,15 +1,29 @@
-import React, { useRef } from "react";
-import Box from "@mui/material/Box";
+import React, { useRef, useState } from "react";
 import Slider from "@mui/material/Slider";
+import { IconButton } from "@mui/material";
+import TuneIcon from "@mui/icons-material/Tune";
+import Rating from "@mui/material/Rating";
+import Button from "@mui/material/Button";
 
 function valuetext(value) {
-  return `${value + "usd"}`;
+  return `${value}`;
 }
 
 const SearchBar = () => {
-  const [value, setValue] = React.useState([20, 37]);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const [value, setValue] = React.useState([1, 1000]);
+
+  const minDistance = 10;
+
+  const handleChange = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+    } else {
+      setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+    }
   };
 
   const checkInRef = useRef(null);
@@ -20,18 +34,34 @@ const SearchBar = () => {
     ref.current.focus();
   };
 
+  const [amenity1Checked, setAmenity1Checked] = useState(false);
+  const [amenity2Checked, setAmenity2Checked] = useState(false);
+  const [amenity3Checked, setAmenity3Checked] = useState(false);
+  const [amenity4Checked, setAmenity4Checked] = useState(false);
+  const [amenity5Checked, setAmenity5Checked] = useState(false);
+  const [ratingValue, setRatingValue] = React.useState(0);
+
+  const handleClearFilters = () => {
+    setAmenity1Checked(false);
+    setAmenity2Checked(false);
+    setAmenity3Checked(false);
+    setAmenity4Checked(false);
+    setAmenity5Checked(false);
+    setRatingValue(0);
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-1">
-          <button
+          <IconButton
             className="btn btn-secondary"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           >
-            Filter
-          </button>
+            <TuneIcon style={{ color: "#0288d1", fontSize: 30 }} />
+          </IconButton>
         </div>
 
         <div
@@ -61,13 +91,15 @@ const SearchBar = () => {
                       Price Range:
                     </label>
                     <Slider
-                      getAriaLabel={() => "Price Range "}
+                      getAriaLabel={() => "Minimum distance"}
                       value={value}
                       onChange={handleChange}
                       valueLabelDisplay="auto"
+                      valueLabelFormat={(value) => `${value} $`}
                       getAriaValueText={valuetext}
                       max={1000}
                       min={1}
+                      disableSwap
                     />
                   </div>
                   <div className="mb-3">
@@ -85,6 +117,16 @@ const SearchBar = () => {
                     <label htmlFor="starRange" className="form-label">
                       Number of Stars
                     </label>
+                    <div>
+                      <Rating
+                        name="numberOfStar"
+                        precision={0.5}
+                        value={ratingValue}
+                        onChange={(event, newValue) => {
+                          setRatingValue(newValue);
+                        }}
+                      />
+                    </div>
                   </div>
                   <div className="mb-3">
                     <label className="form-label">Facility Amenities</label>
@@ -95,6 +137,8 @@ const SearchBar = () => {
                           type="checkbox"
                           value=""
                           id="amenity1"
+                          checked={amenity1Checked}
+                          onChange={(e) => setAmenity1Checked(e.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="amenity1">
                           Pool
@@ -106,6 +150,8 @@ const SearchBar = () => {
                           type="checkbox"
                           value=""
                           id="amenity2"
+                          checked={amenity2Checked}
+                          onChange={(e) => setAmenity2Checked(e.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="amenity2">
                           Internet
@@ -117,6 +163,8 @@ const SearchBar = () => {
                           type="checkbox"
                           value=""
                           id="amenity3"
+                          checked={amenity3Checked}
+                          onChange={(e) => setAmenity3Checked(e.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="amenity3">
                           Gym
@@ -127,7 +175,9 @@ const SearchBar = () => {
                           className="form-check-input"
                           type="checkbox"
                           value=""
-                          id="amenity3"
+                          id="amenity4"
+                          checked={amenity4Checked}
+                          onChange={(e) => setAmenity4Checked(e.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="amenity3">
                           Car Park
@@ -138,7 +188,9 @@ const SearchBar = () => {
                           className="form-check-input"
                           type="checkbox"
                           value=""
-                          id="amenity3"
+                          id="amenity5"
+                          checked={amenity5Checked}
+                          onChange={(e) => setAmenity5Checked(e.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="amenity3">
                           Air Conditioning
@@ -150,15 +202,15 @@ const SearchBar = () => {
                 </form>
               </div>
               <div className="modal-footer">
+                <Button variant="contained" onClick={handleClearFilters}>
+                  Clear Filters
+                </Button>
                 <button
-                  type="button"
-                  className="btn btn
-                  -secondary"
+                  className="btn"
                   data-bs-dismiss="modal"
+                  aria-label="Close"
+                  color="#0288d1"
                 >
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">
                   Apply Filters
                 </button>
               </div>
