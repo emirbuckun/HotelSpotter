@@ -1,6 +1,33 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 function Register() {
+  const [mail, setMail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3001/user/register", {
+        mail,
+        firstName,
+        lastName,
+        phoneNumber,
+        password,
+      });
+      alert(response.data.message);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section
       className="vh-100"
@@ -17,7 +44,7 @@ function Register() {
                       Register To HotelSpotter
                     </p>
 
-                    <form className="mx-1 mx-md-4">
+                    <form className="mx-1 mx-md-4" onSubmit={onSubmit}>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
@@ -30,6 +57,7 @@ function Register() {
                             placeholder="leonardfloyd@icloud.com"
                             className="form-control"
                             required
+                            onChange={(event) => setMail(event.target.value)}
                           />
                         </div>
                       </div>
@@ -46,6 +74,9 @@ function Register() {
                             placeholder="Leonard"
                             className="form-control"
                             required
+                            onChange={(event) =>
+                              setFirstName(event.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -62,6 +93,9 @@ function Register() {
                             placeholder="Floyd"
                             className="form-control"
                             required
+                            onChange={(event) =>
+                              setLastName(event.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -79,6 +113,9 @@ function Register() {
                             className="form-control"
                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                             required
+                            onChange={(event) =>
+                              setPhoneNumber(event.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -95,6 +132,9 @@ function Register() {
                             placeholder="**********"
                             className="form-control"
                             required
+                            onChange={(event) =>
+                              setPassword(event.target.value)
+                            }
                           />
                         </div>
                       </div>
@@ -113,7 +153,7 @@ function Register() {
 
                       <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                         <button
-                          type="button"
+                          type="submit"
                           className="btn btn-primary btn-lg"
                         >
                           Register
