@@ -16,9 +16,8 @@ function Login() {
       });
       var success = response.data.success;
       var message = response.data.message;
-      if (!success) {
-        alert(message);
-      } else {
+      alert(message);
+      if (success) {
         navigate("/");
       }
     } catch (error) {
