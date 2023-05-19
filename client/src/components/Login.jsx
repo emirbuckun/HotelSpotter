@@ -1,7 +1,10 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     var mail = document.getElementById("mail").value;
     var password = document.getElementById("password").value;
@@ -11,7 +14,12 @@ function Login() {
         mail,
         password,
       });
-      alert(response.data.message);
+      if (response.data.message == undefined) {
+        alert("Login Successful");
+        navigate("/");
+      } else {
+        alert(response.data.message);
+      }
     } catch (error) {
       console.error(error);
     }
