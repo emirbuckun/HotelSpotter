@@ -14,12 +14,8 @@ function Login() {
         mail,
         password,
       });
-      if (response.data.message == undefined) {
-        alert("Login Successful");
-        navigate("/");
-      } else {
-        alert(response.data.message);
-      }
+      alert(response.data.message);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
