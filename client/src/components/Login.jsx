@@ -22,12 +22,14 @@ function Login() {
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
                           <label className="form-label" htmlFor="mail">
-                            Your Email
+                            E-mail
                           </label>
                           <input
                             type="email"
                             id="mail"
+                            placeholder="leonardfloyd@icloud.com"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
@@ -41,7 +43,9 @@ function Login() {
                           <input
                             type="password"
                             id="password"
+                            placeholder="**********"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
