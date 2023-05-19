@@ -1,6 +1,30 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    var mail = document.getElementById("mail").value;
+    var password = document.getElementById("password").value;
+
+    try {
+      const response = await axios.post("http://localhost:3001/user/login", {
+        mail,
+        password,
+      });
+      var success = response.data.success;
+      var message = response.data.message;
+      alert(message);
+      if (success) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section
       className="vh-100"
@@ -21,31 +45,32 @@ function Login() {
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="mail">
+                            E-mail
+                          </label>
                           <input
                             type="email"
-                            id="form3Example3c"
+                            id="mail"
+                            placeholder="leonardfloyd@icloud.com"
                             className="form-control"
+                            required
                           />
-                          <label className="form-label" for="form3Example3c">
-                            Your Email
-                          </label>
                         </div>
                       </div>
 
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
-                          <input
-                            type="password"
-                            id="form3Example4c"
-                            className="form-control"
-                          />
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example4c"
-                          >
+                          <label className="form-label" htmlFor="password">
                             Password
                           </label>
+                          <input
+                            type="password"
+                            id="password"
+                            placeholder="**********"
+                            className="form-control"
+                            required
+                          />
                         </div>
                       </div>
 
@@ -54,11 +79,11 @@ function Login() {
                           className="form-check-input me-2"
                           type="checkbox"
                           value=""
-                          id="form2Example3c"
+                          id="rememberMe"
                         />
                         <label
                           className="form-check-label"
-                          htmlFor="form2Example3"
+                          htmlFor="rememberMe"
                         >
                           Remember Me
                         </label>
@@ -68,6 +93,7 @@ function Login() {
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
+                          onClick={handleLogin}
                         >
                           Login
                         </button>
@@ -78,7 +104,7 @@ function Login() {
                     <img
                       src="https://static.standard.co.uk/s3fs-public/thumbnails/image/2020/07/14/11/holidays-2020-should-you-stay-or-go.jpg?width=1200&auto=webp&quality=75"
                       className="img-fluid"
-                      alt="Sampleimage"
+                      alt="Sample Image"
                       style={{ borderRadius: "25px" }}
                     />
                   </div>

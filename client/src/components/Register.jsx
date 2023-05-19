@@ -1,6 +1,37 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 
 function Register() {
+  const [mail, setMail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:3001/user/register", {
+        mail,
+        firstName,
+        lastName,
+        phoneNumber,
+        password,
+      });
+      var success = response.data.success;
+      var message = response.data.message;
+      alert(message);
+      if (success) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section
       className="vh-100"
@@ -17,69 +48,108 @@ function Register() {
                       Register To HotelSpotter
                     </p>
 
-                    <form className="mx-1 mx-md-4">
+                    <form className="mx-1 mx-md-4" onSubmit={onSubmit}>
                       <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
-                          <input
-                            type="text"
-                            id="form3Example1c"
-                            className="form-control"
-                          />
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example1c"
-                          >
-                            Your Name
+                          <label className="form-label" htmlFor="mail">
+                            E-mail
                           </label>
+                          <input
+                            type="email"
+                            id="mail"
+                            placeholder="leonardfloyd@icloud.com"
+                            className="form-control"
+                            required
+                            onChange={(event) => setMail(event.target.value)}
+                          />
                         </div>
                       </div>
 
                       <div className="d-flex flex-row align-items-center mb-4">
-                        <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
-                          <input
-                            type="email"
-                            id="form3Example3c"
-                            className="form-control"
-                          />
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example3c"
-                          >
-                            Your Email
+                          <label className="form-label" htmlFor="firstName">
+                            First Name
                           </label>
+                          <input
+                            type="text"
+                            id="firstName"
+                            placeholder="Leonard"
+                            className="form-control"
+                            required
+                            onChange={(event) =>
+                              setFirstName(event.target.value)
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="lastName">
+                            Last Name
+                          </label>
+                          <input
+                            type="text"
+                            id="lastName"
+                            placeholder="Floyd"
+                            className="form-control"
+                            required
+                            onChange={(event) =>
+                              setLastName(event.target.value)
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="d-flex flex-row align-items-center mb-4">
+                        <i className="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div className="form-outline flex-fill mb-0">
+                          <label className="form-label" htmlFor="phoneNumber">
+                            Phone Number
+                          </label>
+                          <input
+                            type="tel"
+                            id="phoneNumber"
+                            placeholder="545-512-3224"
+                            className="form-control"
+                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            required
+                            onChange={(event) =>
+                              setPhoneNumber(event.target.value)
+                            }
+                          />
                         </div>
                       </div>
 
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
-                          <input
-                            type="password"
-                            id="form3Example4c"
-                            className="form-control"
-                          />
-                          <label
-                            className="form-label"
-                            htmlFor="form3Example4c"
-                          >
+                          <label className="form-label" htmlFor="password">
                             Password
                           </label>
+                          <input
+                            type="password"
+                            id="password"
+                            placeholder="**********"
+                            className="form-control"
+                            required
+                            onChange={(event) =>
+                              setPassword(event.target.value)
+                            }
+                          />
                         </div>
                       </div>
 
                       <div className="form-check d-flex justify-content-center mb-5">
                         <input
-                          className="form-check-input me-2"
                           type="checkbox"
-                          value=""
-                          id="form2Example3c"
+                          id="terms"
+                          className="form-check-input me-2"
                         />
-                        <label
-                          className="form-check-label"
-                          htmlFor="form2Example3"
-                        >
+                        <label className="form-check-label" htmlFor="terms">
                           I agree all statements in{" "}
                           <a href="#!">Terms of service</a>
                         </label>
@@ -87,7 +157,7 @@ function Register() {
 
                       <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                         <button
-                          type="button"
+                          type="submit"
                           className="btn btn-primary btn-lg"
                         >
                           Register
@@ -95,11 +165,12 @@ function Register() {
                       </div>
                     </form>
                   </div>
+
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                     <img
                       src="https://a.cdn-hotels.com/gdcs/production0/d1374/2fe2ac0d-4abe-4316-9dd2-011fb65a5587.jpg?impolicy=fcrop&w=800&h=533&q=medium"
                       className="img-fluid"
-                      alt="Sampleimage"
+                      alt="Sample Image"
                       style={{ borderRadius: "25px" }}
                     />
                   </div>

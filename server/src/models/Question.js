@@ -1,15 +1,19 @@
 import mongoose from "mongoose";
 
 const QuestionSchema = new mongoose.Schema({
-  UserID: { type: mongoose.Schema.Types.ObjectId, ref: "user", required: true },
-  HotelID: {
+  userID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "hotel",
+    ref: "users",
     required: true,
   },
-  Description: { type: String, required: true },
-  CreateDate: { type: Date, default: Date.now() },
-  UpdateDate: { type: Date, required: false },
+  hotelID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "hotels",
+    required: true,
+  },
+  description: { type: String, required: true },
+  createDate: { type: Date, default: Date.now() },
+  updateDate: { type: Date, required: false },
 });
 
-export const QuestionModel = mongoose.model("question", QuestionSchema);
+export const QuestionModel = mongoose.model("questions", QuestionSchema);
