@@ -1,10 +1,21 @@
 import React from "react";
+import axios from "axios";
 
 function Login() {
-  const handleLogin = (e, username, password) => {
-    console.log(username);
-    console.log(password);
-  }
+  const handleLogin = () => {
+    var mail = document.getElementById("mail").value;
+    var password = document.getElementById("password").value;
+
+    try {
+      const response = axios.post("http://localhost:3001/user/login", {
+        mail,
+        password,
+      });
+      alert(response.data.message);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <section
       className="vh-100"
