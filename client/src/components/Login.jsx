@@ -10,7 +10,7 @@ function Login() {
     var password = document.getElementById("password").value;
 
     try {
-      const response = await axios.post("http://localhost:3001/user/login", {
+      const response = await axios.post(serverURL + "user/login", {
         mail,
         password,
       });
