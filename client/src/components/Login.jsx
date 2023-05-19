@@ -1,6 +1,10 @@
 import React from "react";
 
 function Login() {
+  const handleLogin = (e, username, password) => {
+    console.log(username);
+    console.log(password);
+  }
   return (
     <section
       className="vh-100"
@@ -69,6 +73,7 @@ function Login() {
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
+                          onClick={handleLogin}
                         >
                           Login
                         </button>
