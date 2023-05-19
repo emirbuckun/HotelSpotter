@@ -1,6 +1,30 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    var mail = document.getElementById("mail").value;
+    var password = document.getElementById("password").value;
+
+    try {
+      const response = await axios.post("http://localhost:3001/user/login", {
+        mail,
+        password,
+      });
+      var success = response.data.success;
+      var message = response.data.message;
+      alert(message);
+      if (success) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section
       className="vh-100"
@@ -69,6 +93,7 @@ function Login() {
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
+                          onClick={handleLogin}
                         >
                           Login
                         </button>

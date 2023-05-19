@@ -19,7 +19,7 @@ router.post("/register", async (req, res) => {
   const user = await UserModel.findOne({ mail });
 
   if (user) {
-    return res.json({ message: "User already exists!" });
+    return res.json({ message: "User already exists!", success: false });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -32,7 +32,7 @@ router.post("/register", async (req, res) => {
   });
   await newUser.save();
 
-  res.json({ message: "User registered succesfully!" });
+  res.json({ message: "User registered succesfully!", success: true });
 });
 
 router.post("/login", async (req, res) => {
@@ -40,17 +40,22 @@ router.post("/login", async (req, res) => {
   const user = await UserModel.findOne({ mail });
 
   if (!user) {
-    return res.json({ message: "User doesn't exist!" });
+    return res.json({ message: "User doesn't exist!", success: false });
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.json({ message: "Password is incorrect!" });
+    return res.json({ message: "Password is incorrect!", success: false });
   }
 
   const token = jwt.sign({ id: user._id }, "secret");
-  res.json({ token, userID: user._id });
+  res.json({
+    message: "User logged in succesfully!",
+    token,
+    userID: user._id,
+    success: true,
+  });
 });
 
 export { router as userRouter };
