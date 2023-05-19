@@ -1,6 +1,30 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    var mail = document.getElementById("mail").value;
+    var password = document.getElementById("password").value;
+
+    try {
+      const response = await axios.post("http://localhost:3001/user/login", {
+        mail,
+        password,
+      });
+      var success = response.data.success;
+      var message = response.data.message;
+      alert(message);
+      if (success) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section
       className="vh-100"
@@ -22,12 +46,14 @@ function Login() {
                         <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
                           <label className="form-label" htmlFor="mail">
-                            Your Email
+                            E-mail
                           </label>
                           <input
                             type="email"
                             id="mail"
+                            placeholder="leonardfloyd@icloud.com"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
@@ -41,7 +67,9 @@ function Login() {
                           <input
                             type="password"
                             id="password"
+                            placeholder="**********"
                             className="form-control"
+                            required
                           />
                         </div>
                       </div>
@@ -65,6 +93,7 @@ function Login() {
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
+                          onClick={handleLogin}
                         >
                           Login
                         </button>
