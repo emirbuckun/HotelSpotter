@@ -2,12 +2,12 @@ import React from "react";
 import axios from "axios";
 
 function Login() {
-  const handleLogin = () => {
+  const handleLogin = async () => {
     var mail = document.getElementById("mail").value;
     var password = document.getElementById("password").value;
 
     try {
-      const response = axios.post("http://localhost:3001/user/login", {
+      const response = await axios.post("http://localhost:3001/user/login", {
         mail,
         password,
       });
@@ -16,6 +16,7 @@ function Login() {
       console.error(error);
     }
   };
+
   return (
     <section
       className="vh-100"
