@@ -14,8 +14,13 @@ function Login() {
         mail,
         password,
       });
-      alert(response.data.message);
-      navigate("/");
+      var success = response.data.success;
+      var message = response.data.message;
+      if (!success) {
+        alert(message);
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       console.error(error);
     }
