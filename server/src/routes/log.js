@@ -3,7 +3,7 @@ import { LogModel } from "../models/Log.js";
 
 const router = express.Router();
 
-router.get("/getLogs", async (req, res) => {
+router.get("/get", async (req, res) => {
   try {
     const response = await LogModel.find({});
     res.json(response);
@@ -11,3 +11,42 @@ router.get("/getLogs", async (req, res) => {
     res.json(error);
   }
 });
+
+router.get("/get/:id", async (req, res) => {
+  try {
+    const response = await LogModel.findById(req.params.id);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.post("/insert", async (req, res) => {
+  try {
+    const amenity = new LogModel(req.body);
+    const response = await amenity.save();
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const response = await LogModel.findByIdAndUpdate(req.params.id, req.body);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const response = await LogModel.findByIdAndDelete(req.params.id);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+export { router as logRouter };
