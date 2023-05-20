@@ -5,9 +5,18 @@ import jwt from "jsonwebtoken";
 
 const router = express.Router();
 
-router.get("/getUsers", async (req, res) => {
+router.get("/get", async (req, res) => {
   try {
     const response = await UserModel.find({});
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.get("/get/:id", async (req, res) => {
+  try {
+    const response = await UserModel.findById(req.params.id);
     res.json(response);
   } catch (error) {
     res.json(error);
@@ -56,6 +65,15 @@ router.post("/login", async (req, res) => {
     userID: user._id,
     success: true,
   });
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const response = await UserModel.findByIdAndDelete(req.params.id);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
 });
 
 export { router as userRouter };

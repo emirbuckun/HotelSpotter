@@ -3,7 +3,7 @@ import { AmenityModel } from "../models/Amenity.js";
 
 const router = express.Router();
 
-router.get("/getAmenities", async (req, res) => {
+router.get("/get", async (req, res) => {
   try {
     const response = await AmenityModel.find({});
     res.json(response);
@@ -11,3 +11,45 @@ router.get("/getAmenities", async (req, res) => {
     res.json(error);
   }
 });
+
+router.get("/get/:id", async (req, res) => {
+  try {
+    const response = await AmenityModel.findById(req.params.id);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.post("/insert", async (req, res) => {
+  try {
+    const amenity = new AmenityModel(req.body);
+    const response = await amenity.save();
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.put("/update/:id", async (req, res) => {
+  try {
+    const response = await AmenityModel.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const response = await AmenityModel.findByIdAndDelete(req.params.id);
+    res.json(response);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+export { router as amenityRouter };
