@@ -47,4 +47,6 @@ mongoose
     console.log(err.message);
   });
 
-app.listen(3001, () => console.log("Server Started!"));
+const listener = app.listen(3001, () =>
+  console.log("Server Started! Port: " + listener.address().port)
+);
