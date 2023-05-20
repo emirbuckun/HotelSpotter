@@ -32,15 +32,10 @@ router.post("/insert", async (req, res) => {
 });
 
 router.put("/update/:id", async (req, res) => {
-  const id = req.params.id;
-  const hotelID = req.body.hotelID;
-  const amenity = req.body.amenity;
-
   try {
     const response = await AmenityModel.findByIdAndUpdate(
-      id,
-      { hotelID: hotelID, amenity: amenity },
-      { new: true }
+      req.params.id,
+      req.body
     );
     res.json(response);
   } catch (error) {
