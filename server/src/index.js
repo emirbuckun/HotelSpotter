@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { userRouter } from "./routes/user.js";
+import { amenityRouter } from "./routes/amenity.js";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 dotenv.config();
 
 app.use("/user", userRouter);
+app.use("/amenity", amenityRouter);
 
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
