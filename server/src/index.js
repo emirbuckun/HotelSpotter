@@ -4,18 +4,18 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import { amenityRouter } from "./routes/amenity.js";
-import { answerRouter } from "./routes/amenity.js";
-import { hotelRouter } from "./routes/amenity.js";
-import { locationRouter } from "./routes/amenity.js";
-import { logRouter } from "./routes/amenity.js";
-import { ownershipRouter } from "./routes/amenity.js";
-import { pictureRouter } from "./routes/amenity.js";
-import { questionRouter } from "./routes/amenity.js";
-import { reservationRouter } from "./routes/amenity.js";
-import { reviewRouter } from "./routes/amenity.js";
-import { roomRouter } from "./routes/amenity.js";
+import { answerRouter } from "./routes/answer.js";
+import { hotelRouter } from "./routes/hotel.js";
+import { locationRouter } from "./routes/location.js";
+import { logRouter } from "./routes/log.js";
+import { ownershipRouter } from "./routes/ownership.js";
+import { pictureRouter } from "./routes/picture.js";
+import { questionRouter } from "./routes/question.js";
+import { reservationRouter } from "./routes/reservation.js";
+import { reviewRouter } from "./routes/review.js";
+import { roomRouter } from "./routes/room.js";
 import { userRouter } from "./routes/user.js";
-import { userRoleRouter } from "./routes/amenity.js";
+import { userRoleRouter } from "./routes/userRole.js";
 
 const app = express();
 
