@@ -50,3 +50,13 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 export { router as logRouter };
+
+export const insertLog = (logModel) => {
+  try {
+    const amenity = new LogModel(logModel);
+    const response = amenity.save();
+    return "New log inserted successfully!";
+  } catch (err) {
+    return "Error exists in log insert operation, error: " + err;
+  }
+};
