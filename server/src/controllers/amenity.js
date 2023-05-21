@@ -1,6 +1,6 @@
 import { AmenityModel } from "../models/Amenity.js";
 
-export const createAmenity = async (req, res, next) => {
+export const insertAmenity = async (req, res, next) => {
   try {
     const newAmenity = new AmenityModel(req.body);
     const savedAmenity = await newAmenity.save();
