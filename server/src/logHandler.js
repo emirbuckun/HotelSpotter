@@ -10,7 +10,7 @@ export const logHandler = (req, res, next) => {
     res.end = function (data) {
       res.end = end;
       if (data) {
-        isError = data.includes("error");
+        isError = data.includes("Error");
       }
       res.end(data);
     };
