@@ -1,55 +1,27 @@
 import express from "express";
-import { LocationModel } from "../models/Location.js";
+import {
+  insertLocation,
+  updateLocation,
+  deleteLocation,
+  getLocation,
+  getLocations,
+} from "../controllers/location.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await LocationModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertLocation);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await LocationModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updateLocation);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const location = new LocationModel(req.body);
-    const response = await location.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deleteLocation);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await LocationModel.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    );
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getLocation);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await LocationModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getLocations);
 
-export { router as locationRouter };
+export { router as amenityRouter };

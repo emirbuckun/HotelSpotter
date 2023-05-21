@@ -1,55 +1,27 @@
 import express from "express";
-import { UserRoleModel } from "../models/UserRole.js";
+import {
+  insertUserRole,
+  updateUserRole,
+  deleteUserRole,
+  getUserRole,
+  getUserRoles,
+} from "../controllers/userRole.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await UserRoleModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertUserRole);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await UserRoleModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updateUserRole);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const userRole = new UserRoleModel(req.body);
-    const response = await userRole.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deleteUserRole);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await UserRoleModel.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    );
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getUserRole);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await UserRoleModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getUserRoles);
 
-export { router as userRoleRouter };
+export { router as amenityRouter };

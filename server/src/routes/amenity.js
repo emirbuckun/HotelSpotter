@@ -1,55 +1,27 @@
 import express from "express";
-import { AmenityModel } from "../models/Amenity.js";
+import {
+  insertAmenity,
+  updateAmenity,
+  deleteAmenity,
+  getAmenity,
+  getAmenities,
+} from "../controllers/amenity.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await AmenityModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertAmenity);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await AmenityModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updateAmenity);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const amenity = new AmenityModel(req.body);
-    const response = await amenity.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deleteAmenity);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await AmenityModel.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    );
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getAmenity);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await AmenityModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getAmenities);
 
 export { router as amenityRouter };
