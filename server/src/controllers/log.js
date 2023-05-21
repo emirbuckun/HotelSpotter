@@ -49,3 +49,13 @@ export const getLogs = async (req, res, next) => {
     next(err);
   }
 };
+
+export const log = async (logType, description, isSuccess) => {
+  try {
+    const newLog = new LogModel({ logType, description, isSuccess });
+    await newLog.save();
+    return "New log recorded.";
+  } catch (err) {
+    return "Error occured while inserting new log";
+  }
+};
