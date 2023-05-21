@@ -17,8 +17,8 @@ import { roomRouter } from "./routes/room.js";
 import { userRouter } from "./routes/user.js";
 import { userRoleRouter } from "./routes/userRole.js";
 
-import { logHandler } from "./logHandler.js";
-import { createError } from "../utils/error.js";
+import { createError } from "./utils/error.js";
+import { createLog } from "./utils/logger.js";
 
 const app = express();
 dotenv.config();
@@ -26,7 +26,20 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-app.use(logHandler);
+// Log Handler
+app.use(function (req, res, next) {
+  if (req.method != "GET") {
+    var type = req.method;
+    var desc = `Method: ${req.method} URL: ${req.url} Hostname: ${req.hostname}`;
+    res.on("finish", () => {
+      const success = res.statusCode == 200;
+      if (!success) desc += ` Message: ${res.statusMessage}`;
+      createLog(type, desc, success);
+    });
+  }
+  next();
+});
+
 app.use("/amenity", amenityRouter);
 app.use("/answer", answerRouter);
 app.use("/hotel", hotelRouter);
