@@ -2,7 +2,7 @@ import { insertLog } from "./routes/log.js";
 
 export const logHandler = (req, res, next) => {
   // Check if request is not get method, then log this request
-  if (!req.url.includes("get")) {
+  if (req.method != "GET") {
     // Check if there is any error in response
     var end = res.end;
     var isError;
