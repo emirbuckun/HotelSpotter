@@ -16,14 +16,14 @@ import { reviewRouter } from "./routes/review.js";
 import { roomRouter } from "./routes/room.js";
 import { userRouter } from "./routes/user.js";
 import { userRoleRouter } from "./routes/userRole.js";
+import { logHandler } from "./logHandler.js";
 
 const app = express();
-
 app.use(express.json());
 app.use(cors());
-
 dotenv.config();
 
+app.use(logHandler);
 app.use("/amenity", amenityRouter);
 app.use("/answer", answerRouter);
 app.use("/hotel", hotelRouter);
@@ -37,6 +37,22 @@ app.use("/review", reviewRouter);
 app.use("/room", roomRouter);
 app.use("/user", userRouter);
 app.use("/userRole", userRoleRouter);
+
+// Catch Invalid Path - Forward To Error Handler
+app.use(function (req, res, next) {
+  var err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// Error Handler - Log Error
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: err,
+  });
+});
 
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
