@@ -24,4 +24,4 @@ router.get("/:id", getReview);
 // GET ALL
 router.get("/", getReviews);
 
-export { router as amenityRouter };
+export { router as reviewRouter };

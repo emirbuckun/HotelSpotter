@@ -24,4 +24,4 @@ router.get("/:id", getAnswer);
 // GET ALL
 router.get("/", getAnswers);
 
-export { router as amenityRouter };
+export { router as answerRouter };

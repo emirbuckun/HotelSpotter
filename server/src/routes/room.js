@@ -24,4 +24,4 @@ router.get("/:id", getRoom);
 // GET ALL
 router.get("/", getRooms);
 
-export { router as amenityRouter };
+export { router as roomRouter };

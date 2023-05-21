@@ -24,4 +24,4 @@ router.get("/:id", getUserRole);
 // GET ALL
 router.get("/", getUserRoles);
 
-export { router as amenityRouter };
+export { router as userRoleRouter };

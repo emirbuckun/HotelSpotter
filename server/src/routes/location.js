@@ -24,4 +24,4 @@ router.get("/:id", getLocation);
 // GET ALL
 router.get("/", getLocations);
 
-export { router as amenityRouter };
+export { router as locationRouter };

@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-// INSERT
+// CREATE
 router.post("/", insertPicture);
 
 // UPDATE
@@ -24,4 +24,4 @@ router.get("/:id", getPicture);
 // GET ALL
 router.get("/", getPictures);
 
-export { router as amenityRouter };
+export { router as pictureRouter };

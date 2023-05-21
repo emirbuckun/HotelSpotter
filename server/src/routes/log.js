@@ -24,4 +24,4 @@ router.get("/:id", getLog);
 // GET ALL
 router.get("/", getLogs);
 
-export { router as amenityRouter };
+export { router as logRouter };

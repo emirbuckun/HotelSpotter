@@ -24,4 +24,4 @@ router.get("/:id", getOwnership);
 // GET ALL
 router.get("/", getOwnerships);
 
-export { router as amenityRouter };
+export { router as ownershipRouter };
