@@ -23,8 +23,8 @@ router.get("/get/:id", async (req, res) => {
 
 router.post("/insert", async (req, res) => {
   try {
-    const amenity = new LogModel(req.body);
-    const response = await amenity.save();
+    const log = new LogModel(req.body);
+    const response = await log.save();
     res.json(response);
   } catch (error) {
     res.json(error);
@@ -53,8 +53,8 @@ export { router as logRouter };
 
 export const insertLog = (logModel) => {
   try {
-    const amenity = new LogModel(logModel);
-    const response = amenity.save();
+    const log = new LogModel(logModel);
+    const response = log.save();
     return "New log inserted successfully!";
   } catch (err) {
     return "Error exists in log insert operation, error: " + err;

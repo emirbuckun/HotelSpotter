@@ -23,8 +23,8 @@ router.get("/get/:id", async (req, res) => {
 
 router.post("/insert", async (req, res) => {
   try {
-    const amenity = new OwnershipModel(req.body);
-    const response = await amenity.save();
+    const log = new OwnershipModel(req.body);
+    const response = await log.save();
     res.json(response);
   } catch (error) {
     res.json(error);

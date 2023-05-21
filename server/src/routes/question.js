@@ -23,8 +23,8 @@ router.get("/get/:id", async (req, res) => {
 
 router.post("/insert", async (req, res) => {
   try {
-    const amenity = new QuestionModel(req.body);
-    const response = await amenity.save();
+    const question = new QuestionModel(req.body);
+    const response = await question.save();
     res.json(response);
   } catch (error) {
     res.json(error);

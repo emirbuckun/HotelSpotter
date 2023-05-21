@@ -23,8 +23,8 @@ router.get("/get/:id", async (req, res) => {
 
 router.post("/insert", async (req, res) => {
   try {
-    const amenity = new PictureModel(req.body);
-    const response = await amenity.save();
+    const picture = new PictureModel(req.body);
+    const response = await picture.save();
     res.json(response);
   } catch (error) {
     res.json(error);
