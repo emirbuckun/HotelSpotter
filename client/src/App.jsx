@@ -8,7 +8,6 @@ import Payment from "/src/components/Payment";
 import SearchBar from "/src/components/SearchBar";
 import UserProfile from "/src/components/UserProfile";
 
-
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
