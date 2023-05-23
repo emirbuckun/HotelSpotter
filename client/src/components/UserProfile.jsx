@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 
 const UserProfile = () => {
-  //first state of user(Before updating)
-  const [username, setUsername] = useState("AliVeli");
-  const [firstName, setFirstName] = useState("Ali");
-  const [lastName, setLastName] = useState("Veli");
-  const [email, setEmail] = useState("vali@gmail.com");
-  const [phone, setPhone] = useState("+9012345634");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -59,24 +57,10 @@ const UserProfile = () => {
             <div className="card-header">Account Details</div>
             <div className="card-body">
               <form>
-                <div className="mb-3">
-                  <label className="small mb-1" htmlFor="inputUsername">
-                    Username
-                  </label>
-                  <input
-                    className="form-control"
-                    id="inputUsername"
-                    type="text"
-                    placeholder="Enter your username"
-                    value={username}
-                    name="inputUsername"
-                    onChange={handleInputChange}
-                  />
-                </div>
                 <div className="row gx-3 mb-3">
                   <div className="col-md-6">
                     <label className="small mb-1" htmlFor="inputFirstName">
-                      First name
+                      First Name
                     </label>
                     <input
                       className="form-control"
@@ -90,7 +74,7 @@ const UserProfile = () => {
                   </div>
                   <div className="col-md-6">
                     <label className="small mb-1" htmlFor="inputLastName">
-                      Last name
+                      Last Name
                     </label>
                     <input
                       className="form-control"
@@ -107,7 +91,7 @@ const UserProfile = () => {
                 <div className="row gx-3 mb-3">
                   <div className="col-md-6">
                     <label className="small mb-1" htmlFor="inputEmailAddress">
-                      Email address
+                      E-mail Address
                     </label>
                     <input
                       className="form-control"
@@ -121,7 +105,7 @@ const UserProfile = () => {
                   </div>
                   <div className="col-md-6">
                     <label className="small mb-1" htmlFor="inputPhone">
-                      Phone number
+                      Phone Number
                     </label>
                     <input
                       className="form-control"
@@ -142,7 +126,7 @@ const UserProfile = () => {
                   type="button"
                   onClick={handleSaveChanges}
                 >
-                  Save changes
+                  Save Changes
                 </button>
               </form>
             </div>
