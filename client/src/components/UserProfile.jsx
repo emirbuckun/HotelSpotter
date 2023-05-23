@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 
 const UserProfile = () => {
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [orgName, setOrgName] = useState("");
-  const [location, setLocation] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthday, setBirthday] = useState("");
+  //first state of user(Before updating)
+  const [username, setUsername] = useState("AliVeli");
+  const [firstName, setFirstName] = useState("Ali");
+  const [lastName, setLastName] = useState("Veli");
+  const [email, setEmail] = useState("vali@gmail.com");
+  const [phone, setPhone] = useState("+9012345634");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -23,20 +21,11 @@ const UserProfile = () => {
       case "inputLastName":
         setLastName(value);
         break;
-      case "inputOrgName":
-        setOrgName(value);
-        break;
-      case "inputLocation":
-        setLocation(value);
-        break;
       case "inputEmailAddress":
         setEmail(value);
         break;
       case "inputPhone":
         setPhone(value);
-        break;
-      case "inputBirthday":
-        setBirthday(value);
         break;
       default:
         break;
@@ -62,12 +51,6 @@ const UserProfile = () => {
                 height={224}
                 width={250}
               />
-              <div className="small font-italic text-muted mb-4">
-                JPG or PNG no larger than 5 MB
-              </div>
-              <button className="btn btn-primary" type="button">
-                Upload new image
-              </button>
             </div>
           </div>
         </div>
@@ -153,14 +136,7 @@ const UserProfile = () => {
                 </div>
 
                 <div className="mb-3"></div>
-                <div className="row gx-3 mb-3">
-                  <div className="col-md-6">
-                    Past rezervations will be in here
-                  </div>
-                  <div className="col-md-6">
-                    Comments and ratings will be in here
-                  </div>
-                </div>
+                <div className="row gx-3 mb-3"></div>
                 <button
                   className="btn btn-primary"
                   type="button"
