@@ -1,37 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getUserID } from "../hooks/getUserID";
+import axios from "axios";
 
 const UserProfile = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [userDetails, setUserDetails] = useState({
+    mail: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+  });
+  const userID = getUserID();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
-    switch (name) {
-      case "inputUsername":
-        setUsername(value);
-        break;
-      case "inputFirstName":
-        setFirstName(value);
-        break;
-      case "inputLastName":
-        setLastName(value);
-        break;
-      case "inputEmailAddress":
-        setEmail(value);
-        break;
-      case "inputPhone":
-        setPhone(value);
-        break;
-      default:
-        break;
+  const getUserDetails = async () => {
+    try {
+      const response = await axios.get(serverURL + "/user/" + userID);
+      setUserDetails(response.data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   const handleSaveChanges = () => {
-    // Save operations in here
+    console.log(userDetails);
   };
 
   return (
@@ -59,62 +53,82 @@ const UserProfile = () => {
               <form>
                 <div className="row gx-3 mb-3">
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputFirstName">
+                    <label className="small mb-1" htmlFor="firstName">
                       First Name
                     </label>
                     <input
                       className="form-control"
-                      id="inputFirstName"
+                      id="firstName"
                       type="text"
                       placeholder="Enter your first name"
-                      value={firstName}
-                      name="inputFirstName"
-                      onChange={handleInputChange}
+                      value={userDetails.firstName}
+                      name="firstName"
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          firstName: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputLastName">
+                    <label className="small mb-1" htmlFor="lastName">
                       Last Name
                     </label>
                     <input
                       className="form-control"
-                      id="inputLastName"
+                      id="lastName"
                       type="text"
                       placeholder="Enter your last name"
-                      value={lastName}
-                      name="inputLastName"
-                      onChange={handleInputChange}
+                      value={userDetails.lastName}
+                      name="lastName"
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          lastName: e.target.value,
+                        })
+                      }
                     />
                   </div>
                 </div>
 
                 <div className="row gx-3 mb-3">
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputEmailAddress">
+                    <label className="small mb-1" htmlFor="mail">
                       E-mail Address
                     </label>
                     <input
                       className="form-control"
-                      id="inputEmailAddress"
+                      id="mail"
                       type="email"
                       placeholder="Enter your email address"
-                      value={email}
-                      name="inputEmailAddress"
-                      onChange={handleInputChange}
+                      value={userDetails.mail}
+                      name="mail"
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          mail: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputPhone">
+                    <label className="small mb-1" htmlFor="phoneNumber">
                       Phone Number
                     </label>
                     <input
                       className="form-control"
-                      id="inputPhone"
+                      id="phoneNumber"
                       type="tel"
                       placeholder="Enter your phone number"
-                      value={phone}
-                      name="inputPhone"
-                      onChange={handleInputChange}
+                      value={userDetails.phoneNumber}
+                      name="phoneNumber"
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          phoneNumber: e.target.value,
+                        })
+                      }
                     />
                   </div>
                 </div>
