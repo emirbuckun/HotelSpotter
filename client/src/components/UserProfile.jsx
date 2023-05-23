@@ -18,14 +18,30 @@ const UserProfile = () => {
   const getUserDetails = async () => {
     try {
       const response = await axios.get(serverURL + "/user/" + userID);
-      setUserDetails(response.data);
+      setUserDetails({
+        mail: response.data.mail,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        phoneNumber: response.data.phoneNumber,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleSaveChanges = () => {
-    console.log(userDetails);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.put(serverURL + "/user/" + userID, {
+        ...userDetails,
+        updateDate: new Date(),
+      });
+      if (response.status == 200) alert("User details updated.");
+      else alert("An error occurred while updating.");
+    } catch (error) {
+      alert("An error occurred while updating.");
+      console.error(error);
+    }
   };
 
   return (
@@ -57,12 +73,13 @@ const UserProfile = () => {
                       First Name
                     </label>
                     <input
-                      className="form-control"
-                      id="firstName"
                       type="text"
-                      placeholder="Enter your first name"
-                      value={userDetails.firstName}
+                      id="firstName"
                       name="firstName"
+                      value={userDetails.firstName}
+                      placeholder="Enter your first name"
+                      className="form-control"
+                      required
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -76,12 +93,13 @@ const UserProfile = () => {
                       Last Name
                     </label>
                     <input
-                      className="form-control"
-                      id="lastName"
                       type="text"
-                      placeholder="Enter your last name"
-                      value={userDetails.lastName}
+                      id="lastName"
                       name="lastName"
+                      className="form-control"
+                      value={userDetails.lastName}
+                      placeholder="Enter your last name"
+                      required
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -98,12 +116,13 @@ const UserProfile = () => {
                       E-mail Address
                     </label>
                     <input
-                      className="form-control"
-                      id="mail"
                       type="email"
-                      placeholder="Enter your email address"
-                      value={userDetails.mail}
+                      id="mail"
                       name="mail"
+                      className="form-control"
+                      value={userDetails.mail}
+                      placeholder="Enter your email address"
+                      required
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -117,12 +136,14 @@ const UserProfile = () => {
                       Phone Number
                     </label>
                     <input
-                      className="form-control"
-                      id="phoneNumber"
                       type="tel"
-                      placeholder="Enter your phone number"
-                      value={userDetails.phoneNumber}
+                      id="phoneNumber"
                       name="phoneNumber"
+                      className="form-control"
+                      value={userDetails.phoneNumber}
+                      placeholder="Enter your phone number"
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      required
                       onChange={(e) =>
                         setUserDetails({
                           ...userDetails,
@@ -138,7 +159,7 @@ const UserProfile = () => {
                 <button
                   className="btn btn-primary"
                   type="button"
-                  onClick={handleSaveChanges}
+                  onClick={handleSubmit}
                 >
                   Save Changes
                 </button>
