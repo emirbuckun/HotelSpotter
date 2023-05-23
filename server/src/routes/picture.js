@@ -1,13 +1,27 @@
 import express from "express";
-import { PictureModel } from "../models/Picture.js";
+import {
+  insertPicture,
+  updatePicture,
+  deletePicture,
+  getPicture,
+  getPictures,
+} from "../controllers/picture.js";
 
 const router = express.Router();
 
-router.get("/getPictures", async (req, res) => {
-  try {
-    const response = await PictureModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// CREATE
+router.post("/", insertPicture);
+
+// UPDATE
+router.put("/:id", updatePicture);
+
+// DELETE
+router.delete("/:id", deletePicture);
+
+// GET
+router.get("/:id", getPicture);
+
+// GET ALL
+router.get("/", getPictures);
+
+export { router as pictureRouter };

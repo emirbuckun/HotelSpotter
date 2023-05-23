@@ -1,13 +1,27 @@
 import express from "express";
-import { OwnershipModel } from "../models/Ownership.js";
+import {
+  insertOwnership,
+  updateOwnership,
+  deleteOwnership,
+  getOwnership,
+  getOwnerships,
+} from "../controllers/ownership.js";
 
 const router = express.Router();
 
-router.get("/getOwnerships", async (req, res) => {
-  try {
-    const response = await OwnershipModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertOwnership);
+
+// UPDATE
+router.put("/:id", updateOwnership);
+
+// DELETE
+router.delete("/:id", deleteOwnership);
+
+// GET
+router.get("/:id", getOwnership);
+
+// GET ALL
+router.get("/", getOwnerships);
+
+export { router as ownershipRouter };

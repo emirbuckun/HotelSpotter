@@ -10,18 +10,17 @@ function Login() {
     var password = document.getElementById("password").value;
 
     try {
-      const response = await axios.post("http://localhost:3001/user/login", {
+      const response = await axios.post(serverURL + "/user/login", {
         mail,
         password,
       });
-      var success = response.data.success;
-      var message = response.data.message;
-      alert(message);
-      if (success) {
+      alert(response.data.message);
+      if (response.status == 200) {
         navigate("/");
       }
     } catch (error) {
-      console.error(error);
+      alert(error.response.data.message);
+      console.log(error);
     }
   };
 

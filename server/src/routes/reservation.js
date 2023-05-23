@@ -1,13 +1,27 @@
 import express from "express";
-import { ReservationModel } from "../models/Reservation.js";
+import {
+  insertReservation,
+  updateReservation,
+  deleteReservation,
+  getReservation,
+  getReservations,
+} from "../controllers/reservation.js";
 
 const router = express.Router();
 
-router.get("/getReservations", async (req, res) => {
-  try {
-    const response = await ReservationModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertReservation);
+
+// UPDATE
+router.put("/:id", updateReservation);
+
+// DELETE
+router.delete("/:id", deleteReservation);
+
+// GET
+router.get("/:id", getReservation);
+
+// GET ALL
+router.get("/", getReservations);
+
+export { router as reservationRouter };

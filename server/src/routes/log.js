@@ -1,13 +1,27 @@
 import express from "express";
-import { LogModel } from "../models/Log.js";
+import {
+  insertLog,
+  updateLog,
+  deleteLog,
+  getLog,
+  getLogs,
+} from "../controllers/log.js";
 
 const router = express.Router();
 
-router.get("/getLogs", async (req, res) => {
-  try {
-    const response = await LogModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertLog);
+
+// UPDATE
+router.put("/:id", updateLog);
+
+// DELETE
+router.delete("/:id", deleteLog);
+
+// GET
+router.get("/:id", getLog);
+
+// GET ALL
+router.get("/", getLogs);
+
+export { router as logRouter };

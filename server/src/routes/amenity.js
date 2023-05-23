@@ -1,13 +1,27 @@
 import express from "express";
-import { AmenityModel } from "../models/Amenity.js";
+import {
+  insertAmenity,
+  updateAmenity,
+  deleteAmenity,
+  getAmenity,
+  getAmenities,
+} from "../controllers/amenity.js";
 
 const router = express.Router();
 
-router.get("/getAmenities", async (req, res) => {
-  try {
-    const response = await AmenityModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertAmenity);
+
+// UPDATE
+router.put("/:id", updateAmenity);
+
+// DELETE
+router.delete("/:id", deleteAmenity);
+
+// GET
+router.get("/:id", getAmenity);
+
+// GET ALL
+router.get("/", getAmenities);
+
+export { router as amenityRouter };

@@ -1,61 +1,31 @@
 import express from "express";
-import { UserModel } from "../models/User.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import {
+  register,
+  login,
+  updateUser,
+  deleteUser,
+  getUser,
+  getUsers,
+} from "../controllers/user.js";
 
 const router = express.Router();
 
-router.get("/getUsers", async (req, res) => {
-  try {
-    const response = await UserModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// REGISTER
+router.post("/register", register);
 
-router.post("/register", async (req, res) => {
-  const { mail, firstName, lastName, phoneNumber, password } = req.body;
-  const user = await UserModel.findOne({ mail });
+// LOGIN
+router.post("/login", login);
 
-  if (user) {
-    return res.json({ message: "User already exists!", success: false });
-  }
+// UPDATE
+router.put("/:id", updateUser);
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const newUser = new UserModel({
-    mail,
-    firstName,
-    lastName,
-    phoneNumber,
-    password: hashedPassword,
-  });
-  await newUser.save();
+// DELETE
+router.delete("/:id", deleteUser);
 
-  res.json({ message: "User registered succesfully!", success: true });
-});
+// GET
+router.get("/:id", getUser);
 
-router.post("/login", async (req, res) => {
-  const { mail, password } = req.body;
-  const user = await UserModel.findOne({ mail });
-
-  if (!user) {
-    return res.json({ message: "User doesn't exist!", success: false });
-  }
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-
-  if (!isPasswordValid) {
-    return res.json({ message: "Password is incorrect!", success: false });
-  }
-
-  const token = jwt.sign({ id: user._id }, "secret");
-  res.json({
-    message: "User logged in succesfully!",
-    token,
-    userID: user._id,
-    success: true,
-  });
-});
+// GET ALL
+router.get("/", getUsers);
 
 export { router as userRouter };

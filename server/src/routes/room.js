@@ -1,13 +1,27 @@
 import express from "express";
-import { RoomModel } from "../models/Room.js";
+import {
+  insertRoom,
+  updateRoom,
+  deleteRoom,
+  getRoom,
+  getRooms,
+} from "../controllers/room.js";
 
 const router = express.Router();
 
-router.get("/getRooms", async (req, res) => {
-  try {
-    const response = await RoomModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertRoom);
+
+// UPDATE
+router.put("/:id", updateRoom);
+
+// DELETE
+router.delete("/:id", deleteRoom);
+
+// GET
+router.get("/:id", getRoom);
+
+// GET ALL
+router.get("/", getRooms);
+
+export { router as roomRouter };

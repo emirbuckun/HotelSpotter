@@ -1,13 +1,27 @@
 import express from "express";
-import { AnswerModel } from "../models/Answer.js";
+import {
+  insertAnswer,
+  updateAnswer,
+  deleteAnswer,
+  getAnswer,
+  getAnswers,
+} from "../controllers/answer.js";
 
 const router = express.Router();
 
-router.get("/getAnswers", async (req, res) => {
-  try {
-    const response = await AnswerModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertAnswer);
+
+// UPDATE
+router.put("/:id", updateAnswer);
+
+// DELETE
+router.delete("/:id", deleteAnswer);
+
+// GET
+router.get("/:id", getAnswer);
+
+// GET ALL
+router.get("/", getAnswers);
+
+export { router as answerRouter };

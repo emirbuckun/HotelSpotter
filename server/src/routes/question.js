@@ -1,13 +1,27 @@
 import express from "express";
-import { QuestionModel } from "../models/Question.js";
+import {
+  insertQuestion,
+  updateQuestion,
+  deleteQuestion,
+  getQuestion,
+  getQuestions,
+} from "../controllers/question.js";
 
 const router = express.Router();
 
-router.get("/getQuestions", async (req, res) => {
-  try {
-    const response = await QuestionModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertQuestion);
+
+// UPDATE
+router.put("/:id", updateQuestion);
+
+// DELETE
+router.delete("/:id", deleteQuestion);
+
+// GET
+router.get("/:id", getQuestion);
+
+// GET ALL
+router.get("/", getQuestions);
+
+export { router as questionRouter };
