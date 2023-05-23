@@ -5,6 +5,7 @@ import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
 import Footer from "/src/components/Footer";
 import Payment from "/src/components/Payment";
+import HotelDetails from "/src/components/HotelDetails";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -17,6 +18,24 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/payment" element={<Payment />} />
+
+        <Route
+          path="/hoteldetails"
+          exact
+          element={
+            <React.Fragment>
+              <div className="container mb-4 mx-4">
+                <Header />
+              </div>
+              <div className="row">
+                <HotelDetails />
+              </div>
+              <div className="container mb-4 mx-4">
+                <Footer />
+              </div>
+            </React.Fragment>
+          }
+        />
 
         <Route
           path="/"
@@ -69,7 +88,9 @@ function App() {
                 </div>
               </div>
 
-              <Footer />
+              <div className="container mb-4 mx-4">
+                <Footer />
+              </div>
             </React.Fragment>
           }
         />
