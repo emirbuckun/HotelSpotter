@@ -1,16 +1,23 @@
 import React, { useRef, useState } from "react";
 import Slider from "@mui/material/Slider";
-import { IconButton } from "@mui/material";
+import { IconButton, makeStyles } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function valuetext(value) {
   return `${value}`;
 }
 
 const SearchBar = () => {
-  const [value, setValue] = React.useState([1, 1000]);
+  const [value, setPriceValue] = React.useState([1, 1000]);
 
   const minDistance = 10;
 
@@ -20,18 +27,10 @@ const SearchBar = () => {
     }
 
     if (activeThumb === 0) {
-      setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+      setPriceValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
     } else {
-      setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+      setPriceValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
     }
-  };
-
-  const checkInRef = useRef(null);
-  const checkOutRef = useRef(null);
-
-  const handleFocus = (ref) => {
-    ref.current.type = "date";
-    ref.current.focus();
   };
 
   const [amenity1Checked, setAmenity1Checked] = useState(false);
@@ -48,6 +47,8 @@ const SearchBar = () => {
     setAmenity4Checked(false);
     setAmenity5Checked(false);
     setRatingValue(0);
+    document.getElementById("roomType").value = "";
+    setPriceValue([1, 1000]);
   };
 
   return (
@@ -120,8 +121,9 @@ const SearchBar = () => {
                     <div>
                       <Rating
                         name="numberOfStar"
-                        precision={0.5}
+                        precision={1}
                         value={ratingValue}
+                        size="large"
                         onChange={(event, newValue) => {
                           setRatingValue(newValue);
                         }}
@@ -131,71 +133,72 @@ const SearchBar = () => {
                   <div className="mb-3">
                     <label className="form-label">Facility Amenities</label>
                     <div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="amenity1"
-                          checked={amenity1Checked}
-                          onChange={(e) => setAmenity1Checked(e.target.checked)}
+                      <div>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={amenity1Checked}
+                              onChange={(e) =>
+                                setAmenity1Checked(e.target.checked)
+                              }
+                            />
+                          }
+                          label="Pool"
                         />
-                        <label className="form-check-label" htmlFor="amenity1">
-                          Pool
-                        </label>
                       </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="amenity2"
-                          checked={amenity2Checked}
-                          onChange={(e) => setAmenity2Checked(e.target.checked)}
+                      <div>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={amenity2Checked}
+                              onChange={(e) =>
+                                setAmenity2Checked(e.target.checked)
+                              }
+                            />
+                          }
+                          label="Internet"
                         />
-                        <label className="form-check-label" htmlFor="amenity2">
-                          Internet
-                        </label>
                       </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="amenity3"
-                          checked={amenity3Checked}
-                          onChange={(e) => setAmenity3Checked(e.target.checked)}
+                      <div>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={amenity3Checked}
+                              onChange={(e) =>
+                                setAmenity3Checked(e.target.checked)
+                              }
+                            />
+                          }
+                          label="Gym"
                         />
-                        <label className="form-check-label" htmlFor="amenity3">
-                          Gym
-                        </label>
                       </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="amenity4"
-                          checked={amenity4Checked}
-                          onChange={(e) => setAmenity4Checked(e.target.checked)}
+                      <div>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={amenity4Checked}
+                              onChange={(e) =>
+                                setAmenity4Checked(e.target.checked)
+                              }
+                            />
+                          }
+                          label="Car Park"
                         />
-                        <label className="form-check-label" htmlFor="amenity3">
-                          Car Park
-                        </label>
                       </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="amenity5"
-                          checked={amenity5Checked}
-                          onChange={(e) => setAmenity5Checked(e.target.checked)}
+                      <div>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={amenity5Checked}
+                              onChange={(e) =>
+                                setAmenity5Checked(e.target.checked)
+                              }
+                            />
+                          }
+                          label="Air Conditioning"
                         />
-                        <label className="form-check-label" htmlFor="amenity3">
-                          Air Conditioning
-                        </label>
                       </div>
+
                       {/* Add more amenities here */}
                     </div>
                   </div>
@@ -230,27 +233,22 @@ const SearchBar = () => {
         </div>
         <div className="col-md-2">
           <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Check In"
-              ref={checkInRef}
-              onFocus={() => handleFocus(checkInRef)}
-              style={{ textAlign: "left", color: "#575454" }}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Check In"
+                slotProps={{ textField: { size: "small" } }}
+              />
+            </LocalizationProvider>
           </div>
         </div>
         <div className="col-md-2">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control text-left"
-              placeholder={"Check Out"}
-              ref={checkOutRef}
-              onFocus={() => handleFocus(checkOutRef)}
-              style={{ textAlign: "left", color: "#575454" }}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Check Out"
+              slotProps={{ textField: { size: "small" } }}
             />
-          </div>
+          </LocalizationProvider>
+          <div className="input-group mb-3"></div>
         </div>
 
         <div className="col-md-2">
