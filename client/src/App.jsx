@@ -27,7 +27,7 @@ function App() {
           exact
           element={
             <React.Fragment>
-              <div style={{}}>
+              <div>
                 <div className="container mb-4 mx-4">
                   <Header />
                 </div>
