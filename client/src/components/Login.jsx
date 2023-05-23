@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 function Login() {
+  const [_, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -16,6 +18,8 @@ function Login() {
       });
       alert(response.data.message);
       if (response.status == 200) {
+        setCookies("access_token", response.data.token);
+        window.localStorage.setItem("userID", response.data.userID);
         navigate("/");
       }
     } catch (error) {
