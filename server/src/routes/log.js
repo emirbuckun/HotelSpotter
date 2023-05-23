@@ -1,52 +1,27 @@
 import express from "express";
-import { LogModel } from "../models/Log.js";
+import {
+  insertLog,
+  updateLog,
+  deleteLog,
+  getLog,
+  getLogs,
+} from "../controllers/log.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await LogModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertLog);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await LogModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updateLog);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const amenity = new LogModel(req.body);
-    const response = await amenity.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deleteLog);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await LogModel.findByIdAndUpdate(req.params.id, req.body);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getLog);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await LogModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getLogs);
 
 export { router as logRouter };

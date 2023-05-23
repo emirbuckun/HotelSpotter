@@ -17,12 +17,28 @@ import { roomRouter } from "./routes/room.js";
 import { userRouter } from "./routes/user.js";
 import { userRoleRouter } from "./routes/userRole.js";
 
+import { createError } from "./utils/error.js";
+import { createLog } from "./utils/logger.js";
+
 const app = express();
+dotenv.config();
 
 app.use(express.json());
 app.use(cors());
 
-dotenv.config();
+// Log Handler
+app.use(function (req, res, next) {
+  if (req.method != "GET") {
+    var type = req.method;
+    var desc = `Method: ${req.method} URL: ${req.url} Hostname: ${req.hostname}`;
+    res.on("finish", () => {
+      const success = res.statusCode == 200;
+      if (!success) desc += ` Message: ${res.statusMessage}`;
+      createLog(type, desc, success);
+    });
+  }
+  next();
+});
 
 app.use("/amenity", amenityRouter);
 app.use("/answer", answerRouter);
@@ -38,15 +54,34 @@ app.use("/room", roomRouter);
 app.use("/user", userRouter);
 app.use("/userRole", userRoleRouter);
 
+// Invalid Path Handler
+app.use(function (req, res, next) {
+  next(createError(404, "Path not found!"));
+});
+
+// Error Handler
+app.use((err, req, res, next) => {
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong!";
+  return res.status(errorStatus).json({
+    success: false,
+    status: errorStatus,
+    message: errorMessage,
+    stack: err.stack,
+  });
+});
+
+// Connect Database
 mongoose
   .connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
-    console.log("MongoDB is connected!");
+    console.log("Connected to MongoDB.");
   })
   .catch((err) => {
     console.log(err.message);
   });
 
+// Listen Server
 const listener = app.listen(3001, () =>
-  console.log("Server Started! Port: " + listener.address().port)
+  console.log("Connected to server on port: " + listener.address().port)
 );

@@ -1,55 +1,27 @@
 import express from "express";
-import { PictureModel } from "../models/Picture.js";
+import {
+  insertPicture,
+  updatePicture,
+  deletePicture,
+  getPicture,
+  getPictures,
+} from "../controllers/picture.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await PictureModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// CREATE
+router.post("/", insertPicture);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await PictureModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updatePicture);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const amenity = new PictureModel(req.body);
-    const response = await amenity.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deletePicture);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await PictureModel.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    );
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getPicture);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await PictureModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getPictures);
 
 export { router as pictureRouter };
