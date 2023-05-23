@@ -16,7 +16,7 @@ const Header = () => {
     navigate("/login");
   };
 
-  const logout = () => {
+  const logout = (e) => {
     e.preventDefault();
     removeCookie("access_token");
     window.localStorage.removeItem("userID");
