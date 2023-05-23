@@ -16,6 +16,11 @@ const Header = () => {
     navigate("/login");
   };
 
+  const navigateUserProfile = (e) => {
+    e.preventDefault();
+    navigate("/userprofile");
+  };
+
   const logout = () => {
     e.preventDefault();
     removeCookie("access_token");
@@ -60,6 +65,16 @@ const Header = () => {
             <ul className="navbar-nav ml-auto">
               {cookies.access_token ? (
                 <>
+                  <li className="nav-item ml-1">
+                    <a
+                      className="nav-link"
+                      href="#"
+                      onClick={navigateUserProfile}
+                    >
+                      <span className="glyphicon glyphicon-user"></span> User
+                      Profile
+                    </a>
+                  </li>
                   <li className="nav-item ml-1">
                     <a className="nav-link" href="#" onClick={logout}>
                       <span className="glyphicon glyphicon-user"></span> Log Out
