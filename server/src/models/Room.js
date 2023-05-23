@@ -1,23 +1,23 @@
 import mongoose from "mongoose";
 
 const RoomSchema = new mongoose.Schema({
-  HotelID: {
+  hotelID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "hotel",
+    ref: "hotels",
     required: true,
   },
-  RoomType: { type: mongoose.Schema.Types.ObjectId, required: true },
-  Price: { type: Number, required: true },
-  Count: { type: Number, required: true },
-  PersonCapacity: { type: Number, required: true },
-  TotalBed: { type: Number, required: true },
-  TotalBath: { type: Number, required: true },
-  CreateDate: { type: Date, default: Date.now() },
-  UpdateDate: { type: Date, required: false },
-  HasTV: { type: Boolean, required: true },
-  HasInternet: { type: Boolean, required: true },
-  HasAirCondition: { type: Boolean, required: true },
-  HasHeating: { type: Boolean, required: true },
+  roomType: { type: String, required: true },
+  price: { type: Number, required: true },
+  count: { type: Number, required: true },
+  personCapacity: { type: Number, required: true },
+  totalBed: { type: Number, required: true },
+  totalBath: { type: Number, required: true },
+  createDate: { type: Date, default: Date.now() },
+  updateDate: { type: Date, required: false },
+  hasTV: { type: Boolean, required: true },
+  hasInternet: { type: Boolean, required: true },
+  hasAirCondition: { type: Boolean, required: true },
+  hasHeating: { type: Boolean, required: true },
 });
 
-export const RoomModel = mongoose.model("room", RoomSchema);
+export const RoomModel = mongoose.model("rooms", RoomSchema);
