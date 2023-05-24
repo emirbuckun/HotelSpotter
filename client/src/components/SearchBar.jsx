@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
 import Slider from "@mui/material/Slider";
-import { IconButton, makeStyles } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
-import Rating from "@mui/material/Rating";
-import Button from "@mui/material/Button";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import {
+  IconButton,
+  Rating,
+  Button,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 
 function valuetext(value) {
   return `${value}`;
@@ -18,27 +18,21 @@ function valuetext(value) {
 
 const SearchBar = () => {
   const [value, setPriceValue] = React.useState([1, 1000]);
-
-  const minDistance = 10;
-
-  const handleChange = (event, newValue, activeThumb) => {
-    if (!Array.isArray(newValue)) {
-      return;
-    }
-
-    if (activeThumb === 0) {
-      setPriceValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
-    } else {
-      setPriceValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
-    }
-  };
-
   const [amenity1Checked, setAmenity1Checked] = useState(false);
   const [amenity2Checked, setAmenity2Checked] = useState(false);
   const [amenity3Checked, setAmenity3Checked] = useState(false);
   const [amenity4Checked, setAmenity4Checked] = useState(false);
   const [amenity5Checked, setAmenity5Checked] = useState(false);
   const [ratingValue, setRatingValue] = React.useState(0);
+  const minDistance = 10;
+
+  const handleChange = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) return;
+    if (activeThumb === 0)
+      setPriceValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+    else
+      setPriceValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+  };
 
   const handleClearFilters = () => {
     setAmenity1Checked(false);
