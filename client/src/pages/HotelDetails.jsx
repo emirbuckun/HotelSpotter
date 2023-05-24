@@ -5,14 +5,8 @@ import HotelDetailsInformations from "../components/HotelDetailsInformations";
 const HotelDetails = () => {
   return (
     <Layout>
-      <div className="col">
-        <div className="row">
-          <HotelDetailsPhoto />
-        </div>
-        <div className="row">
-          <HotelDetailsInformations />
-        </div>
-      </div>
+      <HotelDetailsPhoto />
+      <HotelDetailsInformations />
     </Layout>
   );
 };
