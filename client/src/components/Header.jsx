@@ -20,34 +20,36 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="/">
-          HotelSpotter
-        </a>
-        <div class="navbar-nav">
-          {cookies.access_token ? (
-            <>
-              <a class="nav-link" href="/userprofile">
-                User Profile
-              </a>
-              <a class="nav-link" href="/" onClick={logout}>
-                Log Out
-              </a>
-            </>
-          ) : (
-            <>
-              <a class="nav-link" href="/login">
-                Login
-              </a>
-              <a class="nav-link" href="/register">
-                Register
-              </a>
-            </>
-          )}
+    <div className="container">
+      <nav className="navbar navbar-expand-lg">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="/">
+            HotelSpotter
+          </a>
+          <div className="navbar-nav">
+            {cookies.access_token ? (
+              <>
+                <a className="nav-link" href="/userprofile">
+                  User Profile
+                </a>
+                <a className="nav-link" href="/" onClick={logout}>
+                  Log Out
+                </a>
+              </>
+            ) : (
+              <>
+                <a className="nav-link" href="/login">
+                  Login
+                </a>
+                <a className="nav-link" href="/register">
+                  Register
+                </a>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 
