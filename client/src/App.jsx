@@ -5,7 +5,8 @@ import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
 import Footer from "/src/components/Footer";
 import Payment from "/src/components/Payment";
-import HotelDetails from "/src/components/HotelDetails";
+import HotelDetailsPhoto from "/src/components/HotelDetailsPhoto";
+import HotelDetailsInformations from "/src/components/HotelDetailsInformations";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/payment" element={<Payment />} />
+        <Route path="/map" element={<HotelDetailsInformations />} />
 
         <Route
           path="/hoteldetails"
@@ -27,8 +29,13 @@ function App() {
               <div className="container mb-4 mx-4">
                 <Header />
               </div>
-              <div className="row">
-                <HotelDetails />
+              <div className="col">
+                <div className="row">
+                  <HotelDetailsPhoto />
+                </div>
+                <div className="row">
+                  <HotelDetailsInformations />
+                </div>
               </div>
               <div className="container mb-4 mx-4">
                 <Footer />

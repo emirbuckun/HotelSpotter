@@ -9,15 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pbe/react-yandex-maps": "^1.2.4",
     "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
+    "bootstrap-icons": "^1.10.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-carousel-minimal": "^1.4.1",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.8.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.1",
+    "ymaps": "^0.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
