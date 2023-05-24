@@ -5,7 +5,6 @@ import Register from "/src/pages/Register";
 import Payment from "/src/pages/Payment";
 import UserProfile from "/src/pages/UserProfile";
 import HotelDetails from "/src/pages/HotelDetails";
-import HotelDetailsPhoto from "/src/components/HotelDetailsPhoto";
 import HotelDetailsInformations from "/src/components/HotelDetailsInformations";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -18,8 +17,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/userprofile" element={<UserProfile />} />
-        <Route path="/hoteldetails" element={<HotelDetails />} />
+        <Route path="/user-profile" element={<UserProfile />} />
+        <Route path="/hotel-details" element={<HotelDetails />} />
         <Route path="/map" element={<HotelDetailsInformations />} />
       </Routes>
     </Router>

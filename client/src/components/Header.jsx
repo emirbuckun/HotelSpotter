@@ -29,7 +29,7 @@ const Header = () => {
           <div className="navbar-nav">
             {cookies.access_token ? (
               <>
-                <a className="nav-link" href="/userprofile">
+                <a className="nav-link" href="/user-profile">
                   User Profile
                 </a>
                 <a className="nav-link" href="/" onClick={logout}>
