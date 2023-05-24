@@ -5,6 +5,7 @@ import Header from "/src/components/Header";
 import HotelListing from "/src/components/HotelListing";
 import Footer from "/src/components/Footer";
 import Payment from "/src/components/Payment";
+import SearchBar from "/src/components/SearchBar";
 import UserProfile from "/src/components/UserProfile";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -26,53 +27,59 @@ function App() {
           exact
           element={
             <React.Fragment>
-              <div className="container mb-4 mx-4">
-                <Header />
-              </div>
+              <div>
+                <div className="container">
+                  <Header />
+                </div>
 
-              <div className="container text-center mb-4">
-                <div className="row">
-                  <div className="col">
-                    <HotelListing />
-                  </div>
-                  <div className="col">
-                    <HotelListing />
-                  </div>
-                  <div className="col">
-                    <HotelListing />
+                <div className="container">
+                  <SearchBar />
+                </div>
+
+                <div className="container text-center mb-4">
+                  <div className="row">
+                    <div className="col">
+                      <HotelListing />
+                    </div>
+                    <div className="col">
+                      <HotelListing />
+                    </div>
+                    <div className="col">
+                      <HotelListing />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="container text-center mb-4">
-                <div className="row">
-                  <div className="col">
-                    <HotelListing />
-                  </div>
-                  <div className="col">
-                    <HotelListing />
-                  </div>
-                  <div className="col">
-                    <HotelListing />
+                <div className="container text-center mb-4">
+                  <div className="row">
+                    <div className="col">
+                      <HotelListing />
+                    </div>
+                    <div className="col">
+                      <HotelListing />
+                    </div>
+                    <div className="col">
+                      <HotelListing />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="container text-center mb-4">
-                <div className="row">
-                  <div className="col">
-                    <HotelListing />
-                  </div>
-                  <div className="col">
-                    <HotelListing />
-                  </div>
-                  <div className="col">
-                    <HotelListing />
+                <div className="container text-center mb-4">
+                  <div className="row">
+                    <div className="col">
+                      <HotelListing />
+                    </div>
+                    <div className="col">
+                      <HotelListing />
+                    </div>
+                    <div className="col">
+                      <HotelListing />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <Footer />
+                <Footer />
+              </div>
             </React.Fragment>
           }
         />
