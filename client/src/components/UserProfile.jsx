@@ -1,39 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getUserID } from "../hooks/getUserID";
+import axios from "axios";
 
 const UserProfile = () => {
-  //first state of user(Before updating)
-  const [username, setUsername] = useState("AliVeli");
-  const [firstName, setFirstName] = useState("Ali");
-  const [lastName, setLastName] = useState("Veli");
-  const [email, setEmail] = useState("vali@gmail.com");
-  const [phone, setPhone] = useState("+9012345634");
+  const [userDetails, setUserDetails] = useState({
+    mail: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+  });
+  const userID = getUserID();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
-    switch (name) {
-      case "inputUsername":
-        setUsername(value);
-        break;
-      case "inputFirstName":
-        setFirstName(value);
-        break;
-      case "inputLastName":
-        setLastName(value);
-        break;
-      case "inputEmailAddress":
-        setEmail(value);
-        break;
-      case "inputPhone":
-        setPhone(value);
-        break;
-      default:
-        break;
+  const getUserDetails = async () => {
+    try {
+      const response = await axios.get(serverURL + "/user/" + userID);
+      setUserDetails({
+        mail: response.data.mail,
+        firstName: response.data.firstName,
+        lastName: response.data.lastName,
+        phoneNumber: response.data.phoneNumber,
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const handleSaveChanges = () => {
-    // Save operations in here
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.put(serverURL + "/user/" + userID, {
+        ...userDetails,
+        updateDate: new Date(),
+      });
+      if (response.status == 200) alert("User details updated.");
+      else alert("An error occurred while updating.");
+    } catch (error) {
+      alert("An error occurred while updating.");
+      console.error(error);
+    }
   };
 
   return (
@@ -59,78 +67,89 @@ const UserProfile = () => {
             <div className="card-header">Account Details</div>
             <div className="card-body">
               <form>
-                <div className="mb-3">
-                  <label className="small mb-1" htmlFor="inputUsername">
-                    Username
-                  </label>
-                  <input
-                    className="form-control"
-                    id="inputUsername"
-                    type="text"
-                    placeholder="Enter your username"
-                    value={username}
-                    name="inputUsername"
-                    onChange={handleInputChange}
-                  />
-                </div>
                 <div className="row gx-3 mb-3">
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputFirstName">
-                      First name
+                    <label className="small mb-1" htmlFor="firstName">
+                      First Name
                     </label>
                     <input
-                      className="form-control"
-                      id="inputFirstName"
                       type="text"
+                      id="firstName"
+                      name="firstName"
+                      value={userDetails.firstName}
                       placeholder="Enter your first name"
-                      value={firstName}
-                      name="inputFirstName"
-                      onChange={handleInputChange}
+                      className="form-control"
+                      required
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          firstName: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputLastName">
-                      Last name
+                    <label className="small mb-1" htmlFor="lastName">
+                      Last Name
                     </label>
                     <input
-                      className="form-control"
-                      id="inputLastName"
                       type="text"
+                      id="lastName"
+                      name="lastName"
+                      className="form-control"
+                      value={userDetails.lastName}
                       placeholder="Enter your last name"
-                      value={lastName}
-                      name="inputLastName"
-                      onChange={handleInputChange}
+                      required
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          lastName: e.target.value,
+                        })
+                      }
                     />
                   </div>
                 </div>
 
                 <div className="row gx-3 mb-3">
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputEmailAddress">
-                      Email address
+                    <label className="small mb-1" htmlFor="mail">
+                      E-mail Address
                     </label>
                     <input
-                      className="form-control"
-                      id="inputEmailAddress"
                       type="email"
+                      id="mail"
+                      name="mail"
+                      className="form-control"
+                      value={userDetails.mail}
                       placeholder="Enter your email address"
-                      value={email}
-                      name="inputEmailAddress"
-                      onChange={handleInputChange}
+                      required
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          mail: e.target.value,
+                        })
+                      }
                     />
                   </div>
                   <div className="col-md-6">
-                    <label className="small mb-1" htmlFor="inputPhone">
-                      Phone number
+                    <label className="small mb-1" htmlFor="phoneNumber">
+                      Phone Number
                     </label>
                     <input
-                      className="form-control"
-                      id="inputPhone"
                       type="tel"
+                      id="phoneNumber"
+                      name="phoneNumber"
+                      className="form-control"
+                      value={userDetails.phoneNumber}
                       placeholder="Enter your phone number"
-                      value={phone}
-                      name="inputPhone"
-                      onChange={handleInputChange}
+                      pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                      required
+                      onChange={(e) =>
+                        setUserDetails({
+                          ...userDetails,
+                          phoneNumber: e.target.value,
+                        })
+                      }
                     />
                   </div>
                 </div>
@@ -140,9 +159,9 @@ const UserProfile = () => {
                 <button
                   className="btn btn-primary"
                   type="button"
-                  onClick={handleSaveChanges}
+                  onClick={handleSubmit}
                 >
-                  Save changes
+                  Save Changes
                 </button>
               </form>
             </div>
