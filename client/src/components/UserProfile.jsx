@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserID } from "../hooks/getUserID";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const UserProfile = () => {
   const [userDetails, setUserDetails] = useState({
@@ -36,10 +37,30 @@ const UserProfile = () => {
         ...userDetails,
         updateDate: new Date(),
       });
-      if (response.status == 200) alert("User details updated.");
-      else alert("An error occurred while updating.");
+      if (response.status == 200) {
+        Swal.fire({
+          title: "Update Successful",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "blue",
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "An error occurred while updating.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "blue",
+        });
+      }
     } catch (error) {
-      alert("An error occurred while updating.");
+      Swal.fire({
+        title: "Error",
+        text: "An error occurred while updating.",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
       console.error(error);
     }
   };

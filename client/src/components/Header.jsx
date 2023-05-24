@@ -1,5 +1,6 @@
 import React from "react";
 import { useCookies } from "react-cookie";
+import Swal from "sweetalert2";
 
 const Header = () => {
   const [cookies, _, removeCookie] = useCookies(["access_token"]);
@@ -8,7 +9,14 @@ const Header = () => {
     e.preventDefault();
     removeCookie("access_token");
     window.localStorage.removeItem("userID");
-    alert("User successfully logged out.");
+    Swal.fire({
+      title: "Logout Successful",
+      text: "Redirecting to Home Page",
+      icon: "success",
+      confirmButtonText: "OK",
+      confirmButtonColor: "blue",
+    });
+    navigate("/");
   };
 
   return (
