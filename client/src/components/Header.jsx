@@ -21,7 +21,7 @@ const Header = () => {
     navigate("/userprofile");
   };
 
-  const logout = () => {
+  const logout = (e) => {
     e.preventDefault();
     removeCookie("access_token");
     window.localStorage.removeItem("userID");
