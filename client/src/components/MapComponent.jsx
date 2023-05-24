@@ -39,44 +39,41 @@ function MapComponent() {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "1250px",
-        height: "450px",
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      <YMaps
-        query={{
-          lang: "en_US",
-          apikey: "46370e8f-7555-4a20-a1b8-43e31f1ed845",
-        }}
-      >
-        <Map
-          defaultState={{
-            center: coordinates,
-            zoom: 18,
-          }}
-          width="1250px"
-          height="450px"
-        >
-          <Placemark
-            geometry={coordinates}
-            options={{
-              preset: "islands#redIcon",
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          <YMaps
+            query={{
+              lang: "en_US",
+              apikey: "46370e8f-7555-4a20-a1b8-43e31f1ed845",
             }}
-            properties={{
-              hintContent: "Click to see the address",
-              balloonContent: address,
-            }}
-            modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
-          />
-          <ZoomControl />
-        </Map>
-      </YMaps>
+          >
+            <Map
+              defaultState={{
+                center: coordinates,
+                zoom: 18,
+              }}
+              width="750px"
+              height="450px"
+            >
+              <Placemark
+                geometry={coordinates}
+                options={{
+                  preset: "islands#redIcon",
+                }}
+                properties={{
+                  hintContent: "Click to see the address",
+                  balloonContent: address,
+                }}
+                modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
+              />
+              <ZoomControl />
+            </Map>
+          </YMaps>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default MapComponent;
