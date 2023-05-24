@@ -28,11 +28,11 @@ function App() {
           element={
             <React.Fragment>
               <div>
-                <div className="container mb-4 mx-4">
+                <div className="container">
                   <Header />
                 </div>
 
-                <div className="container mb-4 mx-4">
+                <div className="container">
                   <SearchBar />
                 </div>
 
