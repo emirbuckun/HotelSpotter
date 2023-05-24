@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function Register() {
   const [mail, setMail] = useState("");
@@ -21,12 +22,27 @@ function Register() {
         phoneNumber,
         password,
       });
-      alert(response.data.message);
-      if (response.status == 200) {
-        navigate("/");
-      }
+      Swal.fire({
+        title: "Registration Successful",
+        text: "Redirecting to Home Page",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (response.status == 200) {
+            navigate("/");
+          }
+        }
+      });
     } catch (error) {
-      alert(error.response.data.message);
+      Swal.fire({
+        title: "Error",
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
       console.log(error);
     }
   };

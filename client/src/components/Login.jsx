@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
+import Swal from "sweetalert2";
 
 function Login() {
   const [_, setCookies] = useCookies(["access_token"]);
@@ -16,14 +17,29 @@ function Login() {
         mail,
         password,
       });
-      alert(response.data.message);
-      if (response.status == 200) {
-        setCookies("access_token", response.data.token);
-        window.localStorage.setItem("userID", response.data.userID);
-        navigate("/");
-      }
+      SweetAlertResult = await Swal.fire({
+        title: "Login Successful",
+        text: "Redirecting to Home Page",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (response.status == 200) {
+            setCookies("access_token", response.data.token);
+            window.localStorage.setItem("userID", response.data.userID);
+            navigate("/");
+          }
+        }
+      });
     } catch (error) {
-      alert(error.response.data.message);
+      Swal.fire({
+        title: "Error",
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
       console.log(error);
     }
   };
