@@ -1,55 +1,27 @@
 import express from "express";
-import { AnswerModel } from "../models/Answer.js";
+import {
+  insertAnswer,
+  updateAnswer,
+  deleteAnswer,
+  getAnswer,
+  getAnswers,
+} from "../controllers/answer.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await AnswerModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertAnswer);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await AnswerModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updateAnswer);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const amenity = new AnswerModel(req.body);
-    const response = await amenity.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deleteAnswer);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await AnswerModel.findByIdAndUpdate(
-      req.params.id,
-      req.body
-    );
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getAnswer);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await AnswerModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getAnswers);
 
 export { router as answerRouter };

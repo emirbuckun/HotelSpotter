@@ -1,8 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import Swal from "sweetalert2";
 
 function Login() {
+  const [_, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -10,18 +13,34 @@ function Login() {
     var password = document.getElementById("password").value;
 
     try {
-      const response = await axios.post(serverURL + "user/login", {
+      const response = await axios.post(serverURL + "/user/login", {
         mail,
         password,
       });
-      var success = response.data.success;
-      var message = response.data.message;
-      alert(message);
-      if (success) {
-        navigate("/");
-      }
+      SweetAlertResult = await Swal.fire({
+        title: "Login Successful",
+        text: "Redirecting to Home Page",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (response.status == 200) {
+            setCookies("access_token", response.data.token);
+            window.localStorage.setItem("userID", response.data.userID);
+            navigate("/");
+          }
+        }
+      });
     } catch (error) {
-      console.error(error);
+      Swal.fire({
+        title: "Error",
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
+      console.log(error);
     }
   };
 

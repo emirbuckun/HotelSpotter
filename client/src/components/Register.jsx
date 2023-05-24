@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function Register() {
   const [mail, setMail] = useState("");
@@ -14,21 +15,35 @@ function Register() {
   const onSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(serverURL + "user/register", {
+      const response = await axios.post(serverURL + "/user/register", {
         mail,
         firstName,
         lastName,
         phoneNumber,
         password,
       });
-      var success = response.data.success;
-      var message = response.data.message;
-      alert(message);
-      if (success) {
-        navigate("/");
-      }
+      Swal.fire({
+        title: "Registration Successful",
+        text: "Redirecting to Home Page",
+        icon: "success",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (response.status == 200) {
+            navigate("/");
+          }
+        }
+      });
     } catch (error) {
-      console.error(error);
+      Swal.fire({
+        title: "Error",
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
+      console.log(error);
     }
   };
 

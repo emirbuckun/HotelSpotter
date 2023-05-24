@@ -1,52 +1,27 @@
 import express from "express";
-import { RoomModel } from "../models/Room.js";
+import {
+  insertRoom,
+  updateRoom,
+  deleteRoom,
+  getRoom,
+  getRooms,
+} from "../controllers/room.js";
 
 const router = express.Router();
 
-router.get("/get", async (req, res) => {
-  try {
-    const response = await RoomModel.find({});
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// INSERT
+router.post("/", insertRoom);
 
-router.get("/get/:id", async (req, res) => {
-  try {
-    const response = await RoomModel.findById(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// UPDATE
+router.put("/:id", updateRoom);
 
-router.post("/insert", async (req, res) => {
-  try {
-    const amenity = new RoomModel(req.body);
-    const response = await amenity.save();
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// DELETE
+router.delete("/:id", deleteRoom);
 
-router.put("/update/:id", async (req, res) => {
-  try {
-    const response = await RoomModel.findByIdAndUpdate(req.params.id, req.body);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET
+router.get("/:id", getRoom);
 
-router.delete("/delete/:id", async (req, res) => {
-  try {
-    const response = await RoomModel.findByIdAndDelete(req.params.id);
-    res.json(response);
-  } catch (error) {
-    res.json(error);
-  }
-});
+// GET ALL
+router.get("/", getRooms);
 
 export { router as roomRouter };
