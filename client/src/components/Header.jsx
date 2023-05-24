@@ -1,7 +1,9 @@
 import React from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const Header = () => {
+  const [cookies, _, removeCookie] = useCookies(["access_token"]);
   const navigate = useNavigate();
 
   const navigateRegister = (e) => {
@@ -12,6 +14,19 @@ const Header = () => {
   const navigateLogin = (e) => {
     e.preventDefault();
     navigate("/login");
+  };
+
+  const navigateUserProfile = (e) => {
+    e.preventDefault();
+    navigate("/userprofile");
+  };
+
+  const logout = () => {
+    e.preventDefault();
+    removeCookie("access_token");
+    window.localStorage.removeItem("userID");
+    alert("User successfully logged out.");
+    navigate("/");
   };
 
   return (
@@ -48,16 +63,40 @@ const Header = () => {
           <form className="d-flex">
             <ul className="navbar-nav mr-auto"></ul>
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item ml-1">
-                <a className="nav-link" href="#" onClick={navigateRegister}>
-                  <span className="glyphicon glyphicon-user"></span> Register
-                </a>
-              </li>
-              <li className="nav-item ml-1">
-                <a className="nav-link" href="#" onClick={navigateLogin}>
-                  <span className="glyphicon glyphicon-log-in "></span> Login
-                </a>
-              </li>
+              {cookies.access_token ? (
+                <>
+                  <li className="nav-item ml-1">
+                    <a
+                      className="nav-link"
+                      href="#"
+                      onClick={navigateUserProfile}
+                    >
+                      <span className="glyphicon glyphicon-user"></span> User
+                      Profile
+                    </a>
+                  </li>
+                  <li className="nav-item ml-1">
+                    <a className="nav-link" href="#" onClick={logout}>
+                      <span className="glyphicon glyphicon-user"></span> Log Out
+                    </a>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item ml-1">
+                    <a className="nav-link" href="#" onClick={navigateRegister}>
+                      <span className="glyphicon glyphicon-user"></span>{" "}
+                      Register
+                    </a>
+                  </li>
+                  <li className="nav-item ml-1">
+                    <a className="nav-link" href="#" onClick={navigateLogin}>
+                      <span className="glyphicon glyphicon-log-in "></span>{" "}
+                      Login
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </form>
         </div>
