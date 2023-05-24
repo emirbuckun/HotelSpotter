@@ -1,66 +1,46 @@
-import React, { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import React from "react";
 
 function HotelDetailsInformations() {
-  useEffect(() => {
-    const initializeMap = () => {
-      ymaps.ready(() => {
-        const myMap = new ymaps.Map(
-          "map",
-          {
-            center: [55.661574, 37.573856],
-            zoom: 18,
-          },
-          {
-            searchControlProvider: "yandex#search",
-          }
-        );
-
-        const MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-          '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-        );
-
-        const myPlacemarkWithContent = new ymaps.Placemark(
-          [55.661574, 37.573856],
-          {
-            hintContent: "A custom placemark icon with contents",
-            balloonContent: "This one — for Christmas",
-          },
-          {
-            iconLayout: "default#imageWithContent",
-            iconImageHref: "images/marker.png",
-            iconImageSize: [32, 32],
-            iconImageOffset: [-24, -24],
-            iconContentOffset: [15, 15],
-            iconContentLayout: MyIconContentLayout,
-          }
-        );
-
-        myMap.geoObjects.add(myPlacemarkWithContent);
-      });
-    };
-
-    initializeMap();
-  }, []);
-
   return (
-    <React.Fragment>
-      <Helmet>
-        <script
-          src="https://api-maps.yandex.ru/2.1/?lang=en_RU&amp;apikey=46370e8f-7555-4a20-a1b8-43e31f1ed845"
-          type="text/javascript"
-        />
-        <style>{`
-          html, body, #map {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
-          }
-        `}</style>
-      </Helmet>
-      <div id="map" style={{ width: "100%", height: "100%" }} />
-    </React.Fragment>
+    <div style={{ textAlign: "center", marginTop: "100px" }}>
+      <div
+        className="sticky-md-top"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <div className="card" style={{ width: "18rem", alignItems: "center" }}>
+          <div className="card-body">
+            <h5 className="card-title">700 USD per Day</h5>
+            <p className="card-text">780 USD including VAT</p>
+            <a href="#" className="btn btn-danger">
+              Reserve
+            </a>
+          </div>
+        </div>
+      </div>
+      <h4>There is a gym and fitness center.</h4>
+      <h4>This hotel offers suite rooms to its customers.</h4>
+      <h4>
+        3 meals are served. Customers have the opportunity to eat unlimitedly.
+      </h4>
+      <h4>Indoor and outdoor swimming pool available</h4>
+      <h4>This hotel is by the sea.</h4>
+      <h4>
+        Hotel is located in Malaga and the most important feature of this city
+        is..
+      </h4>
+
+      <h4>There is a gym and fitness center.</h4>
+      <h4>This hotel offers suite rooms to its customers.</h4>
+      <h4>
+        3 meals are served. Customers have the opportunity to eat unlimitedly.
+      </h4>
+      <h4>Indoor and outdoor swimming pool available</h4>
+      <h4>This hotel is by the sea.</h4>
+      <h4>
+        Hotel is located in Malaga and the most important feature of this city
+        is..
+      </h4>
+    </div>
   );
 }
 
