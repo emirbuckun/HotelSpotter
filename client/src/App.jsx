@@ -1,31 +1,16 @@
 import React from "react";
-import Register from "/src/components/Register";
-import Login from "/src/components/Login";
-import Header from "/src/components/Header";
-import HotelList from "/src/components/HotelList";
-import Footer from "/src/components/Footer";
-import Payment from "/src/components/Payment";
-import SearchBar from "/src/components/SearchBar";
-import UserProfile from "/src/components/UserProfile";
-
+import Home from "/src/pages/Home";
+import Login from "/src/pages/Login";
+import Register from "/src/pages/Register";
+import Payment from "/src/pages/Payment";
+import UserProfile from "/src/pages/UserProfile";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          exact
-          element={
-            <>
-              <Header />
-              <SearchBar />
-              <HotelList />
-              <Footer />
-            </>
-          }
-        />
+        <Route path="/" exact element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/payment" element={<Payment />} />
