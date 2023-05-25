@@ -4,7 +4,7 @@ import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 
 function MapComponent() {
   const [address, setAddress] = useState("Loading Address...");
-  const [coordinates, setCoordinates] = useState([40.916661, 29.203657]);
+  const [coordinates, _] = useState([40.916661, 29.203657]);
 
   const handleGetAddress = async () => {
     try {
@@ -27,7 +27,6 @@ function MapComponent() {
 
       const address = addressNode.textContent;
       setAddress(address);
-      console.log(address);
     } catch (error) {
       console.error("Error fetching address:", error);
       setAddress("Error fetching address");
