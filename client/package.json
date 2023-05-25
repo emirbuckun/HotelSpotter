@@ -19,6 +19,7 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
     "dayjs": "^1.11.7",
+    "mdb-react-ui-kit": "^6.0.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-carousel-minimal": "^1.4.1",
@@ -27,6 +28,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.1",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^11.7.5",
     "ymaps": "^0.2.1"
   },
