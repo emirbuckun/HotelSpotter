@@ -4,10 +4,10 @@ export const getUserID = () => {
   return window.localStorage.getItem("userID");
 };
 
-export const getUserDetails = () => {
+export const getUserDetails = async () => {
   try {
     if (getUserID) {
-      const response = axios.get(serverURL + "/user/" + getUserID());
+      const response = await axios.get(serverURL + "/user/" + getUserID());
       return response.data;
     } else {
       console.log("userID not found in getUserDetails function!");
@@ -17,17 +17,30 @@ export const getUserDetails = () => {
   }
 };
 
-export const getUserRole = async () => {
+export const getUserRoles = async () => {
   try {
-    if (getUserID) {
-      const response = axios.get(serverURL + "/userRole/" + getUserID());
-      console.log("getUserRole() invoked");
-      console.log(serverURL + "/userRole/" + getUserID());
+    if (getUserID()) {
+      const response = await axios.get(
+        serverURL + "/userRole/getByUserID/" + getUserID()
+      );
       return response.data;
     } else {
-      console.log("userID not found in getUserRole function!");
+      return "userID not found in getUserRole function!";
     }
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
+
+// export const isAdmin = async () => {
+//   try {
+//     if (getUserRoles()) {
+//       const isAdmin = getUserRoles().
+//       return response.data;
+//     } else {
+//       console.log("userID not found in getUserRole function!");
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
