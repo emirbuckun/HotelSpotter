@@ -32,15 +32,18 @@ export const getUserRoles = async () => {
   }
 };
 
-// export const isAdmin = async () => {
-//   try {
-//     if (getUserRoles()) {
-//       const isAdmin = getUserRoles().
-//       return response.data;
-//     } else {
-//       console.log("userID not found in getUserRole function!");
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// };
+export const isAdmin = async () => {
+  try {
+    const userRoles = getUserRoles();
+    if (userRoles) {
+      userRoles.forEach(function (userRole) {
+        if (userRole.role == "admin") return true;
+      });
+      return false;
+    } else {
+      console.log("User roles doesn't exist!");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
