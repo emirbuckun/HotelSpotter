@@ -4,6 +4,7 @@ import Login from "/src/pages/Login";
 import Register from "/src/pages/Register";
 import Payment from "/src/pages/Payment";
 import UserProfile from "/src/pages/UserProfile";
+import Admin from "/src/admin//pages/Admin";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -13,8 +14,9 @@ function App() {
         <Route path="/" exact element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/admin" element={<Admin />} />
         <Route path="/payment" element={<Payment />} />
-        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/user-profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );
