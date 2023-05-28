@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { getUserRoles } from "../hooks/getUser";
+import { useGetUserID } from "../hooks/useGetUserID";
 
 const Header = () => {
   const [cookies, _, removeCookie] = useCookies(["access_token"]);
-  const [userRoles, setUserRoles] = useState([]);
+  const userID = useGetUserID();
   const navigate = useNavigate();
+  const { data } = useFetch(serverURL + "/userRole/getByUserID/" + userID);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    setUserRoles(getUserRoles());
-  }, []);
+    checkAdmin();
+  }, [data]);
 
-  console.log(userRoles);
+  // Check user roles, if admin role exists, show admin panel
+  const checkAdmin = () => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].role == "admin") {
+        setIsAdmin(true);
+        return;
+      }
+    }
+  };
 
   const logout = (e) => {
     e.preventDefault();
@@ -39,11 +50,11 @@ const Header = () => {
           <div className="navbar-nav">
             {cookies.access_token ? (
               <>
-                {/* {getUserRoles == "admin" && (
+                {isAdmin && (
                   <a className="nav-link" href="/admin">
                     Admin Panel
                   </a>
-                )} */}
+                )}
                 <a className="nav-link" href="/userprofile">
                   User Profile
                 </a>
