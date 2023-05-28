@@ -1,4 +1,4 @@
-import Layout from "../layout/Layout";
+import Layout from "../../layout/Layout";
 import SearchBar from "../components/SearchBar";
 import HotelList from "../components/HotelList";
 

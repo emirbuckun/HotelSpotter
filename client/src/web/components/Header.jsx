@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useGetUserID } from "../hooks/useGetUserID";
+import { useGetUserID } from "../../hooks/useGetUserID";
 
 const Header = () => {
   const [cookies, _, removeCookie] = useCookies(["access_token"]);
@@ -55,7 +55,7 @@ const Header = () => {
                     Admin Panel
                   </a>
                 )}
-                <a className="nav-link" href="/userprofile">
+                <a className="nav-link" href="/user-profile">
                   User Profile
                 </a>
                 <a className="nav-link" href="/" onClick={logout}>

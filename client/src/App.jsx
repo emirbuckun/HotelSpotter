@@ -1,9 +1,9 @@
 import React from "react";
-import Home from "/src/pages/Home";
-import Login from "/src/pages/Login";
-import Register from "/src/pages/Register";
-import Payment from "/src/pages/Payment";
-import UserProfile from "/src/pages/UserProfile";
+import Home from "/src/web/pages/Home";
+import Login from "/src/web/pages/Login";
+import Register from "/src/web/pages/Register";
+import Payment from "/src/web/pages/Payment";
+import UserProfile from "/src/web/pages/UserProfile";
 import Admin from "/src/admin//pages/Admin";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
