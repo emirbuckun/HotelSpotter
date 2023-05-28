@@ -67,85 +67,97 @@ function CommentComponent() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Slide in alert dialog
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-describedby="alert-dialog-slide-description"
+      <List
+        id="comment-list"
+        subheader={<Typography variant="h5">Comments</Typography>}
+        sx={{
+          width: "100%",
+          bgcolor: "background.paper",
+        }}
       >
-        <DialogContent>
-          <List
-            subheader={<Typography variant="h5">Comments</Typography>}
-            sx={{
-              width: "100%",
-              bgcolor: "background.paper",
-            }}
-          >
-            <ListItem alignItems="flex-start" divider={true}>
-              <ListItemText
-                primary={<Typography variant="h6">John Doe</Typography>}
-                secondary={
-                  <React.Fragment>
-                    <div>
-                      <StyledRating
-                        name="highlight-selected-only"
-                        defaultValue={2}
-                        IconContainerComponent={IconContainer}
-                        getLabelText={(value) => customIcons[value].label}
-                        highlightSelectedOnly
-                        readOnly
-                      />
-                    </div>
-                    <div>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body1"
-                        color="text.primary"
-                      >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer posuere erat a ante.
-                      </Typography>
-                    </div>
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <ListItem alignItems="flex-start" divider={true}>
-              <ListItemText
-                primary={<Typography variant="h6">John Doe</Typography>}
-                secondary={
-                  <React.Fragment>
-                    <div>
-                      <StyledRating
-                        name="highlight-selected-only"
-                        defaultValue={4}
-                        IconContainerComponent={IconContainer}
-                        getLabelText={(value) => customIcons[value].label}
-                        highlightSelectedOnly
-                        readOnly
-                      />
-                    </div>
-                    <div>
-                      <Typography
-                        sx={{ display: "inline" }}
-                        component="span"
-                        variant="body1"
-                        color="text.primary"
-                      >
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer posuere erat a ante.
-                      </Typography>
-                    </div>
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-          </List>
-        </DialogContent>
-      </Dialog>
+        <ListItem id="comment-list-item" alignItems="flex-start" divider={true}>
+          <ListItemText
+            primary={
+              <React.Fragment>
+                <Typography id="name" variant="h6">
+                  John Doe
+                </Typography>
+                <Typography id="date" variant="body2">
+                  2021-10-10
+                </Typography>
+              </React.Fragment>
+            }
+            secondary={
+              <React.Fragment>
+                <div>
+                  <StyledRating
+                    id="rating"
+                    name="highlight-selected-only"
+                    defaultValue={2}
+                    IconContainerComponent={IconContainer}
+                    getLabelText={(value) => customIcons[value].label}
+                    highlightSelectedOnly
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <Typography
+                    id="comment"
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body1"
+                    color="text.primary"
+                  >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer posuere erat a ante.
+                  </Typography>
+                </div>
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+        <ListItem id="comment-list-item" alignItems="flex-start" divider={true}>
+          <ListItemText
+            primary={
+              <React.Fragment>
+                <Typography id="name" variant="h6">
+                  John Doe
+                </Typography>
+                <Typography id="date" variant="body2">
+                  2021-10-10
+                </Typography>
+              </React.Fragment>
+            }
+            secondary={
+              <React.Fragment>
+                <div>
+                  <StyledRating
+                    id="rating"
+                    name="highlight-selected-only"
+                    defaultValue={4}
+                    IconContainerComponent={IconContainer}
+                    getLabelText={(value) => customIcons[value].label}
+                    highlightSelectedOnly
+                    readOnly
+                  />
+                </div>
+                <div>
+                  <Typography
+                    id="comment"
+                    sx={{ display: "inline" }}
+                    component="span"
+                    variant="body1"
+                    color="text.primary"
+                  >
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer posuere erat a ante.
+                  </Typography>
+                </div>
+              </React.Fragment>
+            }
+          />
+        </ListItem>
+      </List>
     </div>
   );
 }
