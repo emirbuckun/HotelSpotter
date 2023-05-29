@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useFetch from "../../hooks/useFetch";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { useGetUserID } from "../../hooks/useGetUserID";
 
 const Header = () => {
   const [cookies, _, removeCookie] = useCookies(["access_token"]);
+  const userID = useGetUserID();
+  const navigate = useNavigate();
+  const { data } = useFetch(serverURL + "/userRole/getByUserID/" + userID);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    checkAdmin();
+  }, [data]);
+
+  // Check user roles, if admin role exists, show admin panel
+  const checkAdmin = () => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].role == "admin") {
+        setIsAdmin(true);
+        return;
+      }
+    }
+  };
 
   const logout = (e) => {
     e.preventDefault();
@@ -29,7 +50,12 @@ const Header = () => {
           <div className="navbar-nav">
             {cookies.access_token ? (
               <>
-                <a className="nav-link" href="/userprofile">
+                {isAdmin && (
+                  <a className="nav-link" href="/admin/amenity">
+                    Admin Panel
+                  </a>
+                )}
+                <a className="nav-link" href="/user-profile">
                   User Profile
                 </a>
                 <a className="nav-link" href="/" onClick={logout}>

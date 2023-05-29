@@ -43,6 +43,15 @@ export const getUserRole = async (req, res, next) => {
   }
 };
 
+export const getUserRoleByUserID = async (req, res, next) => {
+  try {
+    const userRole = await UserRoleModel.find({ userID: req.params.id });
+    res.status(200).json(userRole);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getUserRoles = async (req, res, next) => {
   try {
     const userRoles = await UserRoleModel.find();
