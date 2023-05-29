@@ -8,7 +8,6 @@ const HotelDetails = () => {
   return (
     <Layout>
       <HotelDetailsPhoto />
-
       <HotelDetailsInformations />
       <MapComponent />
       <Comment />
