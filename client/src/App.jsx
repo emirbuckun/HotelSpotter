@@ -1,13 +1,13 @@
 import React from "react";
-import Header from "/src/components/layout/Header";
-import Footer from "/src/components/layout/Footer";
-import SearchBar from "/src/components/home/SearchBar";
-import HotelList from "/src/components/home/HotelList";
-import Login from "/src/components/auth/Login";
-import Register from "/src/components/auth/Register";
-import Payment from "/src/components/other/Payment";
-import UserProfile from "/src/components/detail/UserProfile";
-import Admin from "/src/components/admin/AdminPanel";
+import Header from "/src/components/Layout/Header";
+import Footer from "/src/components/Layout/Footer";
+import SearchBar from "/src/components/Home/SearchBar";
+import HotelList from "/src/components/Home/HotelList";
+import Login from "/src/components/Auth/Login";
+import Register from "/src/components/Auth/Register";
+import Payment from "/src/components/Other/Payment";
+import UserProfile from "/src/components/Detail/UserProfile";
+import Admin from "/src/components/Admin/AdminPanel";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
