@@ -10,11 +10,11 @@ const AdminPanel = () => {
     <>
       <h3 className="text-center">Admin Panel - {pageName}</h3>
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-2">
           <Sidebar />
         </div>
-        <div className="col-md-6">
-          <Table />
+        <div className="col-md-9">
+          <Table name={name} />
         </div>
       </div>
     </>
