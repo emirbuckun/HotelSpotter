@@ -66,98 +66,110 @@ function CommentComponent() {
   };
 
   return (
-    <div>
-      <List
-        id="comment-list"
-        subheader={<Typography variant="h5">Comments</Typography>}
-        sx={{
-          width: "100%",
-          bgcolor: "background.paper",
-        }}
-      >
-        <ListItem id="comment-list-item" alignItems="flex-start" divider={true}>
-          <ListItemText
-            primary={
-              <React.Fragment>
-                <Typography id="name" variant="h6">
-                  John Doe
-                </Typography>
-                <Typography id="date" variant="body2">
-                  2021-10-10
-                </Typography>
-              </React.Fragment>
-            }
-            secondary={
-              <React.Fragment>
-                <div>
-                  <StyledRating
-                    id="rating"
-                    name="highlight-selected-only"
-                    defaultValue={2}
-                    IconContainerComponent={IconContainer}
-                    getLabelText={(value) => customIcons[value].label}
-                    highlightSelectedOnly
-                    readOnly
-                  />
-                </div>
-                <div>
-                  <Typography
-                    id="comment"
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body1"
-                    color="text.primary"
-                  >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Integer posuere erat a ante.
-                  </Typography>
-                </div>
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-        <ListItem id="comment-list-item" alignItems="flex-start" divider={true}>
-          <ListItemText
-            primary={
-              <React.Fragment>
-                <Typography id="name" variant="h6">
-                  John Doe
-                </Typography>
-                <Typography id="date" variant="body2">
-                  2021-10-10
-                </Typography>
-              </React.Fragment>
-            }
-            secondary={
-              <React.Fragment>
-                <div>
-                  <StyledRating
-                    id="rating"
-                    name="highlight-selected-only"
-                    defaultValue={4}
-                    IconContainerComponent={IconContainer}
-                    getLabelText={(value) => customIcons[value].label}
-                    highlightSelectedOnly
-                    readOnly
-                  />
-                </div>
-                <div>
-                  <Typography
-                    id="comment"
-                    sx={{ display: "inline" }}
-                    component="span"
-                    variant="body1"
-                    color="text.primary"
-                  >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Integer posuere erat a ante.
-                  </Typography>
-                </div>
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-      </List>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          <List
+            id="comment-list"
+            subheader={<Typography variant="h5">Comments</Typography>}
+            sx={{
+              width: "100%",
+              bgcolor: "background.paper",
+            }}
+          >
+            <ListItem
+              id="comment-list-item"
+              alignItems="flex-start"
+              divider={true}
+            >
+              <ListItemText
+                primary={
+                  <React.Fragment>
+                    <Typography id="name" variant="h6">
+                      John Doe
+                    </Typography>
+                    <Typography id="date" variant="body2">
+                      2021-10-10
+                    </Typography>
+                  </React.Fragment>
+                }
+                secondary={
+                  <React.Fragment>
+                    <div>
+                      <StyledRating
+                        id="rating"
+                        name="highlight-selected-only"
+                        defaultValue={2}
+                        IconContainerComponent={IconContainer}
+                        getLabelText={(value) => customIcons[value].label}
+                        highlightSelectedOnly
+                        readOnly
+                      />
+                    </div>
+                    <div>
+                      <Typography
+                        id="comment"
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body1"
+                        color="text.primary"
+                      >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Integer posuere erat a ante.
+                      </Typography>
+                    </div>
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+            <ListItem
+              id="comment-list-item"
+              alignItems="flex-start"
+              divider={true}
+            >
+              <ListItemText
+                primary={
+                  <React.Fragment>
+                    <Typography id="name" variant="h6">
+                      John Doe
+                    </Typography>
+                    <Typography id="date" variant="body2">
+                      2021-10-10
+                    </Typography>
+                  </React.Fragment>
+                }
+                secondary={
+                  <React.Fragment>
+                    <div>
+                      <StyledRating
+                        id="rating"
+                        name="highlight-selected-only"
+                        defaultValue={4}
+                        IconContainerComponent={IconContainer}
+                        getLabelText={(value) => customIcons[value].label}
+                        highlightSelectedOnly
+                        readOnly
+                      />
+                    </div>
+                    <div>
+                      <Typography
+                        id="comment"
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body1"
+                        color="text.primary"
+                      >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Integer posuere erat a ante.
+                      </Typography>
+                    </div>
+                  </React.Fragment>
+                }
+              />
+            </ListItem>
+          </List>
+        </div>
+      </div>
     </div>
   );
 }

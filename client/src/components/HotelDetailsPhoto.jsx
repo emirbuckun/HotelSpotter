@@ -1,5 +1,6 @@
 import React from "react";
 import { Carousel } from "react-carousel-minimal";
+import MapComponent from "./MapComponent";
 
 function HotelDetailsPhoto() {
   const data = [

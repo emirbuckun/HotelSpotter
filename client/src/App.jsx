@@ -19,7 +19,6 @@ function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/user-profile" element={<UserProfile />} />
         <Route path="/hotel-details" element={<HotelDetails />} />
-        <Route path="/comment" element={<Comment />} />
       </Routes>
     </Router>
   );

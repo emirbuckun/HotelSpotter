@@ -52,7 +52,7 @@ function MapComponent() {
                 center: coordinates,
                 zoom: 18,
               }}
-              width="750px"
+              width="650px"
               height="450px"
             >
               <Placemark
