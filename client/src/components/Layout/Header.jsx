@@ -51,7 +51,7 @@ const Header = () => {
             {cookies.access_token ? (
               <>
                 {isAdmin && (
-                  <a className="nav-link" href="/admin">
+                  <a className="nav-link" href="/admin/amenity">
                     Admin Panel
                   </a>
                 )}
