@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "/src/components/admin/Sidebar";
-import Table from "/src/components/admin/Table";
+import Sidebar from "/src/components/Admin/Sidebar";
+import Table from "/src/components/Admin/Table";
 import { useParams } from "react-router-dom";
 
 const AdminPanel = () => {
