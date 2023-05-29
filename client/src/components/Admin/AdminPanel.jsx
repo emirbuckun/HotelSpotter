@@ -1,5 +1,6 @@
 import React from "react";
 import Sidebar from "/src/components/Sidebar/Sidebar";
+import Table from "/src/components/admin/Table";
 import { useParams } from "react-router-dom";
 
 const AdminPanel = () => {
@@ -12,7 +13,9 @@ const AdminPanel = () => {
         <div className="col-md-6">
           <Sidebar />
         </div>
-        <div className="col-md-6">Table</div>
+        <div className="col-md-6">
+          <Table />
+        </div>
       </div>
     </>
   );
