@@ -1,9 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useFetch from "/src/hooks/useFetch";
 
 const Table = (name) => {
   const pageName = name.name;
   const { data, loading, error } = useFetch(serverURL + "/" + pageName);
+
+  data.length > 0 &&
+    data.forEach(function (obj) {
+      delete obj.__v;
+      pageName == "user" && delete obj.password;
+    });
 
   return (
     <>
