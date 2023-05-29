@@ -5,12 +5,19 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useGetUserID } from "../../hooks/useGetUserID";
 
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+
 const Header = () => {
   const [cookies, _, removeCookie] = useCookies(["access_token"]);
   const userID = useGetUserID();
   const navigate = useNavigate();
   const { data } = useFetch(serverURL + "/userRole/getByUserID/" + userID);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     checkAdmin();
@@ -64,6 +71,25 @@ const Header = () => {
               </>
             ) : (
               <>
+                <a className="nav-link" onClick={handleShow}>
+                  Live Chat
+                </a>
+
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Contact Us</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    You can write your question on Whatsapp to the following
+                    number: +905075286421
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="danger" onClick={handleClose}>
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+
                 <a className="nav-link" href="/login">
                   Login
                 </a>
