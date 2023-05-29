@@ -79,7 +79,7 @@ const Sidebar = () => {
             User
           </a>
           <a
-            href="/admin/user-role"
+            href="/admin/userrole"
             className="list-group-item list-group-item-action py-2 "
           >
             User Role
