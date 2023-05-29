@@ -13,7 +13,7 @@ const AdminPanel = () => {
         <div className="col-md-2">
           <Sidebar />
         </div>
-        <div className="col-md-9">
+        <div className="col-md-10">
           <Table name={name} />
         </div>
       </div>
