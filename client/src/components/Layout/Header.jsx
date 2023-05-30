@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "/src/hooks/useFetch";
 import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useGetUserID } from "../../hooks/useGetUserID";
+import { useGetUserID } from "/src/hooks/useGetUserID";
 
 const Header = () => {
   const [cookies, _, removeCookie] = useCookies(["access_token"]);
