@@ -1,6 +1,6 @@
 import React from "react";
 
-function HotelDetailsInformations() {
+function HotelInfo() {
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <div
@@ -44,4 +44,4 @@ function HotelDetailsInformations() {
   );
 }
 
-export default HotelDetailsInformations;
+export default HotelInfo;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
+import axios from "axios";
 
-function MapComponent() {
+function HotelMap() {
   const [address, setAddress] = useState("Loading Address...");
   const [coordinates, _] = useState([40.916661, 29.203657]);
 
@@ -38,9 +38,9 @@ function MapComponent() {
   }, []);
 
   return (
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-7">
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-7">
           <YMaps
             query={{
               lang: "en_US",
@@ -75,4 +75,4 @@ function MapComponent() {
   );
 }
 
-export default MapComponent;
+export default HotelMap;

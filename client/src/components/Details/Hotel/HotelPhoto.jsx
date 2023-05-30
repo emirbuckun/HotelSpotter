@@ -1,8 +1,7 @@
 import React from "react";
 import { Carousel } from "react-carousel-minimal";
-import MapComponent from "./MapComponent";
 
-function HotelDetailsPhoto() {
+function HotelPhoto() {
   const data = [
     {
       image:
@@ -99,4 +98,4 @@ function HotelDetailsPhoto() {
   );
 }
 
-export default HotelDetailsPhoto;
+export default HotelPhoto;

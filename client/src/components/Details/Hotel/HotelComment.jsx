@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
+import React from "react";
+import PropTypes from "prop-types";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-
-import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Rating from "@mui/material/Rating";
 import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
@@ -54,21 +50,11 @@ IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function CommentComponent() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+function HotelComment() {
   return (
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-md-7">
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-7">
           <List
             id="comment-list"
             subheader={<Typography variant="h5">Comments</Typography>}
@@ -84,17 +70,17 @@ function CommentComponent() {
             >
               <ListItemText
                 primary={
-                  <React.Fragment>
+                  <>
                     <Typography id="name" variant="h6">
                       John Doe
                     </Typography>
                     <Typography id="date" variant="body2">
                       2021-10-10
                     </Typography>
-                  </React.Fragment>
+                  </>
                 }
                 secondary={
-                  <React.Fragment>
+                  <>
                     <div>
                       <StyledRating
                         id="rating"
@@ -118,7 +104,7 @@ function CommentComponent() {
                         Integer posuere erat a ante.
                       </Typography>
                     </div>
-                  </React.Fragment>
+                  </>
                 }
               />
             </ListItem>
@@ -129,17 +115,17 @@ function CommentComponent() {
             >
               <ListItemText
                 primary={
-                  <React.Fragment>
+                  <>
                     <Typography id="name" variant="h6">
                       John Doe
                     </Typography>
                     <Typography id="date" variant="body2">
                       2021-10-10
                     </Typography>
-                  </React.Fragment>
+                  </>
                 }
                 secondary={
-                  <React.Fragment>
+                  <>
                     <div>
                       <StyledRating
                         id="rating"
@@ -163,7 +149,7 @@ function CommentComponent() {
                         Integer posuere erat a ante.
                       </Typography>
                     </div>
-                  </React.Fragment>
+                  </>
                 }
               />
             </ListItem>
@@ -174,4 +160,4 @@ function CommentComponent() {
   );
 }
 
-export default CommentComponent;
+export default HotelComment;
