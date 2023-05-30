@@ -29,7 +29,6 @@ const HotelCard = (data) => {
         className="img-fluid"
         alt="Sampleimage"
         style={{
-          height: "225px",
           borderTopLeftRadius: "15px",
           borderTopRightRadius: "15px",
         }}
