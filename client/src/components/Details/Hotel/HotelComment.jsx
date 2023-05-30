@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -45,10 +44,6 @@ function IconContainer(props) {
   const { value, ...other } = props;
   return <span {...other}>{customIcons[value].icon}</span>;
 }
-
-IconContainer.propTypes = {
-  value: PropTypes.number.isRequired,
-};
 
 const HotelComment = () => {
   return (
