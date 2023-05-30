@@ -40,6 +40,20 @@ const Header = () => {
     navigate("/");
   };
 
+  const handleLiveChat = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      icon: "info",
+      title: "Contact Us",
+      html:
+        "<div>You can write for your questions:</div></br>" +
+        "Whatsapp: +905075286421 <br />" +
+        "E-mail: info@hotelspotter.com",
+      confirmButtonText: "OK",
+      confirmButtonColor: "blue",
+    });
+  };
+
   return (
     <div className="container">
       <nav className="navbar navbar-expand-lg">
@@ -48,6 +62,9 @@ const Header = () => {
             HotelSpotter
           </a>
           <div className="navbar-nav">
+            <a className="nav-link" href="#" onClick={handleLiveChat}>
+              Live Chat
+            </a>
             {cookies.access_token ? (
               <>
                 {isAdmin && (
