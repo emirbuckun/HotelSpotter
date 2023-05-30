@@ -4,6 +4,7 @@ import {
   updateLocation,
   deleteLocation,
   getLocation,
+  getLocationByHotelID,
   getLocations,
 } from "../controllers/location.js";
 
@@ -20,6 +21,9 @@ router.delete("/:id", deleteLocation);
 
 // GET
 router.get("/:id", getLocation);
+
+// GET BY HOTEL ID
+router.get("/getByHotelID/:id", getLocationByHotelID);
 
 // GET ALL
 router.get("/", getLocations);
