@@ -5,7 +5,6 @@ import Register from "/src/pages/Register";
 import Payment from "/src/pages/Payment";
 import UserProfile from "/src/pages/UserProfile";
 import HotelDetails from "/src/pages/HotelDetails";
-import Comment from "/src/components/CommentComponent";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
