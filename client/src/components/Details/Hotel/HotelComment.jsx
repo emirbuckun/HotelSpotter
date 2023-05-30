@@ -50,7 +50,7 @@ IconContainer.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function HotelComment() {
+const HotelComment = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -158,6 +158,6 @@ function HotelComment() {
       </div>
     </div>
   );
-}
+};
 
 export default HotelComment;
