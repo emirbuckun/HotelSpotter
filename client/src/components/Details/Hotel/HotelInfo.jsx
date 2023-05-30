@@ -1,6 +1,6 @@
 import React from "react";
 
-function HotelInfo() {
+const HotelInfo = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <div
@@ -42,6 +42,6 @@ function HotelInfo() {
       </h4>
     </div>
   );
-}
+};
 
 export default HotelInfo;

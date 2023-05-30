@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 import axios from "axios";
 
-function HotelMap() {
+const HotelMap = () => {
   const [address, setAddress] = useState("Loading Address...");
   const [coordinates, _] = useState([40.916661, 29.203657]);
 
@@ -73,6 +73,6 @@ function HotelMap() {
       </div>
     </div>
   );
-}
+};
 
 export default HotelMap;

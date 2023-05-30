@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-carousel-minimal";
 
-function HotelPhoto() {
+const HotelPhoto = () => {
   const data = [
     {
       image:
@@ -96,6 +96,6 @@ function HotelPhoto() {
       </div>
     </div>
   );
-}
+};
 
 export default HotelPhoto;
