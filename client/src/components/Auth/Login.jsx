@@ -17,21 +17,20 @@ function Login() {
         mail,
         password,
       });
-      SweetAlertResult = await Swal.fire({
-        title: "Login Successful",
-        text: "Redirecting to Home Page",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "blue",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (response.status == 200) {
-            setCookies("access_token", response.data.token);
-            window.localStorage.setItem("userID", response.data.userID);
-            navigate("/");
-          }
-        }
-      });
+      if (response.status == 200) {
+        setCookies("access_token", response.data.token);
+        window.localStorage.setItem("userID", response.data.userID);
+
+        SweetAlertResult = await Swal.fire({
+          title: "Login Successful",
+          text: "Redirecting to Home Page",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "blue",
+        }).then((result) => {
+          if (result.isConfirmed) navigate("/");
+        });
+      }
     } catch (error) {
       Swal.fire({
         title: "Error",
@@ -91,21 +90,6 @@ function Login() {
                             required
                           />
                         </div>
-                      </div>
-
-                      <div className="form-check d-flex justify-content-center mb-5">
-                        <input
-                          className="form-check-input me-2"
-                          type="checkbox"
-                          value=""
-                          id="rememberMe"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="rememberMe"
-                        >
-                          Remember Me
-                        </label>
                       </div>
 
                       <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">

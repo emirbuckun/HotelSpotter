@@ -4,6 +4,7 @@ import {
   updateUserRole,
   deleteUserRole,
   getUserRole,
+  getUserRoleByUserID,
   getUserRoles,
 } from "../controllers/userRole.js";
 
@@ -20,6 +21,9 @@ router.delete("/:id", deleteUserRole);
 
 // GET
 router.get("/:id", getUserRole);
+
+// GET BY USER ID
+router.get("/getByUserID/:id", getUserRoleByUserID);
 
 // GET ALL
 router.get("/", getUserRoles);

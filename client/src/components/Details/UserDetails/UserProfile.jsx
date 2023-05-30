@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUserID } from "../hooks/getUserID";
+import { useGetUserID } from "/src/hooks/useGetUserID";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -10,7 +10,7 @@ const UserProfile = () => {
     lastName: "",
     phoneNumber: "",
   });
-  const userID = getUserID();
+  const userID = useGetUserID();
 
   useEffect(() => {
     getUserDetails();
