@@ -12,50 +12,12 @@ import {
   Checkbox,
 } from "@mui/material";
 
-const initialState = {
-  priceRange: [1, 1000],
-  roomType: "",
-  star: 0,
-  poolAmenity: false,
-  internetAmenity: false,
-  gymAmenity: false,
-  parkAmenity: false,
-  airAmenity: false,
-};
-
-const SearchBar = () => {
-  const [filter, setFilter] = useState({ ...initialState });
-
-  const handleChange = (e, newValue, activeThumb) => {
-    const { name, value } = e.target;
-    if (name == "priceRange") {
-      const minDistance = 50;
-      if (!Array.isArray(newValue)) return;
-      if (activeThumb === 0) {
-        setFilter((prevState) => ({
-          ...prevState,
-          [name]: [
-            Math.min(newValue[0], filter.priceRange[1] - minDistance),
-            filter.priceRange[1],
-          ],
-        }));
-      } else {
-        setFilter((prevState) => ({
-          ...prevState,
-          [name]: [
-            filter.priceRange[0],
-            Math.max(newValue[1], filter.priceRange[0] + minDistance),
-          ],
-        }));
-      }
-    } else {
-      setFilter((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
-  };
-
+const SearchBar = ({
+  filter,
+  handleChange,
+  handleClearFilter,
+  handleApplyFilter,
+}) => {
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -97,14 +59,12 @@ const SearchBar = () => {
                     </label>
                     <Slider
                       name="priceRange"
-                      getAriaLabel={() => "Minimum distance"}
                       value={filter.priceRange}
                       onChange={handleChange}
                       valueLabelDisplay="auto"
                       valueLabelFormat={(value) => `${value} $`}
-                      getAriaValueText={(value) => `${value}`}
-                      max={1000}
-                      min={1}
+                      max={10000}
+                      min={0}
                       disableSwap
                     />
                   </div>
@@ -114,7 +74,6 @@ const SearchBar = () => {
                     </label>
                     <select
                       className="form-select"
-                      id="roomType"
                       name="roomType"
                       value={filter.roomType}
                       onChange={handleChange}
@@ -132,9 +91,9 @@ const SearchBar = () => {
                     <div>
                       <Rating
                         name="star"
+                        size="large"
                         precision={1}
                         value={filter.star}
-                        size="large"
                         onChange={handleChange}
                       />
                     </div>
@@ -144,6 +103,7 @@ const SearchBar = () => {
                     <div>
                       <div>
                         <FormControlLabel
+                          label="Pool"
                           control={
                             <Checkbox
                               name="poolAmenity"
@@ -151,11 +111,11 @@ const SearchBar = () => {
                               onChange={handleChange}
                             />
                           }
-                          label="Pool"
                         />
                       </div>
                       <div>
                         <FormControlLabel
+                          label="Internet"
                           control={
                             <Checkbox
                               name="internetAmenity"
@@ -163,11 +123,11 @@ const SearchBar = () => {
                               onChange={handleChange}
                             />
                           }
-                          label="Internet"
                         />
                       </div>
                       <div>
                         <FormControlLabel
+                          label="Gym"
                           control={
                             <Checkbox
                               name="gymAmenity"
@@ -175,11 +135,11 @@ const SearchBar = () => {
                               onChange={handleChange}
                             />
                           }
-                          label="Gym"
                         />
                       </div>
                       <div>
                         <FormControlLabel
+                          label="Car Park"
                           control={
                             <Checkbox
                               name="parkAmenity"
@@ -187,11 +147,11 @@ const SearchBar = () => {
                               onChange={handleChange}
                             />
                           }
-                          label="Car Park"
                         />
                       </div>
                       <div>
                         <FormControlLabel
+                          label="Air Conditioning"
                           control={
                             <Checkbox
                               name="airAmenity"
@@ -199,7 +159,6 @@ const SearchBar = () => {
                               onChange={handleChange}
                             />
                           }
-                          label="Air Conditioning"
                         />
                       </div>
                       {/* Add more amenities here */}
@@ -208,20 +167,16 @@ const SearchBar = () => {
                 </form>
               </div>
               <div className="modal-footer">
-                <Button
-                  variant="contained"
-                  onClick={() => setFilter({ ...initialState })}
-                >
-                  Clear Filters
-                </Button>
+                <button className="btn btn-primary" onClick={handleClearFilter}>
+                  Clear
+                </button>
                 <button
-                  className="btn"
+                  className="btn btn-success"
                   // data-bs-dismiss="modal"
                   // aria-label="Close"
-                  color="#0288d1"
-                  onClick={() => alert("filter")}
+                  onClick={handleApplyFilter}
                 >
-                  Apply Filters
+                  Apply
                 </button>
               </div>
             </div>
