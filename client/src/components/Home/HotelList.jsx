@@ -2,7 +2,7 @@ import React from "react";
 import useFetch from "/src/hooks/useFetch";
 
 const HotelList = () => {
-  const { data, loading, error } = useFetch(serverURL + "/hotel/getHotelList");
+  const { data, loading } = useFetch(serverURL + "/hotel/getHotelList");
   return (
     <div className="container text-center">
       <div className="row">
