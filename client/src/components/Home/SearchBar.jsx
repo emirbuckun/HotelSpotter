@@ -12,37 +12,48 @@ import {
   Checkbox,
 } from "@mui/material";
 
-function valuetext(value) {
-  return `${value}`;
-}
+const initialState = {
+  priceRange: [1, 1000],
+  roomType: "",
+  star: 0,
+  poolAmenity: false,
+  internetAmenity: false,
+  gymAmenity: false,
+  parkAmenity: false,
+  airAmenity: false,
+};
 
 const SearchBar = () => {
-  const [value, setPriceValue] = React.useState([1, 1000]);
-  const [amenity1Checked, setAmenity1Checked] = useState(false);
-  const [amenity2Checked, setAmenity2Checked] = useState(false);
-  const [amenity3Checked, setAmenity3Checked] = useState(false);
-  const [amenity4Checked, setAmenity4Checked] = useState(false);
-  const [amenity5Checked, setAmenity5Checked] = useState(false);
-  const [ratingValue, setRatingValue] = React.useState(0);
-  const minDistance = 10;
+  const [filter, setFilter] = useState({ ...initialState });
 
-  const handleChange = (event, newValue, activeThumb) => {
-    if (!Array.isArray(newValue)) return;
-    if (activeThumb === 0)
-      setPriceValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
-    else
-      setPriceValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
-  };
-
-  const handleClearFilters = () => {
-    setAmenity1Checked(false);
-    setAmenity2Checked(false);
-    setAmenity3Checked(false);
-    setAmenity4Checked(false);
-    setAmenity5Checked(false);
-    setRatingValue(0);
-    document.getElementById("roomType").value = "";
-    setPriceValue([1, 1000]);
+  const handleChange = (e, newValue, activeThumb) => {
+    const { name, value } = e.target;
+    if (name == "priceRange") {
+      const minDistance = 50;
+      if (!Array.isArray(newValue)) return;
+      if (activeThumb === 0) {
+        setFilter((prevState) => ({
+          ...prevState,
+          [name]: [
+            Math.min(newValue[0], filter.priceRange[1] - minDistance),
+            filter.priceRange[1],
+          ],
+        }));
+      } else {
+        setFilter((prevState) => ({
+          ...prevState,
+          [name]: [
+            filter.priceRange[0],
+            Math.max(newValue[1], filter.priceRange[0] + minDistance),
+          ],
+        }));
+      }
+    } else {
+      setFilter((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   return (
@@ -58,9 +69,8 @@ const SearchBar = () => {
             <TuneIcon style={{ color: "#0288d1", fontSize: 30 }} />
           </IconButton>
         </div>
-
         <div
-          className="modal fade"
+          className="modal"
           id="exampleModal"
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
@@ -86,12 +96,13 @@ const SearchBar = () => {
                       Price Range:
                     </label>
                     <Slider
+                      name="priceRange"
                       getAriaLabel={() => "Minimum distance"}
-                      value={value}
+                      value={filter.priceRange}
                       onChange={handleChange}
                       valueLabelDisplay="auto"
                       valueLabelFormat={(value) => `${value} $`}
-                      getAriaValueText={valuetext}
+                      getAriaValueText={(value) => `${value}`}
                       max={1000}
                       min={1}
                       disableSwap
@@ -101,7 +112,13 @@ const SearchBar = () => {
                     <label htmlFor="roomType" className="form-label">
                       Room Type
                     </label>
-                    <select className="form-select" id="roomType">
+                    <select
+                      className="form-select"
+                      id="roomType"
+                      name="roomType"
+                      value={filter.roomType}
+                      onChange={handleChange}
+                    >
                       <option value="">Any</option>
                       <option value="single">Single</option>
                       <option value="double">Double</option>
@@ -109,18 +126,16 @@ const SearchBar = () => {
                     </select>
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="starRange" className="form-label">
+                    <label htmlFor="star" className="form-label">
                       Number of Stars
                     </label>
                     <div>
                       <Rating
-                        name="numberOfStar"
+                        name="star"
                         precision={1}
-                        value={ratingValue}
+                        value={filter.star}
                         size="large"
-                        onChange={(event, newValue) => {
-                          setRatingValue(newValue);
-                        }}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -131,10 +146,9 @@ const SearchBar = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={amenity1Checked}
-                              onChange={(e) =>
-                                setAmenity1Checked(e.target.checked)
-                              }
+                              name="poolAmenity"
+                              checked={filter.poolAmenity}
+                              onChange={handleChange}
                             />
                           }
                           label="Pool"
@@ -144,10 +158,9 @@ const SearchBar = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={amenity2Checked}
-                              onChange={(e) =>
-                                setAmenity2Checked(e.target.checked)
-                              }
+                              name="internetAmenity"
+                              checked={filter.internetAmenity}
+                              onChange={handleChange}
                             />
                           }
                           label="Internet"
@@ -157,10 +170,9 @@ const SearchBar = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={amenity3Checked}
-                              onChange={(e) =>
-                                setAmenity3Checked(e.target.checked)
-                              }
+                              name="gymAmenity"
+                              checked={filter.gymAmenity}
+                              onChange={handleChange}
                             />
                           }
                           label="Gym"
@@ -170,10 +182,9 @@ const SearchBar = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={amenity4Checked}
-                              onChange={(e) =>
-                                setAmenity4Checked(e.target.checked)
-                              }
+                              name="parkAmenity"
+                              checked={filter.parkAmenity}
+                              onChange={handleChange}
                             />
                           }
                           label="Car Park"
@@ -183,30 +194,32 @@ const SearchBar = () => {
                         <FormControlLabel
                           control={
                             <Checkbox
-                              checked={amenity5Checked}
-                              onChange={(e) =>
-                                setAmenity5Checked(e.target.checked)
-                              }
+                              name="airAmenity"
+                              checked={filter.airAmenity}
+                              onChange={handleChange}
                             />
                           }
                           label="Air Conditioning"
                         />
                       </div>
-
                       {/* Add more amenities here */}
                     </div>
                   </div>
                 </form>
               </div>
               <div className="modal-footer">
-                <Button variant="contained" onClick={handleClearFilters}>
+                <Button
+                  variant="contained"
+                  onClick={() => setFilter({ ...initialState })}
+                >
                   Clear Filters
                 </Button>
                 <button
                   className="btn"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                  // data-bs-dismiss="modal"
+                  // aria-label="Close"
                   color="#0288d1"
+                  onClick={() => alert("filter")}
                 >
                   Apply Filters
                 </button>
