@@ -6,7 +6,7 @@ const AmenitySchema = new mongoose.Schema({
     ref: "hotels",
     required: true,
   },
-  amenity: { type: String, required: true },
+  amenity: [{ type: String, required: true }],
 });
 
 export const AmenityModel = mongoose.model("amenities", AmenitySchema);
