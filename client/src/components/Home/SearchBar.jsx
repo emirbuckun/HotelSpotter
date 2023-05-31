@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import TuneIcon from "@mui/icons-material/Tune";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
