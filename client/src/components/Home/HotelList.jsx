@@ -6,7 +6,7 @@ const HotelList = () => {
   return (
     <div className="container text-center">
       <div className="row">
-        {data.loading ? (
+        {loading ? (
           <div>Content loading..</div>
         ) : (
           data.length > 0 &&
