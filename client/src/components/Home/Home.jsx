@@ -12,6 +12,12 @@ const initialState = {
   gymAmenity: false,
   parkAmenity: false,
   airAmenity: false,
+
+  // TODO
+  searchName: "",
+  checkIn: "",
+  checkOut: "",
+  guestCount: 0,
 };
 
 const Home = () => {
