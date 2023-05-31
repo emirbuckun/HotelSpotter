@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "@mui/material/Slider";
 import TuneIcon from "@mui/icons-material/Tune";
+import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import {
-  IconButton,
-  Rating,
-  Button,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
+import { IconButton, Rating, FormControlLabel, Checkbox } from "@mui/material";
+
+const tomorrow = dayjs().add(1, "day");
+const afterTomorrow = dayjs().add(2, "day");
 
 const SearchBar = ({
   filter,
   handleChange,
   handleClearFilter,
   handleApplyFilter,
+  handleSearch,
 }) => {
   return (
     <div className="container">
@@ -187,6 +186,9 @@ const SearchBar = ({
           <form className="input-group mb-3">
             <input
               type="text"
+              name="searchText"
+              value={filter.searchText}
+              onChange={handleChange}
               className="form-control"
               placeholder="Search Hotel or Location"
               style={{ textAlign: "left", color: "#575454" }}
@@ -198,6 +200,8 @@ const SearchBar = ({
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Check In"
+                defaultValue={tomorrow}
+                disablePast
                 slotProps={{ textField: { size: "small" } }}
               />
             </LocalizationProvider>
@@ -207,27 +211,30 @@ const SearchBar = ({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Check Out"
+              defaultValue={afterTomorrow}
+              disablePast
               slotProps={{ textField: { size: "small" } }}
             />
           </LocalizationProvider>
-          <div className="input-group mb-3"></div>
         </div>
 
         <div className="col-md-2">
           <div className="input-group mb-3">
             <select
+              name="guestCount"
+              value={filter.guestCount}
+              onChange={handleChange}
               className="form-control"
-              style={{ textAlign: "left", color: "#575454" }}
             >
-              <option>1 Person</option>
-              <option>2 Person</option>
-              <option>3 Person</option>
-              <option>4 Person</option>
+              <option value={1}>1 Person</option>
+              <option value={2}>2 Person</option>
+              <option value={3}>3 Person</option>
+              <option value={4}>4 Person</option>
             </select>
           </div>
         </div>
         <div className="col-md-1">
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary" onClick={handleSearch}>
             Search
           </button>
         </div>

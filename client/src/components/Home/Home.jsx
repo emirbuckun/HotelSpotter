@@ -12,9 +12,7 @@ const initialState = {
   gymAmenity: false,
   parkAmenity: false,
   airAmenity: false,
-
-  // TODO
-  searchName: "",
+  searchText: "",
   checkIn: "",
   checkOut: "",
   guestCount: 0,
@@ -59,7 +57,13 @@ const Home = () => {
   };
 
   const handleApplyFilter = () => {
-    alert("Apply Filter");
+    // alert("Apply Filter");
+    console.log(filter);
+  };
+
+  const handleSearch = () => {
+    // alert("Search");
+    console.log(filter);
   };
 
   return (
@@ -69,6 +73,7 @@ const Home = () => {
         handleChange={handleChange}
         handleClearFilter={handleClearFilter}
         handleApplyFilter={handleApplyFilter}
+        handleSearch={handleSearch}
       />
       <HotelList data={data} loading={loading} />
     </>
