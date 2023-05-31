@@ -51,13 +51,15 @@ export const getHotelList = async (req, res, next) => {
 
     for (var i = 0; i < hotels.length; i++) {
       var hotel = hotels[i].toObject();
-      hotel.amenities = await AmenityModel.find({ hotelID: hotel._id }).select(
-        "amenity -_id"
-      );
+      hotel.amenities = await AmenityModel.findOne({
+        hotelID: hotel._id,
+      }).select("amenity -_id");
       hotel.location = await LocationModel.findOne({
         hotelID: hotel._id,
       }).select("country city -_id");
-      hotel.pictures = await PictureModel.find({ hotelID: hotels[i]._id });
+      hotel.pictures = await PictureModel.findOne({
+        hotelID: hotel._id,
+      }).select("picture -_id");
       hotelList.push(hotel);
     }
 
