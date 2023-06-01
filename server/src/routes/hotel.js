@@ -7,6 +7,7 @@ import {
   getHotelList,
   filterHotels,
   getHotels,
+  getHotelDetails,
 } from "../controllers/hotel.js";
 
 const router = express.Router();
@@ -22,6 +23,9 @@ router.delete("/:id", deleteHotel);
 
 // GET
 router.get("/getByID/:id", getHotel);
+
+// GET HOTEL DETAILS
+router.get("/getHotelDetails/:id", getHotelDetails);
 
 // GET HOTEL LIST
 router.get("/getHotelList", getHotelList);
