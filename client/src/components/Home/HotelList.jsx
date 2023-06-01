@@ -14,6 +14,7 @@ const HotelList = ({ data, loading }) => {
             </div>
           ))
         )}
+        {!loading && data.length <= 0 && <div>Hotel not found..</div>}
       </div>
     </div>
   );
