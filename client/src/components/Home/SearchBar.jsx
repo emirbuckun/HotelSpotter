@@ -1,18 +1,15 @@
 import React from "react";
 import Slider from "@mui/material/Slider";
 import TuneIcon from "@mui/icons-material/Tune";
-import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { IconButton, Rating, FormControlLabel, Checkbox } from "@mui/material";
 
-const tomorrow = dayjs().add(1, "day");
-const afterTomorrow = dayjs().add(2, "day");
-
 const SearchBar = ({
   filter,
   handleChange,
+  handleDateChange,
   handleClearFilter,
   handleApplyFilter,
   handleSearch,
@@ -200,7 +197,13 @@ const SearchBar = ({
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Check In"
-                defaultValue={tomorrow}
+                value={filter.checkIn}
+                onChange={(newValue, context) => {
+                  if (context.validationError == null) {
+                    handleDateChange(newValue, (name = "checkIn"));
+                  }
+                }}
+                format="DD/MM/YYYY"
                 disablePast
                 slotProps={{ textField: { size: "small" } }}
               />
@@ -211,7 +214,13 @@ const SearchBar = ({
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Check Out"
-              defaultValue={afterTomorrow}
+              value={filter.checkOut}
+              onChange={(newValue, context) => {
+                if (context.validationError == null) {
+                  handleDateChange(newValue, (name = "checkOut"));
+                }
+              }}
+              format="DD/MM/YYYY"
               disablePast
               slotProps={{ textField: { size: "small" } }}
             />

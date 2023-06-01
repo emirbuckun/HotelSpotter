@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import HotelList from "./HotelList";
 import useFetch from "/src/hooks/useFetch";
+import dayjs from "dayjs";
 
 const initialState = {
   priceRange: [1, 10000],
@@ -13,8 +14,8 @@ const initialState = {
   parkAmenity: false,
   airAmenity: false,
   searchText: "",
-  checkIn: "",
-  checkOut: "",
+  checkIn: dayjs(), // today
+  checkOut: dayjs(), // today
   guestCount: 0,
 };
 
@@ -52,6 +53,13 @@ const Home = () => {
     }
   };
 
+  const handleDateChange = (value, name) => {
+    setFilter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleClearFilter = () => {
     setFilter({ ...initialState });
   };
@@ -71,6 +79,7 @@ const Home = () => {
       <SearchBar
         filter={filter}
         handleChange={handleChange}
+        handleDateChange={handleDateChange}
         handleClearFilter={handleClearFilter}
         handleApplyFilter={handleApplyFilter}
         handleSearch={handleSearch}
