@@ -48,7 +48,6 @@ export const getHotelList = async (req, res, next) => {
   try {
     var hotelList = [];
     const hotels = await HotelModel.find();
-
     for (var i = 0; i < hotels.length; i++) {
       var hotel = hotels[i].toObject();
       hotel.amenities = await AmenityModel.findOne({
@@ -60,6 +59,33 @@ export const getHotelList = async (req, res, next) => {
       hotel.pictures = await PictureModel.findOne({
         hotelID: hotel._id,
       }).select("picture -_id");
+      hotelList.push(hotel);
+    }
+    res.status(200).json(hotelList);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const filterHotels = async (req, res, next) => {
+  try {
+    var hotelList = [];
+    const filter = req.body;
+    var hotels = await HotelModel.find({
+      name: { $regex: filter.searchText, $options: "i" },
+      star: { $gte: filter.star },
+    });
+    for (var i = 0; i < hotels.length; i++) {
+      var hotel = hotels[i].toObject();
+      // hotel.amenities = await AmenityModel.findOne({
+      //   hotelID: hotel._id,
+      // }).select("amenity -_id");
+      // hotel.location = await LocationModel.findOne({
+      //   hotelID: hotel._id,
+      // }).select("country city -_id");
+      // hotel.pictures = await PictureModel.findOne({
+      //   hotelID: hotel._id,
+      // }).select("picture -_id");
       hotelList.push(hotel);
     }
 
