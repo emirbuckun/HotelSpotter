@@ -1,4 +1,6 @@
 import { ReservationModel } from "../models/Reservation.js";
+import { HotelModel } from "../models/Hotel.js";
+import { PictureModel } from "../models/Picture.js";
 
 export const insertReservation = async (req, res, next) => {
   try {
@@ -38,6 +40,30 @@ export const getReservation = async (req, res, next) => {
   try {
     const reservation = await ReservationModel.findById(req.params.id);
     res.status(200).json(reservation);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getReservationsByUserID = async (req, res, next) => {
+  try {
+    var reservationList = [];
+    const reservations = await ReservationModel.find({
+      userID: req.params.id,
+    });
+    for (var i = 0; i < reservations.length; i++) {
+      var reservation = reservations[i].toObject();
+      reservation.hotelName = (
+        await HotelModel.findById(reservation.hotelID)
+      ).name;
+
+      reservation.hotelPhoto = (
+        await PictureModel.findOne({ hotelID: reservation.hotelID })
+      ).picture;
+
+      reservationList.push(reservation);
+    }
+    res.status(200).json(reservationList);
   } catch (err) {
     next(err);
   }

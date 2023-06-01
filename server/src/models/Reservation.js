@@ -14,6 +14,7 @@ const ReservationSchema = new mongoose.Schema({
   checkIn: { type: Date, required: true },
   checkOut: { type: Date, required: true },
   guestCount: { type: Number, required: true },
+  price: { type: Number, required: true },
   roomType: { type: String, required: true },
   createDate: { type: Date, default: Date.now() },
   updateDate: { type: Date, required: false },
