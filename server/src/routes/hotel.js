@@ -5,6 +5,7 @@ import {
   deleteHotel,
   getHotel,
   getHotelList,
+  filterHotels,
   getHotels,
 } from "../controllers/hotel.js";
 
@@ -24,6 +25,9 @@ router.get("/getByID/:id", getHotel);
 
 // GET HOTEL LIST
 router.get("/getHotelList", getHotelList);
+
+// FILTER HOTEL LIST
+router.post("/filterHotels", filterHotels);
 
 // GET ALL
 router.get("/", getHotels);

@@ -1,50 +1,18 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 import Slider from "@mui/material/Slider";
 import TuneIcon from "@mui/icons-material/Tune";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import {
-  IconButton,
-  Rating,
-  Button,
-  FormControlLabel,
-  Checkbox,
-} from "@mui/material";
+import { IconButton, Rating, FormControlLabel, Checkbox } from "@mui/material";
 
-function valuetext(value) {
-  return `${value}`;
-}
-
-const SearchBar = () => {
-  const [value, setPriceValue] = React.useState([1, 1000]);
-  const [amenity1Checked, setAmenity1Checked] = useState(false);
-  const [amenity2Checked, setAmenity2Checked] = useState(false);
-  const [amenity3Checked, setAmenity3Checked] = useState(false);
-  const [amenity4Checked, setAmenity4Checked] = useState(false);
-  const [amenity5Checked, setAmenity5Checked] = useState(false);
-  const [ratingValue, setRatingValue] = React.useState(0);
-  const minDistance = 10;
-
-  const handleChange = (event, newValue, activeThumb) => {
-    if (!Array.isArray(newValue)) return;
-    if (activeThumb === 0)
-      setPriceValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
-    else
-      setPriceValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
-  };
-
-  const handleClearFilters = () => {
-    setAmenity1Checked(false);
-    setAmenity2Checked(false);
-    setAmenity3Checked(false);
-    setAmenity4Checked(false);
-    setAmenity5Checked(false);
-    setRatingValue(0);
-    document.getElementById("roomType").value = "";
-    setPriceValue([1, 1000]);
-  };
-
+const SearchBar = ({
+  filter,
+  handleChange,
+  handleDateChange,
+  handleClearFilter,
+  handleSearch,
+}) => {
   return (
     <div className="container">
       <div className="row justify-content-center">
@@ -58,9 +26,8 @@ const SearchBar = () => {
             <TuneIcon style={{ color: "#0288d1", fontSize: 30 }} />
           </IconButton>
         </div>
-
         <div
-          className="modal fade"
+          className="modal"
           id="exampleModal"
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
@@ -86,14 +53,13 @@ const SearchBar = () => {
                       Price Range:
                     </label>
                     <Slider
-                      getAriaLabel={() => "Minimum distance"}
-                      value={value}
+                      name="priceRange"
+                      value={filter.priceRange}
                       onChange={handleChange}
                       valueLabelDisplay="auto"
                       valueLabelFormat={(value) => `${value} $`}
-                      getAriaValueText={valuetext}
-                      max={1000}
-                      min={1}
+                      max={10000}
+                      min={0}
                       disableSwap
                     />
                   </div>
@@ -101,7 +67,12 @@ const SearchBar = () => {
                     <label htmlFor="roomType" className="form-label">
                       Room Type
                     </label>
-                    <select className="form-select" id="roomType">
+                    <select
+                      className="form-select"
+                      name="roomType"
+                      value={filter.roomType}
+                      onChange={handleChange}
+                    >
                       <option value="">Any</option>
                       <option value="single">Single</option>
                       <option value="double">Double</option>
@@ -109,18 +80,16 @@ const SearchBar = () => {
                     </select>
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="starRange" className="form-label">
+                    <label htmlFor="star" className="form-label">
                       Number of Stars
                     </label>
                     <div>
                       <Rating
-                        name="numberOfStar"
-                        precision={1}
-                        value={ratingValue}
+                        name="star"
                         size="large"
-                        onChange={(event, newValue) => {
-                          setRatingValue(newValue);
-                        }}
+                        precision={1}
+                        value={filter.star}
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -129,86 +98,72 @@ const SearchBar = () => {
                     <div>
                       <div>
                         <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={amenity1Checked}
-                              onChange={(e) =>
-                                setAmenity1Checked(e.target.checked)
-                              }
-                            />
-                          }
                           label="Pool"
+                          control={
+                            <Checkbox
+                              name="poolAmenity"
+                              checked={filter.poolAmenity}
+                              onChange={handleChange}
+                            />
+                          }
                         />
                       </div>
                       <div>
                         <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={amenity2Checked}
-                              onChange={(e) =>
-                                setAmenity2Checked(e.target.checked)
-                              }
-                            />
-                          }
                           label="Internet"
+                          control={
+                            <Checkbox
+                              name="internetAmenity"
+                              checked={filter.internetAmenity}
+                              onChange={handleChange}
+                            />
+                          }
                         />
                       </div>
                       <div>
                         <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={amenity3Checked}
-                              onChange={(e) =>
-                                setAmenity3Checked(e.target.checked)
-                              }
-                            />
-                          }
                           label="Gym"
+                          control={
+                            <Checkbox
+                              name="gymAmenity"
+                              checked={filter.gymAmenity}
+                              onChange={handleChange}
+                            />
+                          }
                         />
                       </div>
                       <div>
                         <FormControlLabel
-                          control={
-                            <Checkbox
-                              checked={amenity4Checked}
-                              onChange={(e) =>
-                                setAmenity4Checked(e.target.checked)
-                              }
-                            />
-                          }
                           label="Car Park"
+                          control={
+                            <Checkbox
+                              name="parkAmenity"
+                              checked={filter.parkAmenity}
+                              onChange={handleChange}
+                            />
+                          }
                         />
                       </div>
                       <div>
                         <FormControlLabel
+                          label="Air Conditioning"
                           control={
                             <Checkbox
-                              checked={amenity5Checked}
-                              onChange={(e) =>
-                                setAmenity5Checked(e.target.checked)
-                              }
+                              name="airAmenity"
+                              checked={filter.airAmenity}
+                              onChange={handleChange}
                             />
                           }
-                          label="Air Conditioning"
                         />
                       </div>
-
                       {/* Add more amenities here */}
                     </div>
                   </div>
                 </form>
               </div>
               <div className="modal-footer">
-                <Button variant="contained" onClick={handleClearFilters}>
-                  Clear Filters
-                </Button>
-                <button
-                  className="btn"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  color="#0288d1"
-                >
-                  Apply Filters
+                <button className="btn btn-primary" onClick={handleClearFilter}>
+                  Clear
                 </button>
               </div>
             </div>
@@ -219,8 +174,11 @@ const SearchBar = () => {
           <form className="input-group mb-3">
             <input
               type="text"
+              name="searchText"
+              value={filter.searchText}
+              onChange={handleChange}
               className="form-control"
-              placeholder="Search Hotel or Location"
+              placeholder="Search Hotel"
               style={{ textAlign: "left", color: "#575454" }}
             />
           </form>
@@ -230,6 +188,14 @@ const SearchBar = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Check In"
+                value={filter.checkIn}
+                onChange={(newValue, context) => {
+                  if (context.validationError == null) {
+                    handleDateChange(newValue, (name = "checkIn"));
+                  }
+                }}
+                format="DD/MM/YYYY"
+                disablePast
                 slotProps={{ textField: { size: "small" } }}
               />
             </LocalizationProvider>
@@ -239,27 +205,36 @@ const SearchBar = () => {
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               label="Check Out"
+              value={filter.checkOut}
+              onChange={(newValue, context) => {
+                if (context.validationError == null) {
+                  handleDateChange(newValue, (name = "checkOut"));
+                }
+              }}
+              format="DD/MM/YYYY"
+              disablePast
               slotProps={{ textField: { size: "small" } }}
             />
           </LocalizationProvider>
-          <div className="input-group mb-3"></div>
         </div>
 
         <div className="col-md-2">
           <div className="input-group mb-3">
             <select
+              name="guestCount"
+              value={filter.guestCount}
+              onChange={handleChange}
               className="form-control"
-              style={{ textAlign: "left", color: "#575454" }}
             >
-              <option>1 Person</option>
-              <option>2 Person</option>
-              <option>3 Person</option>
-              <option>4 Person</option>
+              <option value={1}>1 Person</option>
+              <option value={2}>2 Person</option>
+              <option value={3}>3 Person</option>
+              <option value={4}>4 Person</option>
             </select>
           </div>
         </div>
         <div className="col-md-1">
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-primary" onClick={handleSearch}>
             Search
           </button>
         </div>

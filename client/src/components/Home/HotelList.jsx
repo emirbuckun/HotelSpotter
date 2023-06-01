@@ -1,12 +1,10 @@
 import React from "react";
-import useFetch from "/src/hooks/useFetch";
 
-const HotelList = () => {
-  const { data, loading, error } = useFetch(serverURL + "/hotel/getHotelList");
+const HotelList = ({ data, loading }) => {
   return (
     <div className="container text-center">
       <div className="row">
-        {data.loading ? (
+        {loading ? (
           <div>Content loading..</div>
         ) : (
           data.length > 0 &&
@@ -16,6 +14,7 @@ const HotelList = () => {
             </div>
           ))
         )}
+        {!loading && data.length <= 0 && <div>Hotel not found..</div>}
       </div>
     </div>
   );
