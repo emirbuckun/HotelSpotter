@@ -1,6 +1,7 @@
 import React from "react";
 
-const HotelInfo = () => {
+const HotelInfo = (hotelData) => {
+  const data = hotelData.hotelData;
   return (
     <div className="container">
       <div className="row">

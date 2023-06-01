@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 import axios from "axios";
 
-const HotelMap = () => {
+const HotelMap = (hotelData) => {
   const [address, setAddress] = useState("Loading Address...");
   const [coordinates, _] = useState([40.916661, 29.203657]);
+  const data = hotelData.hotelData;
 
   const handleGetAddress = async () => {
     try {

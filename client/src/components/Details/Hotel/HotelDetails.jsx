@@ -3,15 +3,25 @@ import HotelInfo from "/src/components/Details/Hotel/HotelInfo";
 import HotelMap from "/src/components/Details/Hotel/HotelMap";
 import HotelComment from "/src/components/Details/Hotel/HotelComment";
 import { useParams } from "react-router-dom";
+import useFetch from "/src/hooks/useFetch";
 
 const HotelDetails = () => {
   const { id } = useParams();
+  const { data, loading, error } = useFetch(
+    serverURL + "/hotel/getHotelDetails/" + id
+  );
   return (
     <>
-      <HotelPhoto id={id} />
-      <HotelInfo id={id} />
-      <HotelMap id={id} />
-      <HotelComment id={id} />
+      {loading || data.length <= 0 ? (
+        <div>Hotel details are loading..</div>
+      ) : (
+        <>
+          <HotelPhoto hotelData={data} />
+          <HotelInfo hotelData={data} />
+          <HotelMap hotelData={data} />
+          <HotelComment hotelData={data} />
+        </>
+      )}
     </>
   );
 };
