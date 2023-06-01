@@ -65,12 +65,10 @@ const Home = () => {
   };
 
   const handleApplyFilter = () => {
-    // alert("Apply Filter");
     console.log(filter);
   };
 
   const handleSearch = () => {
-    // alert("Search");
     console.log(filter);
   };
 
