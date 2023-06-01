@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import HotelList from "./HotelList";
 import useFetch from "/src/hooks/useFetch";
 import dayjs from "dayjs";
+import axios from "axios";
 
 const initialState = {
   priceRange: [1, 10000],
@@ -21,7 +22,12 @@ const initialState = {
 
 const Home = () => {
   const [filter, setFilter] = useState({ ...initialState });
-  const { data, loading } = useFetch(serverURL + "/hotel/getHotelList");
+  const [hotelData, setHotelData] = useState([]);
+  var { data, loading } = useFetch(serverURL + "/hotel/getHotelList");
+
+  useEffect(() => {
+    setHotelData(data);
+  }, [data]);
 
   const handleChange = (e, newValue, activeThumb) => {
     var { name, value, type } = e.target;
@@ -64,12 +70,19 @@ const Home = () => {
     setFilter({ ...initialState });
   };
 
-  const handleApplyFilter = () => {
-    console.log(filter);
-  };
-
-  const handleSearch = () => {
-    console.log(filter);
+  const handleSearch = async () => {
+    try {
+      const response = await axios.post(
+        serverURL + "/hotel/filterHotels",
+        filter
+      );
+      console.log(filter);
+      if (response.status == 200) {
+        setHotelData(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -79,10 +92,9 @@ const Home = () => {
         handleChange={handleChange}
         handleDateChange={handleDateChange}
         handleClearFilter={handleClearFilter}
-        handleApplyFilter={handleApplyFilter}
         handleSearch={handleSearch}
       />
-      <HotelList data={data} loading={loading} />
+      <HotelList data={hotelData} loading={loading} />
     </>
   );
 };
