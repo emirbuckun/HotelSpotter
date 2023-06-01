@@ -11,7 +11,6 @@ const SearchBar = ({
   handleChange,
   handleDateChange,
   handleClearFilter,
-  handleApplyFilter,
   handleSearch,
 }) => {
   return (
@@ -165,14 +164,6 @@ const SearchBar = ({
               <div className="modal-footer">
                 <button className="btn btn-primary" onClick={handleClearFilter}>
                   Clear
-                </button>
-                <button
-                  className="btn btn-success"
-                  // data-bs-dismiss="modal"
-                  // aria-label="Close"
-                  onClick={handleApplyFilter}
-                >
-                  Apply
                 </button>
               </div>
             </div>
