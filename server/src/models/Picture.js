@@ -6,7 +6,7 @@ const PictureSchema = new mongoose.Schema({
     ref: "hotels",
     required: true,
   },
-  picture: { type: String, required: true },
+  picture: [{ type: String, required: true }],
 });
 
 export const PictureModel = mongoose.model("pictures", PictureSchema);
