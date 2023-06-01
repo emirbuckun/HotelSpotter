@@ -187,7 +187,7 @@ const SearchBar = ({
               value={filter.searchText}
               onChange={handleChange}
               className="form-control"
-              placeholder="Search Hotel or Location"
+              placeholder="Search Hotel"
               style={{ textAlign: "left", color: "#575454" }}
             />
           </form>
