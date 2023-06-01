@@ -45,7 +45,7 @@ function IconContainer(props) {
   return <span {...other}>{customIcons[value].icon}</span>;
 }
 
-const HotelComment = () => {
+const HotelComment = (id) => {
   return (
     <div className="container">
       <div className="row justify-content-center">

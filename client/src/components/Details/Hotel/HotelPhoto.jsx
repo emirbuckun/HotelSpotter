@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-carousel-minimal";
 
-const HotelPhoto = () => {
+const HotelPhoto = (id) => {
   const data = [
     {
       image:

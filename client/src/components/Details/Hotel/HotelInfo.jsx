@@ -1,6 +1,6 @@
 import React from "react";
 
-const HotelInfo = () => {
+const HotelInfo = (id) => {
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       <div
