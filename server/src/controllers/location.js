@@ -43,6 +43,15 @@ export const getLocation = async (req, res, next) => {
   }
 };
 
+export const getLocationByHotelID = async (req, res, next) => {
+  try {
+    const location = await LocationModel.find({ hotelID: req.params.id });
+    res.status(200).json(location);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getLocations = async (req, res, next) => {
   try {
     const locations = await LocationModel.find();

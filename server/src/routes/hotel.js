@@ -4,6 +4,8 @@ import {
   updateHotel,
   deleteHotel,
   getHotel,
+  getHotelList,
+  filterHotels,
   getHotels,
 } from "../controllers/hotel.js";
 
@@ -19,7 +21,13 @@ router.put("/:id", updateHotel);
 router.delete("/:id", deleteHotel);
 
 // GET
-router.get("/:id", getHotel);
+router.get("/getByID/:id", getHotel);
+
+// GET HOTEL LIST
+router.get("/getHotelList", getHotelList);
+
+// FILTER HOTEL LIST
+router.post("/filterHotels", filterHotels);
 
 // GET ALL
 router.get("/", getHotels);
