@@ -71,24 +71,53 @@ export const filterHotels = async (req, res, next) => {
   try {
     var hotelList = [];
     const filter = req.body;
+
+    // Amenity filter preparation
+    filter.amenities = [];
+    if (filter.poolAmenity == true)
+      filter.amenities.push("Private Outdoor Pool");
+    if (filter.internetAmenity == true) filter.amenities.push("Wifi");
+    if (filter.gymAmenity == true) filter.amenities.push("Gym");
+    if (filter.parkAmenity == true) filter.amenities.push("Free Parking");
+    if (filter.airAmenity == true) filter.amenities.push("Air Conditioning");
+
+    // Hotel name and star filter
     var hotels = await HotelModel.find({
       name: { $regex: filter.searchText, $options: "i" },
       star: { $gte: filter.star },
     });
+
+    // Get amenities, location and pictures for each hotel
     for (var i = 0; i < hotels.length; i++) {
       var hotel = hotels[i].toObject();
-      // hotel.amenities = await AmenityModel.findOne({
-      //   hotelID: hotel._id,
-      // }).select("amenity -_id");
-      // hotel.location = await LocationModel.findOne({
-      //   hotelID: hotel._id,
-      // }).select("country city -_id");
-      // hotel.pictures = await PictureModel.findOne({
-      //   hotelID: hotel._id,
-      // }).select("picture -_id");
+
+      // Get amenities
+      if (filter.amenities.length > 0) {
+        hotel.amenities = await AmenityModel.findOne({
+          hotelID: hotel._id,
+          amenity: { $in: filter.amenities },
+        }).select("amenity -_id");
+      } else {
+        hotel.amenities = await AmenityModel.findOne({
+          hotelID: hotel._id,
+        }).select("amenity -_id");
+      }
+
+      // If no amenity exist, don't push the hotel to the result array
+      if (hotel.amenities == null) continue;
+
+      // Get location
+      hotel.location = await LocationModel.findOne({
+        hotelID: hotel._id,
+      }).select("country city -_id");
+
+      // Get pictures
+      hotel.pictures = await PictureModel.findOne({
+        hotelID: hotel._id,
+      }).select("picture -_id");
+
       hotelList.push(hotel);
     }
-
     res.status(200).json(hotelList);
   } catch (err) {
     next(err);
