@@ -75,9 +75,7 @@ const HotelComment = () => {
                     <Typography id="name" variant="h6">
                       John Doe
                     </Typography>
-                    <Typography id="date" variant="h6">
-                      2021-10-10
-                    </Typography>
+                    <Typography id="date">2021-10-10</Typography>
                   </>
                 }
                 secondary={
@@ -98,7 +96,6 @@ const HotelComment = () => {
                         id="comment"
                         sx={{ display: "inline" }}
                         component="span"
-                        variant="h6"
                         color="text.primary"
                       >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -120,9 +117,7 @@ const HotelComment = () => {
                     <Typography id="name" variant="h6">
                       John Doe
                     </Typography>
-                    <Typography id="date" variant="h6">
-                      2021-10-10
-                    </Typography>
+                    <Typography id="date">2021-10-10</Typography>
                   </>
                 }
                 secondary={
@@ -143,7 +138,6 @@ const HotelComment = () => {
                         id="comment"
                         sx={{ display: "inline" }}
                         component="span"
-                        variant="h6"
                         color="text.primary"
                       >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
