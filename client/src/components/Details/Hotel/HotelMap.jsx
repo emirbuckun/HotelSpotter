@@ -4,8 +4,8 @@ import axios from "axios";
 
 const HotelMap = (hotelData) => {
   const data = hotelData.hotelData;
-  const [latitude, setLatitude] = useState(40.916661);
-  const [longitude, setLongitude] = useState(29.203657);
+  const [latitude, setLatitude] = useState(data.location.latitude);
+  const [longitude, setLongitude] = useState(data.location.longitude);
   const [address, setAddress] = useState("Loading Address...");
 
   const handleGetAddress = async () => {
