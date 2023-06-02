@@ -35,7 +35,6 @@ const HotelMap = () => {
 
   useEffect(() => {
     handleGetAddress();
-    console.log(apiKey);
   }, []);
 
   return (
