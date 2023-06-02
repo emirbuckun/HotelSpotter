@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
 import List from "@mui/material/List";
 import ReservationItem from "./ReservationItem";
-import axios from "axios";
+import Typography from "@mui/material/Typography";
+import useFetch from "/src/hooks/useFetch";
 
 const PastReservations = () => {
   const [pastReservations, setPastReservations] = useState([]);
-  const getPastReservationsByUserID = async () => {
-    try {
-      var userID = localStorage.getItem("userID");
-      const response = await axios.get(
-        serverURL + "/reservation/getByUserID/" + userID
-      );
-
-      setPastReservations(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [userID, _] = useState(localStorage.getItem("userID"));
+  var { data, loading } = useFetch(
+    serverURL + "/reservation/getByUserID/" + userID
+  );
 
   useEffect(() => {
-    getPastReservationsByUserID();
-    console.log(pastReservations);
-  }, []);
+    setPastReservations(data);
+  }, [data]);
 
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
@@ -29,13 +21,28 @@ const PastReservations = () => {
         id="pastReservations"
         sx={{ width: "50%", bgcolor: "background.paper" }}
       >
-        {pastReservations.map((reservation) => (
-          <ReservationItem
-            key={reservation._id}
-            reservation={reservation}
-            isPast={true}
-          />
-        ))}
+        <div>
+          <h1 className="text-left">Past Reservations</h1>
+        </div>
+        {loading ? (
+          <div>
+            <Typography variant="h6" align="center">
+              Content loading..
+            </Typography>
+          </div>
+        ) : (
+          pastReservations.length > 0 &&
+          pastReservations.map((reservation) => (
+            <ReservationItem key={reservation._id} reservation={reservation} />
+          ))
+        )}
+        {!loading && pastReservations.length <= 0 && (
+          <div>
+            <Typography variant="h6" align="center">
+              You have no past reservations.
+            </Typography>
+          </div>
+        )}
       </List>
     </div>
   );

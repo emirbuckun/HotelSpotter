@@ -5,6 +5,7 @@ import {
   deleteReview,
   getReview,
   getReviews,
+  getByReservationID,
 } from "../controllers/review.js";
 
 const router = express.Router();
@@ -17,6 +18,9 @@ router.put("/:id", updateReview);
 
 // DELETE
 router.delete("/:id", deleteReview);
+
+// GET BY ID
+router.get("/getByReservationID/:id", getByReservationID);
 
 // GET
 router.get("/:id", getReview);

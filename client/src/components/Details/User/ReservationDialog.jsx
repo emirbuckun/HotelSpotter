@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
@@ -13,6 +13,9 @@ import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from "@mui/icons-material/SentimentSatisfied";
 import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
+import useFetch from "/src/hooks/useFetch";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -57,6 +60,11 @@ function IconContainer(props) {
 const ReservationDialog = ({ open, handleClose, reservation }) => {
   const [rating, setRating] = useState();
   const [comment, setComment] = useState("");
+  var userID = localStorage.getItem("userID");
+  var reservationID = reservation._id;
+  var { data, loading } = useFetch(
+    serverURL + "/review/getByReservationID/" + reservationID
+  );
 
   const handleRatingChange = (event, newValue) => {
     setRating(newValue);
@@ -66,13 +74,77 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
     setComment(event.target.value);
   };
 
-  const handlePostComment = () => {
-    // Handle posting the comment here
-    handleClose();
+  const handlePostComment = async () => {
+    try {
+      if (data !== null) {
+        if (
+          rating &&
+          comment &&
+          (comment !== data.description || rating !== data.rating)
+        ) {
+          var review = {
+            userID: userID,
+            reservationID: reservationID,
+            hotelID: reservation.hotelID,
+            rating: rating,
+            description: comment,
+          };
+          const response = await axios.put(
+            serverURL + "/review/" + data._id,
+            review
+          );
+          handleClose();
+        } else {
+          if (comment === data.description && rating === data.rating) {
+            console.log("Please change your comment.");
+          } else if (!rating && !comment) {
+            console.log("Please fill in all fields.");
+          } else if (!comment) {
+            console.log("Please comment on the hotel.");
+          } else if (!rating) {
+            console.log("Please rate the hotel.");
+          }
+        }
+      } else {
+        if (rating && comment) {
+          var review = {
+            userID: userID,
+            reservationID: reservationID,
+            hotelID: reservation.hotelID,
+            rating: rating,
+            description: comment,
+          };
+          const response = await axios.post(serverURL + "/review", review);
+          handleClose();
+        } else {
+          if (!rating && !comment) {
+            console.log("Please fill in all fields.");
+          } else if (!comment) {
+            console.log("Please comment on the hotel.");
+          } else if (!rating) {
+            console.log("Please rate the hotel.");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const handleAddComment = () => {
+    if (data) {
+      setComment(data.description);
+      setRating(data.rating);
+    }
+  };
+
+  useEffect(() => {
+    handleAddComment();
+  }, [data]);
 
   return (
     <Dialog
+      id={reservation._id}
       open={open}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
