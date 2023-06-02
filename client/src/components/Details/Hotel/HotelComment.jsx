@@ -19,23 +19,29 @@ const StyledRating = styled(Rating)(({ theme }) => ({
 
 const customIcons = {
   1: {
-    icon: <SentimentVeryDissatisfiedIcon color="error" />,
+    icon: (
+      <SentimentVeryDissatisfiedIcon color="error" style={{ fontSize: 40 }} />
+    ),
     label: "Very Dissatisfied",
   },
   2: {
-    icon: <SentimentDissatisfiedIcon color="error" />,
+    icon: <SentimentDissatisfiedIcon color="error" style={{ fontSize: 40 }} />,
     label: "Dissatisfied",
   },
   3: {
-    icon: <SentimentSatisfiedIcon color="warning" />,
+    icon: <SentimentSatisfiedIcon color="warning" style={{ fontSize: 40 }} />,
     label: "Neutral",
   },
   4: {
-    icon: <SentimentSatisfiedAltIcon color="success" />,
+    icon: (
+      <SentimentSatisfiedAltIcon color="success" style={{ fontSize: 40 }} />
+    ),
     label: "Satisfied",
   },
   5: {
-    icon: <SentimentVerySatisfiedIcon color="success" />,
+    icon: (
+      <SentimentVerySatisfiedIcon color="success" style={{ fontSize: 40 }} />
+    ),
     label: "Very Satisfied",
   },
 };
@@ -45,12 +51,11 @@ function IconContainer(props) {
   return <span {...other}>{customIcons[value].icon}</span>;
 }
 
-const HotelComment = (hotelData) => {
-  const data = hotelData.hotelData;
+const HotelComment = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-md-7">
+        <div className="col">
           <List
             id="comment-list"
             subheader={<Typography variant="h5">Comments</Typography>}
@@ -70,7 +75,7 @@ const HotelComment = (hotelData) => {
                     <Typography id="name" variant="h6">
                       John Doe
                     </Typography>
-                    <Typography id="date" variant="body2">
+                    <Typography id="date" variant="h6">
                       2021-10-10
                     </Typography>
                   </>
@@ -93,7 +98,7 @@ const HotelComment = (hotelData) => {
                         id="comment"
                         sx={{ display: "inline" }}
                         component="span"
-                        variant="body1"
+                        variant="h6"
                         color="text.primary"
                       >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -115,7 +120,7 @@ const HotelComment = (hotelData) => {
                     <Typography id="name" variant="h6">
                       John Doe
                     </Typography>
-                    <Typography id="date" variant="body2">
+                    <Typography id="date" variant="h6">
                       2021-10-10
                     </Typography>
                   </>
@@ -138,7 +143,7 @@ const HotelComment = (hotelData) => {
                         id="comment"
                         sx={{ display: "inline" }}
                         component="span"
-                        variant="body1"
+                        variant="h6"
                         color="text.primary"
                       >
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
