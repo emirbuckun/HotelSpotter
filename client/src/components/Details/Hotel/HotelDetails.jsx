@@ -7,7 +7,7 @@ import useFetch from "/src/hooks/useFetch";
 
 const HotelDetails = () => {
   const { id } = useParams();
-  const { data, loading, error } = useFetch(
+  const { data, loading } = useFetch(
     serverURL + "/hotel/getHotelDetails/" + id
   );
   return (
