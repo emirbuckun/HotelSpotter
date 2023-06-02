@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
 const HotelInfo = (hotelData) => {
+  const [roomType, setRoomType] = useState("Single");
   const [guests, setGuests] = useState(1);
   const [price, setPrice] = useState();
   const data = hotelData.hotelData;
@@ -30,20 +31,14 @@ const HotelInfo = (hotelData) => {
     "/" +
     location.country;
 
-  const [roomType, setRoomType] = useState("Single");
-
   useEffect(() => {
     setPrice(minPrice);
   }, []);
 
   const handleRoomTypeChange = (event) => {
     setRoomType(event.target.value);
-    var price = rooms.find((x) => x.roomType === event.target.value).price;
-    var guestCount = 1;
-    if (guests > 1) {
-      guestCount = guests;
-    }
-    setPrice(price * guestCount);
+    const price = rooms.find((x) => x.roomType === event.target.value).price;
+    setPrice(price * guests);
   };
 
   const handleGuestsDecrease = () => {
