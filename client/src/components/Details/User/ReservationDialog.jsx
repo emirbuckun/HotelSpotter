@@ -15,7 +15,6 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import useFetch from "/src/hooks/useFetch";
 import axios from "axios";
-import Swal from "sweetalert2";
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -96,13 +95,13 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
           handleClose();
         } else {
           if (comment === data.description && rating === data.rating) {
-            console.log("Please change your comment.");
+            alert("Please change your comment.");
           } else if (!rating && !comment) {
-            console.log("Please fill in all fields.");
+            alert("Please fill in all fields.");
           } else if (!comment) {
-            console.log("Please comment on the hotel.");
+            alert("Please comment on the hotel.");
           } else if (!rating) {
-            console.log("Please rate the hotel.");
+            alert("Please rate the hotel.");
           }
         }
       } else {
@@ -118,11 +117,11 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
           handleClose();
         } else {
           if (!rating && !comment) {
-            console.log("Please fill in all fields.");
+            alert("Please fill in all fields.");
           } else if (!comment) {
-            console.log("Please comment on the hotel.");
+            alert("Please comment on the hotel.");
           } else if (!rating) {
-            console.log("Please rate the hotel.");
+            alert("Please rate the hotel.");
           }
         }
       }
