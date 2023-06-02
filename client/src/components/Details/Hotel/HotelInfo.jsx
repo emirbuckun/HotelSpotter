@@ -3,6 +3,11 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import TextField from "@mui/material/TextField";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
 
 const HotelInfo = (hotelData) => {
   const [guests, setGuests] = useState(1);
@@ -25,22 +30,32 @@ const HotelInfo = (hotelData) => {
     "/" +
     location.country;
 
+  const [roomType, setRoomType] = useState("Single");
+
   useEffect(() => {
     setPrice(minPrice);
   }, []);
 
+  const handleRoomTypeChange = (event) => {
+    setRoomType(event.target.value);
+    var price = rooms.find((x) => x.roomType === event.target.value).price;
+    var guestCount = 1;
+    if (guests > 1) {
+      guestCount = guests;
+    }
+    setPrice(price * guestCount);
+  };
+
   const handleGuestsDecrease = () => {
-    var price = fixedPrice * (guests - 1);
     if (guests > 1) {
       setGuests(guests - 1);
-      setPrice(price);
+      setPrice(rooms.find((x) => x.roomType === roomType).price * (guests - 1));
     }
   };
 
   const handleGuestsIncrease = () => {
-    var price = fixedPrice * (guests + 1);
     setGuests(guests + 1);
-    setPrice(price);
+    setPrice(rooms.find((x) => x.roomType === roomType).price * (guests + 1));
   };
 
   return (
@@ -98,6 +113,38 @@ const HotelInfo = (hotelData) => {
           <div className="card card-body">
             <div className="d-flex justify-content-center align-items-center">
               <h5 className="card-title">{price} USD night</h5>
+            </div>
+            <div className="d-flex justify-content-center align-items-center">
+              <FormControl>
+                <FormLabel id="demo-row-radio-buttons-group-label">
+                  Room Type
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="roomType"
+                  name="row-radio-buttons-group"
+                  defaultValue="Single"
+                >
+                  <FormControlLabel
+                    value="Single"
+                    control={<Radio />}
+                    label="Single"
+                    onClick={handleRoomTypeChange}
+                  />
+                  <FormControlLabel
+                    value="Double"
+                    control={<Radio />}
+                    label="Double"
+                    onClick={handleRoomTypeChange}
+                  />
+                  <FormControlLabel
+                    value="Suite"
+                    control={<Radio />}
+                    label="Suite"
+                    onClick={handleRoomTypeChange}
+                  />
+                </RadioGroup>
+              </FormControl>
             </div>
             <div className="d-flex justify-content-center align-items-center">
               <Button
