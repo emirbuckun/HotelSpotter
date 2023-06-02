@@ -38,39 +38,35 @@ const HotelMap = () => {
   }, []);
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col justify-content-center">
-          <YMaps
-            query={{
-              lang: "en_US",
-              apikey: "46370e8f-7555-4a20-a1b8-43e31f1ed845",
+    <div className="d-flex justify-content-center my-4">
+      <YMaps
+        query={{
+          lang: "en_US",
+          apikey: "46370e8f-7555-4a20-a1b8-43e31f1ed845",
+        }}
+      >
+        <Map
+          defaultState={{
+            center: coordinates,
+            zoom: 18,
+          }}
+          width="60vw"
+          height="40vh"
+        >
+          <Placemark
+            geometry={coordinates}
+            options={{
+              preset: "islands#redIcon",
             }}
-          >
-            <Map
-              defaultState={{
-                center: coordinates,
-                zoom: 18,
-              }}
-              width="1200px"
-              height="450px"
-            >
-              <Placemark
-                geometry={coordinates}
-                options={{
-                  preset: "islands#redIcon",
-                }}
-                properties={{
-                  hintContent: "Click to see the address",
-                  balloonContent: address,
-                }}
-                modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
-              />
-              <ZoomControl />
-            </Map>
-          </YMaps>
-        </div>
-      </div>
+            properties={{
+              hintContent: "Click to see the address",
+              balloonContent: address,
+            }}
+            modules={["geoObject.addon.hint", "geoObject.addon.balloon"]}
+          />
+          <ZoomControl />
+        </Map>
+      </YMaps>
     </div>
   );
 };

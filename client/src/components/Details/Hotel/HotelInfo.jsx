@@ -44,7 +44,7 @@ const HotelInfo = (hotelData) => {
           <div className="card">
             <div className="card-body">
               <div className="d-flex justify-content-center align-items-center">
-                <h5 className="card-title">{price} USD per Day</h5>
+                <h5 className="card-title">{price} USD per night</h5>
               </div>
 
               <div className="d-flex justify-content-center align-items-center">
