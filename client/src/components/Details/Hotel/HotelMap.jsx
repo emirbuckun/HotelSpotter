@@ -10,7 +10,7 @@ const HotelMap = () => {
     try {
       const response = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
         params: {
-          apikey: "46370e8f-7555-4a20-a1b8-43e31f1ed845",
+          apikey: apiKey,
           geocode: `${coordinates[1]},${coordinates[0]}`,
           lang: "en_US",
         },
@@ -35,6 +35,7 @@ const HotelMap = () => {
 
   useEffect(() => {
     handleGetAddress();
+    console.log(apiKey);
   }, []);
 
   return (
