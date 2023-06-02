@@ -61,7 +61,7 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
   const [comment, setComment] = useState("");
   var userID = localStorage.getItem("userID");
   var reservationID = reservation._id;
-  var { data, loading } = useFetch(
+  var { data } = useFetch(
     serverURL + "/review/getByReservationID/" + reservationID
   );
 
