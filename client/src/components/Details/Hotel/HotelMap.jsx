@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { YMaps, Map, Placemark, ZoomControl } from "@pbe/react-yandex-maps";
 import axios from "axios";
 
-const HotelMap = () => {
+const HotelMap = (hotelData) => {
+  const data = hotelData.hotelData;
+  const [latitude, setLatitude] = useState(40.916661);
+  const [longitude, setLongitude] = useState(29.203657);
   const [address, setAddress] = useState("Loading Address...");
-  const [coordinates, _] = useState([40.916661, 29.203657]);
 
   const handleGetAddress = async () => {
     try {
       const response = await axios.get("https://geocode-maps.yandex.ru/1.x/", {
         params: {
           apikey: apiKey,
-          geocode: `${coordinates[1]},${coordinates[0]}`,
+          geocode: `${longitude},${latitude}`,
           lang: "en_US",
         },
       });
@@ -34,8 +36,9 @@ const HotelMap = () => {
   };
 
   useEffect(() => {
+    setLatitude(data.location.latitude);
+    setLongitude(data.location.longitude);
     handleGetAddress();
-    console.log(apiKey);
   }, []);
 
   return (
@@ -43,19 +46,19 @@ const HotelMap = () => {
       <YMaps
         query={{
           lang: "en_US",
-          apikey: "46370e8f-7555-4a20-a1b8-43e31f1ed845",
+          apikey: apiKey,
         }}
       >
         <Map
           defaultState={{
-            center: coordinates,
+            center: latitude && longitude ? [latitude, longitude] : [0, 0],
             zoom: 18,
           }}
           width="60vw"
           height="40vh"
         >
           <Placemark
-            geometry={coordinates}
+            geometry={latitude && longitude ? [latitude, longitude] : [0, 0]}
             options={{
               preset: "islands#redIcon",
             }}
