@@ -12,13 +12,13 @@ import FormLabel from "@mui/material/FormLabel";
 const HotelInfo = (hotelData) => {
   const [roomType, setRoomType] = useState("Single");
   const [guests, setGuests] = useState(1);
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(0);
+
   const data = hotelData.hotelData;
   const amenities = data.amenities ? data.amenities.amenity : [];
   const rooms = data.room ? data.room : [];
   const minPrice =
     rooms.length > 0 ? rooms.find((x) => x.roomType === "Single").price : 1000;
-  const fixedPrice = minPrice != null ? minPrice : 1000;
   const location = data.location;
   const locationText =
     location.street +
@@ -51,6 +51,11 @@ const HotelInfo = (hotelData) => {
   const handleGuestsIncrease = () => {
     setGuests(guests + 1);
     setPrice(rooms.find((x) => x.roomType === roomType).price * (guests + 1));
+  };
+
+  const handleReservation = (e) => {
+    console.log("handleReservation");
+    console.log(e);
   };
 
   return (
@@ -177,7 +182,17 @@ const HotelInfo = (hotelData) => {
               >
                 Reserve
               </button>
-              {<Modal />}
+              {
+                <Modal
+                  data={{
+                    data: data,
+                    roomType: roomType,
+                    guests: guests,
+                    price: price,
+                  }}
+                  handleReservation={handleReservation}
+                />
+              }
             </div>
           </div>
         </div>
@@ -188,7 +203,7 @@ const HotelInfo = (hotelData) => {
 
 export default HotelInfo;
 
-const Modal = () => {
+const Modal = (data) => {
   return (
     <div
       className="modal"
@@ -213,7 +228,7 @@ const Modal = () => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">Make Reservation</div>
+          <div className="modal-body">{<ReservationForm data={data} />}</div>
           <div className="modal-footer">
             <button
               type="button"
@@ -222,12 +237,84 @@ const Modal = () => {
             >
               Close
             </button>
-            <button type="button" className="btn btn-primary">
+            <button
+              type="button"
+              className="btn btn-primary"
+              // data-bs-dismiss="modal"
+              onClick={data.handleReservation}
+            >
               Book
             </button>
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+const ReservationForm = (info) => {
+  const data = info.data.data;
+  return (
+    <form>
+      <div className="form-group">
+        <label htmlFor="exampleFormControlInput1">Hotel</label>
+        <input
+          type="text"
+          className="form-control"
+          id="hotel"
+          value={data.data.name}
+          readOnly
+          disabled
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="checkIn">Check In</label>
+        <input type="date" className="form-control" id="checkIn" required />
+      </div>
+      <div className="form-group">
+        <label htmlFor="checkOut">Check Out</label>
+        <input type="date" className="form-control" id="checkOut" required />
+      </div>
+      <div className="form-group">
+        <label htmlFor="guestCount">Guest Count</label>
+        <input
+          id="guestCount"
+          type="number"
+          value={data.guests}
+          className="form-control"
+          readOnly
+          disabled
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="roomType">Room Type</label>
+        <select
+          id="roomType"
+          className="form-control"
+          value={data.roomType}
+          readOnly
+          disabled
+          required
+        >
+          <option value="Single">Single</option>
+          <option value="Double">Double</option>
+          <option value="Suite">Suite</option>
+        </select>
+      </div>
+      <div className="form-group">
+        <label htmlFor="price">Price</label>
+        <input
+          id="price"
+          type="text"
+          value={data.price + "$"}
+          className="form-control"
+          readOnly
+          disabled
+          required
+        />
+      </div>
+    </form>
   );
 };
