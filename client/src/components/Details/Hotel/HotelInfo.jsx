@@ -8,6 +8,9 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const HotelInfo = (hotelData) => {
   const [roomType, setRoomType] = useState("Single");
@@ -254,6 +257,12 @@ const Modal = (data) => {
 
 const ReservationForm = (info) => {
   const data = info.data.data;
+  const handleDateChange = (value, name) => {
+    setFilter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   return (
     <form>
       <div className="form-group">
@@ -268,13 +277,43 @@ const ReservationForm = (info) => {
           required
         />
       </div>
-      <div className="form-group">
-        <label htmlFor="checkIn">Check In</label>
-        <input type="date" className="form-control" id="checkIn" required />
+      <div
+        className="form-group"
+        style={{
+          marginBottom: "0px",
+          marginTop: "10px",
+        }}
+      >
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Check In"
+            format="DD/MM/YYYY"
+            disablePast
+            slotProps={{
+              textField: { size: "small", required: true },
+            }}
+            sx={{ width: "100%" }}
+          />
+        </LocalizationProvider>
       </div>
-      <div className="form-group">
-        <label htmlFor="checkOut">Check Out</label>
-        <input type="date" className="form-control" id="checkOut" required />
+      <div
+        className="form-group"
+        style={{
+          marginTop: "10px",
+          marginBottom: "0px",
+        }}
+      >
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Check Out"
+            format="DD/MM/YYYY"
+            disablePast
+            slotProps={{
+              textField: { size: "small", required: true },
+            }}
+            sx={{ width: "100%" }}
+          />
+        </LocalizationProvider>
       </div>
       <div className="form-group">
         <label htmlFor="guestCount">Guest Count</label>
