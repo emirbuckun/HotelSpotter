@@ -1,4 +1,3 @@
-import e from "express";
 import { ReviewModel } from "../models/Review.js";
 
 export const insertReview = async (req, res, next) => {
