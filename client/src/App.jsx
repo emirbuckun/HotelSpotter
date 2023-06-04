@@ -8,6 +8,7 @@ import Payment from "/src/components/Other/Payment";
 import UserProfile from "/src/components/Details/User/UserProfile";
 import Admin from "/src/components/Admin/AdminPanel";
 import HotelDetails from "/src/components/Details/Hotel/HotelDetails";
+import PastReservations from "./components/Details/User/PastReservations";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/payment" element={<Payment />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/hotel-details" element={<HotelDetails />} />
+          <Route path="/past-reservations" element={<PastReservations />} />
         </Routes>
         <Footer />
       </div>
