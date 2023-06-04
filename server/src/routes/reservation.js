@@ -5,6 +5,7 @@ import {
   deleteReservation,
   getReservation,
   getReservations,
+  getReservationsByUserID,
 } from "../controllers/reservation.js";
 
 const router = express.Router();
@@ -20,6 +21,9 @@ router.delete("/:id", deleteReservation);
 
 // GET
 router.get("/:id", getReservation);
+
+// GET BY USER ID
+router.get("/getByUserID/:id", getReservationsByUserID);
 
 // GET ALL
 router.get("/", getReservations);

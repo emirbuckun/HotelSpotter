@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useGetUserID } from "/src/hooks/useGetUserID";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Grid from "@mui/material/Unstable_Grid2";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const [userDetails, setUserDetails] = useState({
@@ -65,6 +67,10 @@ const UserProfile = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const handleGetPastReservations = () => {
+    navigate("/past-reservations");
+  };
   return (
     <div className="container-xl px-4 mt-4">
       <hr className="mt-0 mb-4" />
@@ -177,13 +183,26 @@ const UserProfile = () => {
 
                 <div className="mb-3"></div>
                 <div className="row gx-3 mb-3"></div>
-                <button
-                  className="btn btn-primary"
-                  type="button"
-                  onClick={handleSubmit}
-                >
-                  Save Changes
-                </button>
+                <Grid container spacing={2}>
+                  <Grid>
+                    <button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={handleSubmit}
+                    >
+                      Save Changes
+                    </button>
+                  </Grid>
+                  <Grid>
+                    <button
+                      className="btn btn-danger"
+                      type="button"
+                      onClick={handleGetPastReservations}
+                    >
+                      Show Past Reservations
+                    </button>
+                  </Grid>
+                </Grid>
               </form>
             </div>
           </div>
