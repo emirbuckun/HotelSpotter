@@ -15,6 +15,7 @@ import SentimentSatisfiedAltIcon from "@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from "@mui/icons-material/SentimentVerySatisfied";
 import useFetch from "/src/hooks/useFetch";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const StyledRating = styled(Rating)(({ theme }) => ({
   "& .MuiRating-iconEmpty .MuiSvgIcon-root": {
@@ -92,16 +93,51 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
             serverURL + "/review/" + data._id,
             review
           );
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Your comment has been updated.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
           handleClose();
         } else {
           if (comment === data.description && rating === data.rating) {
-            alert("Please change your comment.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "You have not changed your comment.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           } else if (!rating && !comment) {
-            alert("Please fill in all fields.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "Please fill in all fields.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           } else if (!comment) {
-            alert("Please comment on the hotel.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "Please comment on the hotel.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           } else if (!rating) {
-            alert("Please rate the hotel.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "Please rate the hotel.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           }
         }
       } else {
@@ -114,14 +150,42 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
             description: comment,
           };
           const response = await axios.post(serverURL + "/review", review);
+          Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Your comment has been posted.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
           handleClose();
         } else {
           if (!rating && !comment) {
-            alert("Please fill in all fields.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "Please fill in all fields.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           } else if (!comment) {
-            alert("Please comment on the hotel.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "Please comment on the hotel.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           } else if (!rating) {
-            alert("Please rate the hotel.");
+            Swal.fire({
+              target: document.getElementById("comment-list"),
+              icon: "error",
+              title: "Oops...",
+              text: "Please rate the hotel.",
+              showConfirmButton: false,
+              timer: 2000,
+            });
           }
         }
       }
