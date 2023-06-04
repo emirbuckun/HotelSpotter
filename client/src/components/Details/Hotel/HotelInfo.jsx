@@ -11,6 +11,10 @@ import FormLabel from "@mui/material/FormLabel";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useGetUserID } from "/src/hooks/useGetUserID";
+import dayjs from "dayjs";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const HotelInfo = (hotelData) => {
   const [roomType, setRoomType] = useState("Single");
@@ -54,11 +58,6 @@ const HotelInfo = (hotelData) => {
   const handleGuestsIncrease = () => {
     setGuests(guests + 1);
     setPrice(rooms.find((x) => x.roomType === roomType).price * (guests + 1));
-  };
-
-  const handleReservation = (e) => {
-    console.log("handleReservation");
-    console.log(e);
   };
 
   return (
@@ -193,7 +192,6 @@ const HotelInfo = (hotelData) => {
                     guests: guests,
                     price: price,
                   }}
-                  handleReservation={handleReservation}
                 />
               }
             </div>
@@ -207,6 +205,67 @@ const HotelInfo = (hotelData) => {
 export default HotelInfo;
 
 const Modal = (data) => {
+  const reservationInfo = data.data;
+  const userID = useGetUserID();
+
+  const [reservation, setReservation] = useState({
+    checkIn: dayjs(),
+    checkOut: dayjs(),
+  });
+
+  const handleDateChange = (value, name) => {
+    setReservation((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleReservation = async () => {
+    setReservation({
+      hotelID: reservationInfo.data._id,
+      userID: userID,
+      checkIn: dayjs(),
+      checkOut: dayjs(),
+      guestCount: reservationInfo.guests,
+      price: reservationInfo.price,
+      roomType: reservationInfo.roomType,
+    });
+
+    if (userID == null) {
+      Swal.fire({
+        title: "Error",
+        text: "You should login to make reservation!",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
+    } else {
+      try {
+        const response = await axios.post(
+          serverURL + "/reservation",
+          reservation
+        );
+        if (response.status == 200) {
+          await Swal.fire({
+            title: "Booking Successful",
+            text: "Redirecting to Home Page",
+            icon: "success",
+            confirmButtonText: "OK",
+            confirmButtonColor: "blue",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          title: "Error",
+          text: error,
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "blue",
+        });
+      }
+    }
+  };
+
   return (
     <div
       className="modal"
@@ -231,7 +290,15 @@ const Modal = (data) => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">{<ReservationForm data={data} />}</div>
+          <div className="modal-body">
+            {
+              <ReservationForm
+                data={reservationInfo}
+                reservation={reservation}
+                handleDateChange={handleDateChange}
+              />
+            }
+          </div>
           <div className="modal-footer">
             <button
               type="button"
@@ -244,7 +311,7 @@ const Modal = (data) => {
               type="button"
               className="btn btn-primary"
               // data-bs-dismiss="modal"
-              onClick={data.handleReservation}
+              onClick={handleReservation}
             >
               Book
             </button>
@@ -256,13 +323,9 @@ const Modal = (data) => {
 };
 
 const ReservationForm = (info) => {
-  const data = info.data.data;
-  const handleDateChange = (value, name) => {
-    setFilter((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+  const data = info.data;
+  const handleDateChange = info.handleDateChange;
+  const reservation = info.reservation;
   return (
     <form>
       <div className="form-group">
@@ -292,7 +355,13 @@ const ReservationForm = (info) => {
             slotProps={{
               textField: { size: "small", required: true },
             }}
+            value={reservation.checkIn}
             sx={{ width: "100%" }}
+            onChange={(newValue, context) => {
+              if (context.validationError == null) {
+                handleDateChange(newValue, (name = "checkIn"));
+              }
+            }}
           />
         </LocalizationProvider>
       </div>
@@ -311,7 +380,13 @@ const ReservationForm = (info) => {
             slotProps={{
               textField: { size: "small", required: true },
             }}
+            value={reservation.checkOut}
             sx={{ width: "100%" }}
+            onChange={(newValue, context) => {
+              if (context.validationError == null) {
+                handleDateChange(newValue, (name = "checkOut"));
+              }
+            }}
           />
         </LocalizationProvider>
       </div>
