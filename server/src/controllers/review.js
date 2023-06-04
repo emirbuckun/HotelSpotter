@@ -41,6 +41,15 @@ export const getReview = async (req, res, next) => {
   }
 };
 
+export const getByReservationID = async (req, res, next) => {
+  try {
+    const review = await ReviewModel.findOne({ reservationID: req.params.id });
+    res.status(200).json(review);
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getReviews = async (req, res, next) => {
   try {
     const reviews = await ReviewModel.find();
