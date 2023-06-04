@@ -26,21 +26,23 @@ const HotelCard = (data) => {
   const hotel = data.data;
   return (
     <div id={hotel._id} className="card" style={{ borderRadius: "15px" }}>
-      <img
-        className="img-fluid card-img-top"
-        alt="Hotel Image"
-        style={{
-          minHeight: "15rem",
-          maxHeight: "15rem",
-          borderTopLeftRadius: "15px",
-          borderTopRightRadius: "15px",
-        }}
-        src={
-          hotel.pictures != undefined
-            ? hotel.pictures.picture
-            : "https://hotel-su-antalya.hotel-ds.com/data/Imgs/700x500/11087/1108736/1108736295/hotel-su-antalya-img-1.JPEG"
-        }
-      />
+      <a href={"/hotel-details/" + hotel._id}>
+        <img
+          className="img-fluid card-img-top"
+          alt="Hotel Image"
+          style={{
+            minHeight: "15rem",
+            maxHeight: "15rem",
+            borderTopLeftRadius: "15px",
+            borderTopRightRadius: "15px",
+          }}
+          src={
+            hotel.pictures != undefined
+              ? hotel.pictures.picture
+              : "https://hotel-su-antalya.hotel-ds.com/data/Imgs/700x500/11087/1108736/1108736295/hotel-su-antalya-img-1.JPEG"
+          }
+        />
+      </a>
       <div className="card-body d-flex flex-column justify-content-between">
         <div>
           <h5 className="card-title mb-0">{hotel.name}</h5>

@@ -1,6 +1,8 @@
 import { HotelModel } from "../models/Hotel.js";
 import { AmenityModel } from "../models/Amenity.js";
 import { LocationModel } from "../models/Location.js";
+import { RoomModel } from "../models/Room.js";
+import { ReviewModel } from "../models/Review.js";
 import { PictureModel } from "../models/Picture.js";
 
 export const insertHotel = async (req, res, next) => {
@@ -38,6 +40,37 @@ export const deleteHotel = async (req, res, next) => {
 export const getHotel = async (req, res, next) => {
   try {
     const hotel = await HotelModel.findById(req.params.id);
+    res.status(200).json(hotel);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getHotelDetails = async (req, res, next) => {
+  try {
+    const hotelQuery = await HotelModel.findById(req.params.id).select("-__v");
+    var hotel = hotelQuery.toObject();
+
+    hotel.amenities = await AmenityModel.findOne({
+      hotelID: hotel._id,
+    }).select("-_id amenity");
+
+    hotel.location = await LocationModel.findOne({
+      hotelID: hotel._id,
+    }).select("-_id -hotelID -__v");
+
+    hotel.pictures = await PictureModel.findOne({
+      hotelID: hotel._id,
+    }).select("-_id picture");
+
+    hotel.room = await RoomModel.find({
+      hotelID: hotel._id,
+    }).select("-_id -hotelID -__v");
+
+    hotel.review = await ReviewModel.find({
+      hotelID: hotel._id,
+    }).select("-_id -hotelID -__v");
+
     res.status(200).json(hotel);
   } catch (err) {
     next(err);

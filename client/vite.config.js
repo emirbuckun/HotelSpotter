@@ -5,6 +5,7 @@ export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const serverURL =
     command == "serve" ? env.DEV_SERVER_URL : env.PROD_SERVER_URL;
+  const apiKey = env.API_KEY;
 
   return {
     plugins: [react()],
@@ -13,6 +14,7 @@ export default defineConfig(({ command, mode }) => {
     },
     define: {
       serverURL: JSON.stringify(serverURL),
+      apiKey: JSON.stringify(apiKey),
     },
   };
 });

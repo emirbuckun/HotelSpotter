@@ -23,7 +23,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/user-profile" element={<UserProfile />} />
-          <Route path="/hotel-details" element={<HotelDetails />} />
+          <Route path="/hotel-details/:id" element={<HotelDetails />} />
           <Route path="/past-reservations" element={<PastReservations />} />
         </Routes>
         <Footer />
