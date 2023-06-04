@@ -205,13 +205,24 @@ const HotelInfo = (hotelData) => {
 export default HotelInfo;
 
 const Modal = (data) => {
-  const reservationInfo = data.data;
-  const userID = useGetUserID();
-
   const [reservation, setReservation] = useState({
     checkIn: dayjs(),
     checkOut: dayjs(),
   });
+  const reservationInfo = data.data;
+  const userID = useGetUserID();
+
+  useEffect(() => {
+    setReservation((prevState) => ({
+      hotelID: reservationInfo.data._id,
+      userID: userID,
+      checkIn: prevState.checkIn,
+      checkOut: prevState.checkOut,
+      guestCount: reservationInfo.guests,
+      price: reservationInfo.price,
+      roomType: reservationInfo.roomType,
+    }));
+  }, [reservationInfo]);
 
   const handleDateChange = (value, name) => {
     setReservation((prevState) => ({
@@ -221,16 +232,6 @@ const Modal = (data) => {
   };
 
   const handleReservation = async () => {
-    setReservation({
-      hotelID: reservationInfo.data._id,
-      userID: userID,
-      checkIn: dayjs(),
-      checkOut: dayjs(),
-      guestCount: reservationInfo.guests,
-      price: reservationInfo.price,
-      roomType: reservationInfo.roomType,
-    });
-
     if (userID == null) {
       Swal.fire({
         title: "Error",
