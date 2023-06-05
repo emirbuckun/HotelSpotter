@@ -76,7 +76,6 @@ const Home = () => {
         serverURL + "/hotel/filterHotels",
         filter
       );
-      console.log(filter);
       if (response.status == 200) {
         setHotelData(response.data);
       }
