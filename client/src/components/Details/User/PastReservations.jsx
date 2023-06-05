@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import List from "@mui/material/List";
 import ReservationItem from "./ReservationItem";
 import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
 import useFetch from "/src/hooks/useFetch";
 
 const PastReservations = () => {
@@ -16,20 +16,15 @@ const PastReservations = () => {
   }, [data]);
 
   return (
-    <div className="h-100 d-flex align-items-center justify-content-center">
-      <List
-        id="pastReservations"
-        sx={{ width: "50%", bgcolor: "background.paper" }}
-      >
+    <div className="container">
+      <List id="pastReservations">
         <div>
-          <h1 className="text-left">Past Reservations</h1>
+          <h1 className="text-center">Past Reservations</h1>
         </div>
         {loading ? (
-          <div>
-            <Typography variant="h6" align="center">
-              Content loading..
-            </Typography>
-          </div>
+          <Typography variant="h6" align="center">
+            Content loading..
+          </Typography>
         ) : (
           pastReservations.length > 0 &&
           pastReservations.map((reservation) => (
@@ -37,11 +32,9 @@ const PastReservations = () => {
           ))
         )}
         {!loading && pastReservations.length <= 0 && (
-          <div>
-            <Typography variant="h6" align="center">
-              You have no past reservations.
-            </Typography>
-          </div>
+          <Typography variant="h6" align="center">
+            You have no past reservations.
+          </Typography>
         )}
       </List>
     </div>

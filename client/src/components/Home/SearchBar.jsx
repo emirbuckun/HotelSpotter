@@ -4,13 +4,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Grid from "@mui/material/Grid";
-import {
-  IconButton,
-  Rating,
-  FormControlLabel,
-  Checkbox,
-  Button,
-} from "@mui/material";
+import { IconButton } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import FilterDialog from "./FilterDialog";
@@ -26,8 +20,8 @@ const SearchBar = ({
   handleClearFilter,
   handleSearch,
 }) => {
-  const [open, setOpen] = React.useState(false);
-  const [guestCount, setGuestCount] = React.useState(1);
+  const [open, setOpen] = useState(false);
+  const [guestCount, setGuestCount] = useState(1);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -42,16 +36,9 @@ const SearchBar = ({
   };
 
   return (
-    <Grid container spacing={8} columns={24} justifyContent="center">
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-end",
-        }}
-      >
-        <IconButton onClick={handleClickOpen}>
+    <Grid container spacing={1} columns={12} justifyContent="center">
+      <Grid item>
+        <IconButton onClick={() => setOpen(true)}>
           <TuneIcon style={{ color: "#0288d1", fontSize: 30 }} />
         </IconButton>
         <FilterDialog
@@ -59,17 +46,10 @@ const SearchBar = ({
           handleChange={handleChange}
           handleClearFilter={handleClearFilter}
           open={open}
-          handleClose={handleClose}
+          handleClose={() => setOpen(false)}
         />
       </Grid>
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
-        }}
-      >
+      <Grid item>
         <TextField
           id="outlined-basic"
           name="searchText"
@@ -79,17 +59,10 @@ const SearchBar = ({
           variant="outlined"
           size="small"
           fullWidth
-          style={{ textAlign: "left", color: "#575454" }}
+          style={{ color: "#575454" }}
         />
       </Grid>
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
-        }}
-      >
+      <Grid item>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="Check In"
@@ -105,14 +78,7 @@ const SearchBar = ({
           />
         </LocalizationProvider>
       </Grid>
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
-        }}
-      >
+      <Grid item>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label="Check Out"
@@ -128,14 +94,7 @@ const SearchBar = ({
           />
         </LocalizationProvider>
       </Grid>
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-end",
-        }}
-      >
+      <Grid item>
         <FormControl size="small">
           <InputLabel id="guest-count-label">Guests</InputLabel>
           <Select
@@ -143,8 +102,6 @@ const SearchBar = ({
             label="Guests"
             onChange={handleGuestCountChange}
             value={guestCount}
-            fullWidth
-            inputProps={{ "aria-label": "Without label" }}
           >
             <MenuItem value={1}>1 Person</MenuItem>
             <MenuItem value={2}>2 Person</MenuItem>
@@ -153,27 +110,9 @@ const SearchBar = ({
           </Select>
         </FormControl>
       </Grid>
-      <Grid
-        item
-        sx={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "flex-start",
-        }}
-      >
-        <IconButton
-          onClick={handleSearch}
-          sx={{
-            alignItems: "flex-start",
-            justifyContent: "flex-start",
-          }}
-        >
+      <Grid item>
+        <IconButton onClick={handleSearch}>
           <SearchIcon
-            sx={{
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-            }}
             style={{
               color: "#0288d1",
               fontSize: 30,

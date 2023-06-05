@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -20,7 +20,7 @@ const FilterDialog = ({
   open,
   handleClose,
 }) => {
-  const [roomType, setRoomType] = React.useState(filter.roomType);
+  const [roomType, setRoomType] = useState(filter.roomType);
   const handleRoomTypeChange = (event) => {
     handleChange(event);
     setRoomType(event.target.value);
@@ -29,7 +29,7 @@ const FilterDialog = ({
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
       <DialogTitle>
-        <Grid container spacing={8} columns={4} justifyContent="center">
+        <Grid container columns={4}>
           <Grid item xs={3}>
             <h3>Filter Options</h3>
           </Grid>
@@ -38,7 +38,6 @@ const FilterDialog = ({
             xs={1}
             sx={{
               display: "flex",
-              alignItems: "flex-start",
               justifyContent: "flex-end",
             }}
           >
@@ -94,89 +93,71 @@ const FilterDialog = ({
               />
             </div>
           </div>
-          <div className="mb-3">
+          <div>
             <label className="form-label">Facility Amenities</label>
+            <div className="mb-3">
+              <FormControlLabel
+                label="Pool"
+                control={
+                  <Checkbox
+                    name="poolAmenity"
+                    checked={filter.poolAmenity}
+                    onChange={handleChange}
+                  />
+                }
+              />
+              <FormControlLabel
+                label="Internet"
+                control={
+                  <Checkbox
+                    name="internetAmenity"
+                    checked={filter.internetAmenity}
+                    onChange={handleChange}
+                  />
+                }
+              />
+              <FormControlLabel
+                label="Gym"
+                control={
+                  <Checkbox
+                    name="gymAmenity"
+                    checked={filter.gymAmenity}
+                    onChange={handleChange}
+                  />
+                }
+              />
+              <FormControlLabel
+                label="Car Park"
+                control={
+                  <Checkbox
+                    name="parkAmenity"
+                    checked={filter.parkAmenity}
+                    onChange={handleChange}
+                  />
+                }
+              />
+              <FormControlLabel
+                label="Air Conditioning"
+                control={
+                  <Checkbox
+                    name="airAmenity"
+                    checked={filter.airAmenity}
+                    onChange={handleChange}
+                  />
+                }
+              />
+            </div>
             <div>
-              <div>
-                <FormControlLabel
-                  label="Pool"
-                  control={
-                    <Checkbox
-                      name="poolAmenity"
-                      checked={filter.poolAmenity}
-                      onChange={handleChange}
-                    />
-                  }
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  label="Internet"
-                  control={
-                    <Checkbox
-                      name="internetAmenity"
-                      checked={filter.internetAmenity}
-                      onChange={handleChange}
-                    />
-                  }
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  label="Gym"
-                  control={
-                    <Checkbox
-                      name="gymAmenity"
-                      checked={filter.gymAmenity}
-                      onChange={handleChange}
-                    />
-                  }
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  label="Car Park"
-                  control={
-                    <Checkbox
-                      name="parkAmenity"
-                      checked={filter.parkAmenity}
-                      onChange={handleChange}
-                    />
-                  }
-                />
-              </div>
-              <div>
-                <FormControlLabel
-                  label="Air Conditioning"
-                  control={
-                    <Checkbox
-                      name="airAmenity"
-                      checked={filter.airAmenity}
-                      onChange={handleChange}
-                    />
-                  }
-                />
-              </div>
-              <div
+              <Button
+                variant="contained"
+                onClick={handleClearFilter}
                 sx={{
                   display: "flex",
-                  alignItems: "flex-start",
-                  justifyContent: "flex-end",
+                  marginLeft: "auto", // Yeni satır
                 }}
               >
-                <Button
-                  variant="contained"
-                  onClick={handleClearFilter}
-                  sx={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                    justifyContent: "flex-end",
-                    marginLeft: "auto", // Yeni satır
-                  }}
-                >
-                  Clear Filter
-                </Button>
-              </div>
+                Clear Filter
+              </Button>
             </div>
           </div>
         </form>
