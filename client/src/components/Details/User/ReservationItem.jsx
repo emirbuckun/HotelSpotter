@@ -5,42 +5,14 @@ import Button from "@mui/material/Button";
 import ReservationDialog from "./ReservationDialog";
 import ListItem from "@mui/material/ListItem";
 
-const ReservationItem = ({ reservation, isPast }) => {
+const ReservationItem = ({ reservation }) => {
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const [customCheckIn, setCustomCheckIn] = useState("");
-  const [customCheckOut, setCustomCheckOut] = useState("");
-
-  const changeDateFormat = (date) => {
-    var checkIn = reservation.checkIn;
-    var checkOut = reservation.checkOut;
-    var day = checkIn.substring(8, 10);
-    var month = checkIn.substring(5, 7);
-    var year = checkIn.substring(0, 4);
-    setCustomCheckIn(day + "/" + month + "/" + year);
-    day = checkOut.substring(8, 10);
-    month = checkOut.substring(5, 7);
-    year = checkOut.substring(0, 4);
-    setCustomCheckOut(day + "/" + month + "/" + year);
-  };
-
-  useEffect(() => {
-    changeDateFormat();
-  }, []);
-
   return (
-    <ListItem alignItems="flex-start" divider={true}>
+    <ListItem divider={true}>
       <Grid container spacing={2}>
         <Grid item>
           <img
-            alt="complex"
             src={reservation.hotelPhoto[0]}
             style={{
               width: "170px",
@@ -61,32 +33,40 @@ const ReservationItem = ({ reservation, isPast }) => {
                 {reservation.hotelName}
               </Typography>
               <Typography variant="body2" gutterBottom id="roomType">
-                Room type: {reservation.roomType}
+                Room Type: {reservation.roomType}
               </Typography>
               <Typography variant="body2" gutterBottom id="roomNumber">
                 Guest Count: {reservation.guestCount}
               </Typography>
               <Typography variant="body2" gutterBottom id="check-in">
-                Check in: {customCheckIn}
+                Check In:{" "}
+                {new Date(reservation.checkIn).toLocaleDateString("tr-TR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
               </Typography>
               <Typography variant="body2" gutterBottom id="check-out">
-                Check out: {customCheckOut}
+                Check Out:{" "}
+                {new Date(reservation.checkOut).toLocaleDateString("tr-TR", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                })}
               </Typography>
-              <Button variant="outlined" onClick={handleClickOpen}>
-                <Typography variant="body2" gutterBottom>
-                  Add comment
-                </Typography>
+              <Button variant="outlined" onClick={() => setOpen(true)}>
+                <Typography variant="body2">Add Comment</Typography>
               </Button>
               <ReservationDialog
                 open={open}
-                handleClose={handleClose}
+                handleClose={() => setOpen(false)}
                 reservation={reservation}
               />
             </Grid>
           </Grid>
           <Grid item>
             <Typography variant="subtitle1" component="div" id="price">
-              ${reservation.price}
+              {reservation.price}$
             </Typography>
           </Grid>
         </Grid>

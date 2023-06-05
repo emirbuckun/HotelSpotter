@@ -66,14 +66,6 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
     serverURL + "/review/getByReservationID/" + reservationID
   );
 
-  const handleRatingChange = (event, newValue) => {
-    setRating(newValue);
-  };
-
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-  };
-
   const handlePostComment = async () => {
     try {
       if (data !== null) {
@@ -111,30 +103,12 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
               showConfirmButton: false,
               timer: 2000,
             });
-          } else if (!rating && !comment) {
+          } else if (!rating || !comment) {
             Swal.fire({
               target: document.getElementById("comment-list"),
               icon: "error",
               title: "Oops...",
               text: "Please fill in all fields.",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          } else if (!comment) {
-            Swal.fire({
-              target: document.getElementById("comment-list"),
-              icon: "error",
-              title: "Oops...",
-              text: "Please comment on the hotel.",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          } else if (!rating) {
-            Swal.fire({
-              target: document.getElementById("comment-list"),
-              icon: "error",
-              title: "Oops...",
-              text: "Please rate the hotel.",
               showConfirmButton: false,
               timer: 2000,
             });
@@ -159,34 +133,14 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
           });
           handleClose();
         } else {
-          if (!rating && !comment) {
-            Swal.fire({
-              target: document.getElementById("comment-list"),
-              icon: "error",
-              title: "Oops...",
-              text: "Please fill in all fields.",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          } else if (!comment) {
-            Swal.fire({
-              target: document.getElementById("comment-list"),
-              icon: "error",
-              title: "Oops...",
-              text: "Please comment on the hotel.",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          } else if (!rating) {
-            Swal.fire({
-              target: document.getElementById("comment-list"),
-              icon: "error",
-              title: "Oops...",
-              text: "Please rate the hotel.",
-              showConfirmButton: false,
-              timer: 2000,
-            });
-          }
+          Swal.fire({
+            target: document.getElementById("comment-list"),
+            icon: "error",
+            title: "Oops...",
+            text: "Please fill in all fields.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       }
     } catch (error) {
@@ -194,33 +148,16 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
     }
   };
 
-  const handleAddComment = () => {
+  useEffect(() => {
     if (data) {
       setComment(data.description);
       setRating(data.rating);
     }
-  };
-
-  useEffect(() => {
-    handleAddComment();
   }, [data]);
 
   return (
-    <Dialog
-      id={reservation._id}
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-      sx={{ width: "100%", height: "100%" }}
-    >
-      <List
-        id="comment-list"
-        sx={{
-          width: "100%",
-          bgcolor: "background.paper",
-        }}
-      >
+    <Dialog id={reservation._id} open={open} onClose={handleClose}>
+      <List id="comment-list">
         <ListItem id="comment-list-item" alignItems="flex-start">
           <ListItemText
             primary={
@@ -238,7 +175,7 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
                     getLabelText={(value) => customIcons[value].label}
                     highlightSelectedOnly
                     value={rating}
-                    onChange={handleRatingChange}
+                    onChange={(_, newValue) => setRating(newValue)}
                     sx={{ mt: 2 }}
                   />
                 </div>
@@ -250,7 +187,7 @@ const ReservationDialog = ({ open, handleClose, reservation }) => {
                     maxRows={4}
                     id="comment"
                     value={comment}
-                    onChange={handleCommentChange}
+                    onChange={(event) => setComment(event.target.value)}
                     sx={{ mt: 2 }}
                   />
                 </div>
