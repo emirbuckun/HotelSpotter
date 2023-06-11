@@ -224,6 +224,16 @@ const Modal = (data) => {
     }));
   }, [reservationInfo]);
 
+  useEffect(() => {
+    const newPrice =
+      reservation.checkOut.diff(reservation.checkIn, "days") *
+      reservationInfo.price;
+    setReservation((prevState) => ({
+      ...prevState,
+      price: newPrice,
+    }));
+  }, [reservation.checkIn, reservation.checkOut]);
+
   const handleDateChange = (value, name) => {
     setReservation((prevState) => ({
       ...prevState,
@@ -423,7 +433,7 @@ const ReservationForm = (info) => {
         <input
           id="price"
           type="text"
-          value={data.price + "$"}
+          value={reservation.price + "$"}
           className="form-control"
           readOnly
           disabled
