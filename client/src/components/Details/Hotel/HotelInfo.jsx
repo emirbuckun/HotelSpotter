@@ -253,16 +253,16 @@ const Modal = (data) => {
         title: "Error",
         text: "You should login to make reservation!",
         icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "blue",
+        showConfirmButton: false,
+        timer: 2000,
       });
     } else if (dateDifference <= 0) {
       Swal.fire({
         title: "Error",
         text: "You should choose valid check in and check out dates!",
         icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "blue",
+        showConfirmButton: false,
+        timer: 2000,
       });
     } else {
       try {
@@ -271,12 +271,14 @@ const Modal = (data) => {
           reservation
         );
         if (response.status == 200) {
-          await Swal.fire({
+          Swal.fire({
             title: "Booking Successful",
             text: "Redirecting to Home Page",
             icon: "success",
-            confirmButtonText: "OK",
-            confirmButtonColor: "blue",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            navigate("/");
           });
         }
       } catch (error) {
@@ -284,8 +286,8 @@ const Modal = (data) => {
           title: "Error",
           text: error,
           icon: "error",
-          confirmButtonText: "OK",
-          confirmButtonColor: "blue",
+          showConfirmButton: false,
+          timer: 2000,
         });
       }
     }

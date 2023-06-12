@@ -43,25 +43,25 @@ const UserProfile = () => {
         Swal.fire({
           title: "Update Successful",
           icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "blue",
+          showConfirmButton: false,
+          timer: 2000,
         });
       } else {
         Swal.fire({
           title: "Error",
           text: "An error occurred while updating.",
           icon: "error",
-          confirmButtonText: "OK",
-          confirmButtonColor: "blue",
+          showConfirmButton: false,
+          timer: 2000,
         });
       }
     } catch (error) {
       Swal.fire({
         title: "Error",
-        text: "An error occurred while updating.",
+        text: error,
         icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "blue",
+        showConfirmButton: false,
+        timer: 2000,
       });
       console.error(error);
     }

@@ -22,19 +22,25 @@ function Register() {
         phoneNumber,
         password,
       });
-      Swal.fire({
-        title: "Registration Successful",
-        text: "Redirecting to Home Page",
-        icon: "success",
-        confirmButtonText: "OK",
-        confirmButtonColor: "blue",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          if (response.status == 200) {
-            navigate("/");
-          }
-        }
-      });
+      if (response.status == 200) {
+        Swal.fire({
+          title: "Registration Successful",
+          text: "Redirecting to Home Page",
+          icon: "success",
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          navigate("/");
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "An error has occurred.",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
     } catch (error) {
       Swal.fire({
         title: "Error",
