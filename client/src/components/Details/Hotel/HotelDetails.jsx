@@ -1,5 +1,5 @@
-import HotelPhoto from "/src/components/Details/Hotel/HotelPhoto";
-import HotelInfo from "/src/components/Details/Hotel/HotelInfo";
+import HotelPhoto from "/src/components/Details/Hotel/HotelPhoto/HotelPhoto";
+import HotelInfo from "/src/components/Details/Hotel/HotelInfo/HotelInfo";
 import HotelMap from "/src/components/Details/Hotel/HotelMap";
 import HotelComment from "/src/components/Details/Hotel/HotelComment";
 import { useParams } from "react-router-dom";

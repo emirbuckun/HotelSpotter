@@ -20,15 +20,22 @@ function Login() {
       if (response.status == 200) {
         setCookies("access_token", response.data.token);
         window.localStorage.setItem("userID", response.data.userID);
-
-        SweetAlertResult = await Swal.fire({
+        Swal.fire({
           title: "Login Successful",
           text: "Redirecting to Home Page",
           icon: "success",
-          confirmButtonText: "OK",
-          confirmButtonColor: "blue",
-        }).then((result) => {
-          if (result.isConfirmed) navigate("/");
+          showConfirmButton: false,
+          timer: 2000,
+        }).then(() => {
+          navigate("/");
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "An error has occurred.",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 2000,
         });
       }
     } catch (error) {
@@ -36,8 +43,8 @@ function Login() {
         title: "Error",
         text: error.response.data.message,
         icon: "error",
-        confirmButtonText: "OK",
-        confirmButtonColor: "blue",
+        showConfirmButton: false,
+        timer: 2000,
       });
       console.log(error);
     }

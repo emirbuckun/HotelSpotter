@@ -34,10 +34,11 @@ const Header = () => {
       title: "Logout Successful",
       text: "Redirecting to Home Page",
       icon: "success",
-      confirmButtonText: "OK",
-      confirmButtonColor: "blue",
+      showConfirmButton: false,
+      timer: 2000,
+    }).then(() => {
+      navigate("/");
     });
-    navigate("/");
   };
 
   const handleLiveChat = (e) => {
