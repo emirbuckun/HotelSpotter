@@ -12,6 +12,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useGetUserID } from "/src/hooks/useGetUserID";
+import { useCookies } from "react-cookie";
 import dayjs from "dayjs";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -205,6 +206,7 @@ const HotelInfo = (hotelData) => {
 export default HotelInfo;
 
 const Modal = (data) => {
+  const [cookies] = useCookies(["access_token"]);
   const [reservation, setReservation] = useState({
     checkIn: dayjs(),
     checkOut: dayjs(),
@@ -242,10 +244,22 @@ const Modal = (data) => {
   };
 
   const handleReservation = async () => {
-    if (userID == null) {
+    const dateDifference = reservation.checkOut.diff(
+      reservation.checkIn,
+      "days"
+    );
+    if (userID == null || !cookies.access_token) {
       Swal.fire({
         title: "Error",
         text: "You should login to make reservation!",
+        icon: "error",
+        confirmButtonText: "OK",
+        confirmButtonColor: "blue",
+      });
+    } else if (dateDifference <= 0) {
+      Swal.fire({
+        title: "Error",
+        text: "You should choose valid check in and check out dates!",
         icon: "error",
         confirmButtonText: "OK",
         confirmButtonColor: "blue",
