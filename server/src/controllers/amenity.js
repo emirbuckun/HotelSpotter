@@ -1,4 +1,5 @@
 import { AmenityModel } from "../models/Amenity.js";
+import { HotelModel } from "../models/Hotel.js";
 
 export const insertAmenity = async (req, res, next) => {
   try {
@@ -43,8 +44,16 @@ export const getAmenity = async (req, res, next) => {
 
 export const getAmenities = async (req, res, next) => {
   try {
-    const amenities = await AmenityModel.find();
-    res.status(200).json(amenities);
+    var amenityList = [];
+    const amenities = await AmenityModel.find().select("-__v");
+    for (var i = 0; i < amenities.length; i++) {
+      var amenity = amenities[i].toObject();
+      var hotelQuery = await HotelModel.findById(amenity.hotelID);
+      amenity.hotelName =
+        hotelQuery != null ? hotelQuery.toObject().name : "null";
+      amenityList.push(amenity);
+    }
+    res.status(200).json(amenityList);
   } catch (err) {
     next(err);
   }
