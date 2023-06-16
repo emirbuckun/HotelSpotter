@@ -15,7 +15,7 @@ const AmenityTable = (name) => {
   const parseAmenityData = () => {
     data.length > 0 &&
       data.forEach(function (obj) {
-        obj.amenity = obj.amenity.join(", ");
+        obj.amenity = Array.isArray(obj.amenity) && obj.amenity.join(", ");
       });
   };
 
@@ -31,6 +31,7 @@ const AmenityTable = (name) => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Amenities</th>
                 <th>Hotel Name</th>
               </tr>
@@ -39,10 +40,13 @@ const AmenityTable = (name) => {
               {table.length > 0 &&
                 table.map((table, index) => (
                   <tr key={index}>
+                    <td>{index + 1}</td>
+
                     {Object.values(table).map(
                       (value, index) =>
                         index > 1 && <td key={index}>{value}</td>
                     )}
+
                     <td>
                       <button type="button" className="btn btn-primary">
                         Edit
