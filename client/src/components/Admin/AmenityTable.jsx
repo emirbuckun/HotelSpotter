@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "/src/hooks/useFetch";
 
-const AmenityTable = (name) => {
+const AmenityTable = () => {
   const [table, setTable] = useState([]);
   const { data, loading } = useFetch(serverURL + "/amenity");
 
