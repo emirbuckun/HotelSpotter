@@ -19,6 +19,7 @@
     "bootstrap": "^5.2.3",
     "dayjs": "^1.11.7",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-carousel-minimal": "^1.4.1",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
