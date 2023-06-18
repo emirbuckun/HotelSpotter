@@ -23,6 +23,7 @@
     "react-carousel-minimal": "^1.4.1",
     "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.9.0",
     "react-router-dom": "^6.11.1",
     "sweetalert2": "^11.7.5"
   },
