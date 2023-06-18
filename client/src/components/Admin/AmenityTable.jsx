@@ -3,6 +3,7 @@ import useFetch from "/src/hooks/useFetch";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import FormModal from "/src/components/Admin/FormModal";
+import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 
 const AmenityTable = () => {
   const [table, setTable] = useState([]);
@@ -41,7 +42,7 @@ const AmenityTable = () => {
                     variant="success"
                     onClick={() => setModalShow(true)}
                   >
-                    Create New
+                    <MdAdd />
                   </Button>
                 </th>
               </tr>
@@ -67,12 +68,12 @@ const AmenityTable = () => {
                         variant="primary"
                         onClick={() => setModalShow(true)}
                       >
-                        Edit
+                        <MdEdit />
                       </Button>
                     </td>
                     <td className="align-middle">
                       <Button size="sm" variant="danger">
-                        Delete
+                        <MdDelete />
                       </Button>
                     </td>
                   </tr>
