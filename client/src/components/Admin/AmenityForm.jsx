@@ -3,7 +3,6 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useNavigate } from "react-router-dom";
 import useFetch from "/src/hooks/useFetch";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -14,7 +13,6 @@ const AmenityForm = () => {
   const [amenity, setAmenity] = useState("");
   const [hotels, setHotels] = useState([]);
   const { data } = useFetch(serverURL + "/hotel");
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (data.length > 0 && isCreate) setHotels(data);
