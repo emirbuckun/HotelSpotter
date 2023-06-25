@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import useFetch from "/src/hooks/useFetch";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
-import FormModal from "/src/components/Admin/FormModal";
+import FormModal from "/src/components/Admin/Amenity/FormModal";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 
 const AmenityTable = () => {
   const [table, setTable] = useState([]);
   const { data, loading } = useFetch(serverURL + "/amenity");
   const [modalShow, setModalShow] = useState(false);
+  const [id, setId] = useState("");
+  const [operationType, setOperationType] = useState("Create");
 
   useEffect(() => {
     if (data.length > 0) {
@@ -24,6 +26,12 @@ const AmenityTable = () => {
       });
   };
 
+  const openModal = (id, operationType) => {
+    setId(id);
+    setOperationType(operationType);
+    setModalShow(true);
+  };
+
   return (
     <>
       {loading || table.length <= 0 ? (
@@ -34,13 +42,13 @@ const AmenityTable = () => {
             <thead>
               <tr>
                 <th>#</th>
-                <th>Amenities</th>
                 <th>Hotel Name</th>
+                <th>Amenities</th>
                 <th className="text-center" colSpan={2}>
                   <Button
                     size="sm"
                     variant="success"
-                    onClick={() => setModalShow(true)}
+                    onClick={() => openModal("", "CREATE")}
                   >
                     <MdAdd />
                   </Button>
@@ -49,30 +57,26 @@ const AmenityTable = () => {
             </thead>
             <tbody>
               {table.length > 0 &&
-                table.map((table, index) => (
-                  <tr key={index}>
-                    <td className="align-middle">{index + 1}</td>
-
-                    {Object.values(table).map(
-                      (value, index) =>
-                        index > 1 && (
-                          <td className="align-middle" key={index}>
-                            {value}
-                          </td>
-                        )
-                    )}
-
+                table.map((item, index) => (
+                  <tr key={item._id}>
+                    <th className="align-middle">{index + 1}</th>
+                    <td className="align-middle">{item.hotelName}</td>
+                    <td className="align-middle">{item.amenity}</td>
                     <td className="align-middle">
                       <Button
                         size="sm"
                         variant="primary"
-                        onClick={() => setModalShow(true)}
+                        onClick={() => openModal(item._id, "UPDATE")}
                       >
                         <MdEdit />
                       </Button>
                     </td>
                     <td className="align-middle">
-                      <Button size="sm" variant="danger">
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => openModal(item._id, "DELETE")}
+                      >
                         <MdDelete />
                       </Button>
                     </td>
@@ -80,7 +84,12 @@ const AmenityTable = () => {
                 ))}
             </tbody>
           </Table>
-          <FormModal show={modalShow} onHide={() => setModalShow(false)} />
+          <FormModal
+            id={id}
+            show={modalShow}
+            operationType={operationType}
+            onHide={() => setModalShow(false)}
+          />
         </>
       )}
     </>

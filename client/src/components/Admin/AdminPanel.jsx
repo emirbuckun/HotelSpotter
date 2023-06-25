@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "/src/components/Admin/Sidebar";
-import AmenityTable from "/src/components/Admin/AmenityTable";
+import AmenityTable from "/src/components/Admin/Amenity/AmenityTable";
 import { useParams } from "react-router-dom";
 
 const AdminPanel = () => {
