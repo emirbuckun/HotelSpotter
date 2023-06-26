@@ -38,8 +38,7 @@ const FormModal = (props) => {
       await axios.get(serverURL + "/amenity/" + id).then((response) => {
         const responseData = response.data;
         responseData.amenity =
-          Array.isArray(responseData.amenity) &&
-          responseData.amenity.join(", ");
+          Array.isArray(responseData.amenity) && responseData.amenity.join(",");
         setForm({
           hotelID: responseData.hotelID,
           amenity: responseData.amenity,
@@ -51,24 +50,37 @@ const FormModal = (props) => {
   };
 
   const handleInputChange = (e) => {
-    console.log("handle input change");
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async () => {
-    console.log(amenity);
-    const amenities = amenity.split(/[ ,]+/);
+    const amenities = amenity.split(/[,]+/);
     if (hotelID.length > 0 && amenities.length > 0 && amenities[0] != "") {
       try {
-        const response = await axios.post(serverURL + "/amenity", {
-          hotelID,
-          amenity: amenities,
-        });
+        let response, title, text;
+        if (operationType == "CREATE") {
+          console.log("Create Method Entered");
+          response = await axios.post(serverURL + "/amenity", {
+            hotelID,
+            amenity: amenities,
+          });
+          title = "Create Amenity Successful";
+          text = "Amenity has been created!";
+        } else if (id && operationType == "UPDATE") {
+          console.log("Update Method Entered");
+          response = await axios.put(serverURL + "/amenity/" + id, {
+            hotelID,
+            amenity: amenities,
+          });
+          title = "Update Amenity Successful";
+          text = "Amenity has been updated!";
+        }
+        response.status = 200;
         if (response.status == 200) {
           Swal.fire({
-            title: "Create Amenity Successful",
-            text: "Amenity has been created!",
+            title: title,
+            text: text,
             icon: "success",
             showConfirmButton: false,
             timer: 2000,
@@ -118,6 +130,7 @@ const FormModal = (props) => {
             </Form.Label>
             <Col sm={10}>
               <Form.Control
+                name="amenity"
                 value={amenity || ""}
                 placeholder="Enter amenities"
                 onChange={handleInputChange}
@@ -131,7 +144,11 @@ const FormModal = (props) => {
               Hotel
             </Form.Label>
             <Col sm={10}>
-              <Form.Select value={hotelID || ""} onChange={handleInputChange}>
+              <Form.Select
+                name="hotelID"
+                value={hotelID || ""}
+                onChange={handleInputChange}
+              >
                 {hotels.length > 0 ? (
                   <>
                     <option value={0}>Select hotel</option>

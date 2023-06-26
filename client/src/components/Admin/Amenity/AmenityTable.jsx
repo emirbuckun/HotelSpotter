@@ -10,7 +10,7 @@ const AmenityTable = () => {
   const { data, loading } = useFetch(serverURL + "/amenity");
   const [modalShow, setModalShow] = useState(false);
   const [id, setId] = useState("");
-  const [operationType, setOperationType] = useState("Create");
+  const [operationType, setOperationType] = useState("CREATE");
 
   useEffect(() => {
     if (data.length > 0) {
