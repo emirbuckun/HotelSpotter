@@ -23,7 +23,7 @@ const FormModal = (props) => {
   const { hotelID, amenity } = form;
 
   useEffect(() => {
-    operationType == "CREATE" && setForm(initialState);
+    operationType == "Create" && setForm(initialState);
     id && fetchAmenity();
   }, [operationType, id]);
 
@@ -59,7 +59,7 @@ const FormModal = (props) => {
     if (hotelID.length > 0 && amenities.length > 0 && amenities[0] != "") {
       try {
         let response, title, text;
-        if (operationType == "CREATE") {
+        if (operationType == "Create") {
           console.log("Create Method Entered");
           response = await axios.post(serverURL + "/amenity", {
             hotelID,
@@ -67,7 +67,7 @@ const FormModal = (props) => {
           });
           title = "Create Amenity Successful";
           text = "Amenity has been created!";
-        } else if (id && operationType == "UPDATE") {
+        } else if (id && operationType == "Update") {
           console.log("Update Method Entered");
           response = await axios.put(serverURL + "/amenity/" + id, {
             hotelID,
@@ -119,7 +119,7 @@ const FormModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          {id ? "Update" : "Create"} Amenity
+          {operationType} Amenity
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -171,7 +171,7 @@ const FormModal = (props) => {
           Close
         </Button>
         <Button variant="primary" onClick={handleSubmit}>
-          {id ? "Update" : "Create"}
+          {operationType}
         </Button>
       </Modal.Footer>
     </Modal>

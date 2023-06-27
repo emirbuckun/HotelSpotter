@@ -10,7 +10,7 @@ const AmenityTable = () => {
   const { data, loading } = useFetch(serverURL + "/amenity");
   const [modalShow, setModalShow] = useState(false);
   const [id, setId] = useState("");
-  const [operationType, setOperationType] = useState("CREATE");
+  const [operationType, setOperationType] = useState("Create");
 
   useEffect(() => {
     if (data.length > 0) {
@@ -48,7 +48,7 @@ const AmenityTable = () => {
                   <Button
                     size="sm"
                     variant="success"
-                    onClick={() => openModal("", "CREATE")}
+                    onClick={() => openModal("", "Create")}
                   >
                     <MdAdd />
                   </Button>
@@ -66,7 +66,7 @@ const AmenityTable = () => {
                       <Button
                         size="sm"
                         variant="primary"
-                        onClick={() => openModal(item._id, "UPDATE")}
+                        onClick={() => openModal(item._id, "Update")}
                       >
                         <MdEdit />
                       </Button>
@@ -75,7 +75,7 @@ const AmenityTable = () => {
                       <Button
                         size="sm"
                         variant="danger"
-                        onClick={() => openModal(item._id, "DELETE")}
+                        onClick={() => openModal(item._id, "Delete")}
                       >
                         <MdDelete />
                       </Button>
