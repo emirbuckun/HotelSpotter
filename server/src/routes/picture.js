@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 
-// CREATE
+// INSERT
 router.post("/", insertPicture);
 
 // UPDATE
