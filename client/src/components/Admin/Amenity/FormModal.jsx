@@ -55,55 +55,51 @@ const FormModal = (props) => {
   };
 
   const handleSubmit = async () => {
-    const amenities = amenity.split(/[,]+/);
-    if (hotelID.length > 0 && amenities.length > 0 && amenities[0] != "") {
-      try {
-        let response, title, text;
-        if (operationType == "Create") {
-          console.log("Create Method Entered");
-          response = await axios.post(serverURL + "/amenity", {
-            hotelID,
-            amenity: amenities,
-          });
-          title = "Create Amenity Successful";
-          text = "Amenity has been created!";
-        } else if (id && operationType == "Update") {
-          console.log("Update Method Entered");
-          response = await axios.put(serverURL + "/amenity/" + id, {
-            hotelID,
-            amenity: amenities,
-          });
-          title = "Update Amenity Successful";
-          text = "Amenity has been updated!";
+    try {
+      let response, title, text, icon;
+      if (operationType == "Create" || operationType == "Update") {
+        const amenities = amenity.split(/[,]+/);
+        if (hotelID.length > 0 && amenities.length > 0 && amenities[0] != "") {
+          const amenityModel = { hotelID, amenity: amenities };
+          response =
+            operationType == "Create"
+              ? await axios.post(serverURL + "/amenity", amenityModel)
+              : await axios.put(serverURL + "/amenity/" + id, amenityModel);
+          title =
+            operationType == "Create"
+              ? "Create Amenity Successful"
+              : "Update Amenity Successful";
+          text =
+            operationType == "Create"
+              ? "Amenity has been created!"
+              : "Amenity has been updated!";
+          icon = "success";
+        } else {
+          title = "Input Error";
+          text = "Enter all inputs correctly!";
+          icon = "error";
         }
-        response.status = 200;
-        if (response.status == 200) {
-          Swal.fire({
-            title: title,
-            text: text,
-            icon: "success",
-            showConfirmButton: false,
-            timer: 2000,
-          }).then(() => {
-            window.location.reload();
-          });
-        }
-      } catch (error) {
-        Swal.fire({
-          title: "Error",
-          text: error,
-          icon: "error",
-          showConfirmButton: false,
-          timer: 2000,
-        });
+      } else if (operationType == "Delete") {
+        response = await axios.delete(serverURL + "/amenity/" + id);
+        title = "Delete Amenity Successful";
+        text = "Amenity has been deleted!";
+        icon = "success";
       }
-    } else {
       Swal.fire({
-        title: "Input Error",
-        text: "Enter all inputs correctly!",
-        icon: "error",
+        title: title,
+        text: text,
+        icon: icon,
         showConfirmButton: false,
         timer: 2000,
+      }).then(() => {
+        window.location.reload();
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: error,
+        icon: "error",
+        showConfirmButton: true,
       });
     }
   };
@@ -123,48 +119,52 @@ const FormModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
-          <Form.Group as={Row} className="mb-3" controlId="formAmenities">
-            <Form.Label column sm={2}>
-              Amenities
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                name="amenity"
-                value={amenity || ""}
-                placeholder="Enter amenities"
-                onChange={handleInputChange}
-              />
-              <Form.Text>Separate with comma (,)</Form.Text>
-            </Col>
-          </Form.Group>
+        {operationType == "Delete" ? (
+          "Are you sure you want to delete this record?"
+        ) : (
+          <Form>
+            <Form.Group as={Row} className="mb-3" controlId="formAmenities">
+              <Form.Label column sm={2}>
+                Amenities
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Control
+                  name="amenity"
+                  value={amenity || ""}
+                  placeholder="Enter amenities"
+                  onChange={handleInputChange}
+                />
+                <Form.Text>Separate with comma (,)</Form.Text>
+              </Col>
+            </Form.Group>
 
-          <Form.Group as={Row} className="mb-3" controlId="formAmenities">
-            <Form.Label column sm={2}>
-              Hotel
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Select
-                name="hotelID"
-                value={hotelID || ""}
-                onChange={handleInputChange}
-              >
-                {hotels.length > 0 ? (
-                  <>
-                    <option value={0}>Select hotel</option>
-                    {hotels.map((hotel) => (
-                      <option key={hotel._id} value={hotel._id}>
-                        {hotel.name}
-                      </option>
-                    ))}
-                  </>
-                ) : (
-                  "empty"
-                )}
-              </Form.Select>
-            </Col>
-          </Form.Group>
-        </Form>
+            <Form.Group as={Row} className="mb-3" controlId="formAmenities">
+              <Form.Label column sm={2}>
+                Hotel
+              </Form.Label>
+              <Col sm={10}>
+                <Form.Select
+                  name="hotelID"
+                  value={hotelID || ""}
+                  onChange={handleInputChange}
+                >
+                  {hotels.length > 0 ? (
+                    <>
+                      <option value={0}>Select hotel</option>
+                      {hotels.map((hotel) => (
+                        <option key={hotel._id} value={hotel._id}>
+                          {hotel.name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    "empty"
+                  )}
+                </Form.Select>
+              </Col>
+            </Form.Group>
+          </Form>
+        )}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={props.onHide}>
