@@ -2,26 +2,30 @@ import React, { useEffect, useState } from "react";
 import useFetch from "/src/hooks/useFetch";
 import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import Pagination from "react-bootstrap/Pagination";
 import FormModal from "/src/components/Admin/Amenity/FormModal";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 
 const AmenityTable = () => {
   const [table, setTable] = useState([]);
-  const { data, loading } = useFetch(serverURL + "/amenity");
   const [modalShow, setModalShow] = useState(false);
   const [id, setId] = useState("");
   const [operationType, setOperationType] = useState("Create");
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  const { data, loading } = useFetch(serverURL + "/amenity?page=" + page);
 
   useEffect(() => {
-    if (data.length > 0) {
+    if (data.amenityList && data.amenityList.length > 0) {
       parseAmenityData();
-      setTable(data);
+      setTotalPages(data.totalPages);
+      setTable(data.amenityList);
     }
   }, [data]);
 
   const parseAmenityData = () => {
-    data.length > 0 &&
-      data.forEach(function (obj) {
+    data.amenityList.length > 0 &&
+      data.amenityList.forEach(function (obj) {
         obj.amenity = Array.isArray(obj.amenity) && obj.amenity.join(", ");
       });
   };
@@ -31,6 +35,14 @@ const AmenityTable = () => {
     setOperationType(operationType);
     setModalShow(true);
   };
+
+  const paginationItems = [];
+  for (let i = 0; i < totalPages; i++)
+    paginationItems.push(
+      <Pagination.Item key={i} onClick={() => setPage(i)}>
+        {i + 1}
+      </Pagination.Item>
+    );
 
   return (
     <>
@@ -84,6 +96,14 @@ const AmenityTable = () => {
                 ))}
             </tbody>
           </Table>
+          <Pagination>
+            <Pagination.Prev
+              disabled={page == 0}
+              onClick={() => setPage(page - 1)}
+            />
+            {paginationItems}
+            <Pagination.Next onClick={() => setPage(page + 1)} />
+          </Pagination>
           <FormModal
             id={id}
             show={modalShow}
