@@ -14,10 +14,6 @@ const Index = () => {
     `${serverURL}/amenity?page=${page}&limit=${limit}`
   );
 
-  useEffect(() => {
-    setTotal(data.total);
-  }, [data]);
-
   const openModal = (id, operationType) => {
     setId(id);
     setOperationType(operationType);
