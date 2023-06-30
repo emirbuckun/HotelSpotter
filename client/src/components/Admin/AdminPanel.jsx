@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "/src/components/Admin/Sidebar";
-import AmenityTable from "/src/components/Admin/Amenity/AmenityTable";
+import Amenity from "/src/components/Admin/Amenity/Index";
 import { useParams } from "react-router-dom";
 
 const AdminPanel = () => {
@@ -14,7 +14,7 @@ const AdminPanel = () => {
         </div>
         <div className="col-md-10">
           <h3 className="text-center">Admin Panel - {pageName}</h3>
-          <AmenityTable />
+          <Amenity />
         </div>
       </div>
     </>

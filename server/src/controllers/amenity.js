@@ -44,24 +44,21 @@ export const getAmenity = async (req, res, next) => {
 
 export const getAmenities = async (req, res, next) => {
   try {
-    var amenityList = [];
-    const PAGE_SIZE = 10;
-    const { page } = req.query;
+    var list = [];
+    const { page, limit } = req.query;
     const total = await AmenityModel.countDocuments({});
     const amenities = await AmenityModel.find({}, null, {
-      skip: page * PAGE_SIZE,
-      limit: PAGE_SIZE,
+      skip: page * limit,
+      limit: limit,
     }).select("-__v");
     for (var i = 0; i < amenities.length; i++) {
       var amenity = amenities[i].toObject();
       var hotelQuery = await HotelModel.findById(amenity.hotelID);
       amenity.hotelName =
         hotelQuery != null ? hotelQuery.toObject().name : "null";
-      amenityList.push(amenity);
+      list.push(amenity);
     }
-    res
-      .status(200)
-      .json({ totalPages: Math.ceil(total / PAGE_SIZE), list: amenityList });
+    res.status(200).json({ total, list });
   } catch (err) {
     next(err);
   }
