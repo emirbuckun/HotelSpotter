@@ -27,10 +27,8 @@ const FormModal = (props) => {
     id && fetchAmenity();
   }, [operationType, id]);
 
-  useEffect(() => {}, [id]);
-
   useEffect(() => {
-    hotelList.length > 0 && setHotels(hotelList);
+    setHotels(hotelList);
   }, [hotelList]);
 
   const fetchAmenity = async () => {

@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "/src/hooks/useFetch";
-import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 import Pagination from "react-bootstrap/Pagination";
-import FormModal from "/src/components/Admin/Amenity/FormModal";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
+import FormModal from "/src/components/Admin/Amenity/FormModal";
 
 const AmenityTable = () => {
-  const [table, setTable] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
   const [id, setId] = useState("");
-  const [operationType, setOperationType] = useState("Create");
   const [page, setPage] = useState(0);
+  const [table, setTable] = useState({});
   const [totalPages, setTotalPages] = useState(0);
+  const [modalShow, setModalShow] = useState(false);
+  const [operationType, setOperationType] = useState("Create");
   const { data, loading } = useFetch(serverURL + "/amenity?page=" + page);
 
   useEffect(() => {
-    if (data.amenityList && data.amenityList.length > 0) {
+    if (data.list) {
       parseAmenityData();
       setTotalPages(data.totalPages);
-      setTable(data.amenityList);
+      setTable(data.list);
     }
-  }, [data]);
+  }, [data.totalPages, data.list]);
 
   const parseAmenityData = () => {
-    data.amenityList.length > 0 &&
-      data.amenityList.forEach(function (obj) {
+    data.list.length > 0 &&
+      data.list.forEach(function (obj) {
         obj.amenity = Array.isArray(obj.amenity) && obj.amenity.join(", ");
       });
   };
@@ -36,17 +36,9 @@ const AmenityTable = () => {
     setModalShow(true);
   };
 
-  const paginationItems = [];
-  for (let i = 0; i < totalPages; i++)
-    paginationItems.push(
-      <Pagination.Item key={i} onClick={() => setPage(i)}>
-        {i + 1}
-      </Pagination.Item>
-    );
-
   return (
     <>
-      {loading || table.length <= 0 ? (
+      {loading ? (
         <div className="text-center">Loading</div>
       ) : (
         <>
@@ -70,7 +62,7 @@ const AmenityTable = () => {
             <tbody>
               {table.length > 0 &&
                 table.map((item, index) => (
-                  <tr key={item._id}>
+                  <tr key={index}>
                     <th className="align-middle">{index + 1}</th>
                     <td className="align-middle">{item.hotelName}</td>
                     <td className="align-middle">{item.amenity}</td>
@@ -101,8 +93,16 @@ const AmenityTable = () => {
               disabled={page == 0}
               onClick={() => setPage(page - 1)}
             />
-            {paginationItems}
-            <Pagination.Next onClick={() => setPage(page + 1)} />
+            {totalPages > 0 &&
+              [...Array(totalPages)].map((_, index) => (
+                <Pagination.Item key={index} onClick={() => setPage(index)}>
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+            <Pagination.Next
+              disabled={page == totalPages - 1}
+              onClick={() => setPage(page + 1)}
+            />
           </Pagination>
           <FormModal
             id={id}

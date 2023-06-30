@@ -61,7 +61,7 @@ export const getAmenities = async (req, res, next) => {
     }
     res
       .status(200)
-      .json({ totalPages: Math.ceil(total / PAGE_SIZE), amenityList });
+      .json({ totalPages: Math.ceil(total / PAGE_SIZE), list: amenityList });
   } catch (err) {
     next(err);
   }
