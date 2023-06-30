@@ -13,7 +13,7 @@ const initialState = {
   amenity: "",
 };
 
-const FormModal = (props) => {
+const AmenityModal = (props) => {
   const id = props.id == "" ? null : props.id;
   const operationType = props.operationType;
   const [form, setForm] = useState(initialState);
@@ -176,4 +176,4 @@ const FormModal = (props) => {
   );
 };
 
-export default FormModal;
+export default AmenityModal;
