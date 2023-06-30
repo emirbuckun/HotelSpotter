@@ -16,19 +16,9 @@ const AmenityTable = () => {
   const { data, loading } = useFetch(serverURL + "/amenity?page=" + page);
 
   useEffect(() => {
-    if (data.list) {
-      parseAmenityData();
-      setTotalPages(data.totalPages);
-      setTable(data.list);
-    }
-  }, [data.totalPages, data.list]);
-
-  const parseAmenityData = () => {
-    data.list.length > 0 &&
-      data.list.forEach(function (obj) {
-        obj.amenity = Array.isArray(obj.amenity) && obj.amenity.join(", ");
-      });
-  };
+    setTotalPages(data.totalPages);
+    setTable(data.list);
+  }, [data]);
 
   const openModal = (id, operationType) => {
     setId(id);
@@ -60,12 +50,17 @@ const AmenityTable = () => {
               </tr>
             </thead>
             <tbody>
-              {table.length > 0 &&
+              {table &&
+                table.length > 0 &&
                 table.map((item, index) => (
                   <tr key={index}>
                     <th className="align-middle">{index + 1}</th>
                     <td className="align-middle">{item.hotelName}</td>
-                    <td className="align-middle">{item.amenity}</td>
+                    <td className="align-middle">
+                      {item.amenity.map((amenity, index) =>
+                        index == 0 ? amenity : ", " + amenity
+                      )}
+                    </td>
                     <td className="align-middle">
                       <Button
                         size="sm"
