@@ -64,6 +64,8 @@ export const getAmenities = async (req, res, next) => {
       .match({
         "hotel.name": new RegExp(searchHotel, "i"),
       })
+      .unwind("hotel")
+      .project("hotelID amenity hotel.name hotel.star hotel.rating")
       .sort({ "hotel.name": parseInt(sortBy) })
       .facet({
         count: [{ $count: "total" }],
