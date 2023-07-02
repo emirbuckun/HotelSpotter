@@ -1,7 +1,7 @@
-import Button from "react-bootstrap/Button";
+import BootstrapButton from "react-bootstrap/Button";
 import { MdAdd, MdEdit, MdDelete } from "react-icons/md";
 
-const ButtonBuilder = ({ id, openModal, type }) => {
+const Button = ({ id, openModal, type }) => {
   const buttonIcon =
     (type == "Create" && <MdAdd />) ||
     (type == "Update" && <MdEdit />) ||
@@ -12,14 +12,14 @@ const ButtonBuilder = ({ id, openModal, type }) => {
     (type == "Delete" && "danger");
 
   return (
-    <Button
+    <BootstrapButton
       size="sm"
       variant={buttonVariant}
       onClick={() => openModal(id, type)}
     >
       {buttonIcon}
-    </Button>
+    </BootstrapButton>
   );
 };
 
-export default ButtonBuilder;
+export default Button;

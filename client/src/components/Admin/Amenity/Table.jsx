@@ -1,23 +1,23 @@
-import Table from "react-bootstrap/Table";
+import BootstrapTable from "react-bootstrap/Table";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
-const AmenityTable = ({ openModal, tableData }) => {
+const Table = ({ openModal, tableData }) => {
   const columns = [
     { label: "Hotel Name", accessor: "hotelName" },
     { label: "Amenities", accessor: "amenity" },
   ];
 
   return (
-    <Table striped bordered hover>
+    <BootstrapTable striped bordered hover>
       <TableHead columns={columns} openModal={openModal} />
       <TableBody
         columns={columns}
         openModal={openModal}
         tableData={tableData}
       />
-    </Table>
+    </BootstrapTable>
   );
 };
 
-export default AmenityTable;
+export default Table;

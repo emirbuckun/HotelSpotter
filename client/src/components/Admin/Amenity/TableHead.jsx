@@ -1,4 +1,4 @@
-import ButtonBuilder from "./ButtonBuilder";
+import Button from "./Button";
 
 const TableHead = ({ columns, openModal }) => {
   return (
@@ -9,7 +9,7 @@ const TableHead = ({ columns, openModal }) => {
           return <th key={accessor}>{label}</th>;
         })}
         <th className="text-center" colSpan={2}>
-          <ButtonBuilder id={""} openModal={openModal} type={"Create"} />
+          <Button id={""} openModal={openModal} type={"Create"} />
         </th>
       </tr>
     </thead>

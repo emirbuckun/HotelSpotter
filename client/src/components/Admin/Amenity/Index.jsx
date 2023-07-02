@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "/src/hooks/useFetch";
-import Modal from "/src/components/Admin/Amenity/AmenityModal";
-import Table from "/src/components/Admin/Amenity/AmenityTable";
-import Pagination from "/src/components/Admin/Amenity/AmenityPagination";
+import Modal from "/src/components/Admin/Amenity/Modal";
+import Table from "/src/components/Admin/Amenity/Table";
+import Pagination from "/src/components/Admin/Amenity/Pagination";
 
 const Index = () => {
   const limit = 10;

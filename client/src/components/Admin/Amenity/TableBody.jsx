@@ -1,4 +1,4 @@
-import ButtonBuilder from "./ButtonBuilder";
+import Button from "./Button";
 
 const TableBody = ({ columns, openModal, tableData }) => {
   return (
@@ -14,14 +14,14 @@ const TableBody = ({ columns, openModal, tableData }) => {
               <td>
                 <div className="d-flex justify-content-between">
                   <div className="m-1">
-                    <ButtonBuilder
+                    <Button
                       id={data._id}
                       openModal={openModal}
                       type={"Update"}
                     />
                   </div>
                   <div className="m-1">
-                    <ButtonBuilder
+                    <Button
                       id={data._id}
                       openModal={openModal}
                       type={"Delete"}

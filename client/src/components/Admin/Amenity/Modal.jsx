@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import BootstrapModal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -13,7 +13,7 @@ const initialState = {
   amenity: "",
 };
 
-const AmenityModal = (props) => {
+const Modal = (props) => {
   const id = props.id == "" ? null : props.id;
   const operationType = props.operationType;
   const [form, setForm] = useState(initialState);
@@ -103,7 +103,7 @@ const AmenityModal = (props) => {
   };
 
   return (
-    <Modal
+    <BootstrapModal
       size="lg"
       centered
       animation={false}
@@ -111,12 +111,12 @@ const AmenityModal = (props) => {
       onHide={props.onHide}
       aria-labelledby="contained-modal-title-vcenter"
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <BootstrapModal.Header closeButton>
+        <BootstrapModal.Title id="contained-modal-title-vcenter">
           {operationType} Amenity
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+        </BootstrapModal.Title>
+      </BootstrapModal.Header>
+      <BootstrapModal.Body>
         {operationType == "Delete" ? (
           "Are you sure you want to delete this record?"
         ) : (
@@ -163,17 +163,17 @@ const AmenityModal = (props) => {
             </Form.Group>
           </Form>
         )}
-      </Modal.Body>
-      <Modal.Footer>
+      </BootstrapModal.Body>
+      <BootstrapModal.Footer>
         <Button variant="secondary" onClick={props.onHide}>
           Close
         </Button>
         <Button variant="primary" onClick={handleSubmit}>
           {operationType}
         </Button>
-      </Modal.Footer>
-    </Modal>
+      </BootstrapModal.Footer>
+    </BootstrapModal>
   );
 };
 
-export default AmenityModal;
+export default Modal;
