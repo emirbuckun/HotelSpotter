@@ -65,8 +65,14 @@ export const getAmenities = async (req, res, next) => {
         "hotel.name": new RegExp(searchHotel, "i"),
       })
       .unwind("hotel")
-      .project("hotelID amenity hotel.name hotel.star hotel.rating")
-      .sort({ "hotel.name": parseInt(sortBy) })
+      .project({
+        hotelID: "$hotelID",
+        hotelName: "$hotel.name",
+        hotelStar: "$hotel.star",
+        hotelRating: "$hotel.rating",
+        amenity: "$amenity",
+      })
+      .sort({ hotelName: parseInt(sortBy) })
       .facet({
         count: [{ $count: "total" }],
         paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],
