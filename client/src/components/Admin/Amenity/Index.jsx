@@ -8,11 +8,25 @@ const Index = () => {
   const limit = 10;
   const [id, setId] = useState("");
   const [page, setPage] = useState(0);
+  const [tableData, setTableData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [operationType, setOperationType] = useState("Create");
   const { data, loading } = useFetch(
     `${serverURL}/amenity?page=${page}&limit=${limit}`
   );
+
+  useEffect(() => {
+    parseAmenityData();
+  }, [data]);
+
+  const parseAmenityData = () => {
+    data.list &&
+      data.list.length > 0 &&
+      data.list.forEach(function (obj) {
+        obj.amenity = Array.isArray(obj.amenity) && obj.amenity.join(", ");
+      });
+    setTableData(data.list);
+  };
 
   const openModal = (id, operationType) => {
     setId(id);
@@ -26,7 +40,7 @@ const Index = () => {
         <div className="text-center">Loading</div>
       ) : (
         <>
-          <Table openModal={openModal} amenities={data.list ? data.list : []} />
+          <Table openModal={openModal} tableData={tableData ? tableData : []} />
           <Pagination
             page={page}
             limit={limit}
