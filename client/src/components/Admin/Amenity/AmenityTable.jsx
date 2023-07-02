@@ -25,7 +25,7 @@ const AmenityTable = ({ openModal, amenities }) => {
         {amenities.map((item, index) => (
           <tr key={index}>
             <th className="align-middle">{index + 1}</th>
-            <td className="align-middle">{item.hotel.name}</td>
+            <td className="align-middle">{item.hotelName}</td>
             <td className="align-middle">
               {item.amenity.map((amenity, index) =>
                 index == 0 ? amenity : ", " + amenity
