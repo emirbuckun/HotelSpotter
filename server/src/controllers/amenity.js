@@ -45,7 +45,10 @@ export const getAmenity = async (req, res, next) => {
 export const getAmenities = async (req, res, next) => {
   try {
     const { page, limit, search, sort } = req.query;
-    const sortBy = sort ? sort : 1;
+
+    const sortArgs = sort ? sort.split(",") : ["_id", "asc"];
+    const sortField = sortArgs[0];
+    const sortOrder = sortArgs[1] == "desc" ? -1 : 1;
 
     const searchArgs = search ? search.split(",") : ["", ""];
     const searchHotel = searchArgs[0];
@@ -72,7 +75,7 @@ export const getAmenities = async (req, res, next) => {
         hotelRating: "$hotel.rating",
         amenity: "$amenity",
       })
-      .sort({ hotelName: parseInt(sortBy) })
+      .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],
         paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],

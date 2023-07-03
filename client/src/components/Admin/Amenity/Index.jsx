@@ -8,12 +8,18 @@ const Index = () => {
   const limit = 10;
   const [id, setId] = useState("");
   const [page, setPage] = useState(0);
+  const [sort, setSort] = useState({ sort: "_id", order: "asc" });
   const [tableData, setTableData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [operationType, setOperationType] = useState("Create");
   const { data, loading } = useFetch(
-    `${serverURL}/amenity?page=${page}&limit=${limit}`
+    `${serverURL}/amenity?page=${page}&limit=${limit}&sort=${sort.sort},${sort.order}`
   );
+
+  const columns = [
+    { label: "Hotel Name", accessor: "hotelName", sortable: true },
+    { label: "Amenities", accessor: "amenity", sortable: true },
+  ];
 
   useEffect(() => {
     parseAmenityData();
@@ -40,17 +46,14 @@ const Index = () => {
         <div className="text-center">Loading</div>
       ) : (
         <>
-          <Table openModal={openModal} tableData={tableData ? tableData : []} />
+          <Table {...{ sort, setSort, columns, openModal, tableData }} />
           <Pagination
-            page={page}
-            limit={limit}
+            {...{ page, limit }}
             total={data.total ? data.total : 0}
             setPage={(page) => setPage(page)}
           />
           <Modal
-            id={id}
-            show={modalShow}
-            operationType={operationType}
+            {...{ id, modalShow, operationType }}
             onHide={() => setModalShow(false)}
           />
         </>

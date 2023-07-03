@@ -2,20 +2,11 @@ import BootstrapTable from "react-bootstrap/Table";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
-const Table = ({ openModal, tableData }) => {
-  const columns = [
-    { label: "Hotel Name", accessor: "hotelName" },
-    { label: "Amenities", accessor: "amenity" },
-  ];
-
+const Table = ({ sort, setSort, columns, openModal, tableData }) => {
   return (
     <BootstrapTable striped bordered hover>
-      <TableHead columns={columns} openModal={openModal} />
-      <TableBody
-        columns={columns}
-        openModal={openModal}
-        tableData={tableData}
-      />
+      <TableHead {...{ sort, setSort, columns, openModal }} />
+      <TableBody {...{ columns, openModal, tableData }} />
     </BootstrapTable>
   );
 };

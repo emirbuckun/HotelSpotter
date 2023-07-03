@@ -107,7 +107,7 @@ const Modal = (props) => {
       size="lg"
       centered
       animation={false}
-      show={props.show}
+      show={props.modalShow}
       onHide={props.onHide}
       aria-labelledby="contained-modal-title-vcenter"
     >
