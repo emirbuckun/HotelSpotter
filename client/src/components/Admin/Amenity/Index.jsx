@@ -3,17 +3,20 @@ import useFetch from "/src/hooks/useFetch";
 import Modal from "/src/components/Admin/Amenity/Modal";
 import Table from "/src/components/Admin/Amenity/Table";
 import Pagination from "/src/components/Admin/Amenity/Pagination";
+import Search from "./Search";
 
 const Index = () => {
   const limit = 10;
   const [id, setId] = useState("");
   const [page, setPage] = useState(0);
-  const [sort, setSort] = useState({ sort: "_id", order: "asc" });
+  const [search, setSearch] = useState({ hotelName: "", amenity: "" });
   const [tableData, setTableData] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [operationType, setOperationType] = useState("Create");
+  const [sort, setSort] = useState({ sort: "_id", order: "asc" });
   const { data, loading } = useFetch(
-    `${serverURL}/amenity?page=${page}&limit=${limit}&sort=${sort.sort},${sort.order}`
+    `${serverURL}/amenity?page=${page}&limit=${limit}
+    &sort=${sort.sort},${sort.order}&search=${search.hotelName},${search.amenity}`
   );
 
   const columns = [
@@ -46,6 +49,7 @@ const Index = () => {
         <div className="text-center">Loading</div>
       ) : (
         <>
+          <Search {...{ setSearch }} />
           <Table {...{ sort, setSort, columns, openModal, tableData }} />
           <Pagination
             {...{ page, limit }}
