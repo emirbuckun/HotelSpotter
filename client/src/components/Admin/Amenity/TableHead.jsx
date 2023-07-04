@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Button from "./Button";
 import { FaSort } from "react-icons/fa";
 
