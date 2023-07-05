@@ -1,42 +1,36 @@
 import { useState } from "react";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import { FaSearch } from "react-icons/fa";
 
 const Search = ({ setSearch, columns }) => {
-  const [form, setForm] = useState({ column: "", input: "" });
-  const handleSearch = () => {
-    console.log(form);
-  };
+  const searchableColumns = columns.filter((e) => e.searchable);
+  let initialForm = {};
+  searchableColumns.forEach((e) => {
+    initialForm[e.accessor] = "";
+  });
+  const [form, setForm] = useState(initialForm);
 
   return (
     <>
       <InputGroup className="mb-3">
-        <Form.Select
-          style={{ maxWidth: "15rem" }}
-          onChange={({ currentTarget: input }) =>
-            setForm((prevState) => ({
-              ...prevState,
-              column: input.value,
-            }))
-          }
-        >
-          {columns.map(({ label, accessor, searchable }) => {
-            return (
-              searchable && (
-                <option key={accessor} value={accessor}>
-                  {label}
-                </option>
-              )
-            );
-          })}
-        </Form.Select>
-        <Form.Control
-          placeholder="Search"
-          aria-label="Text input with dropdown button"
-        />
-        <Button variant="outline-primary" onClick={handleSearch}>
+        {searchableColumns.map(({ label, accessor }) => {
+          return (
+            <Form.Control
+              key={accessor}
+              name={accessor}
+              placeholder={label}
+              onChange={({ currentTarget: input }) =>
+                setForm((prevState) => ({
+                  ...prevState,
+                  [input.name]: input.value,
+                }))
+              }
+            />
+          );
+        })}
+        <Button variant="outline-primary" onClick={() => setSearch(form)}>
           <FaSearch />
         </Button>
       </InputGroup>
