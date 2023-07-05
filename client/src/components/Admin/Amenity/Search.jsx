@@ -1,23 +1,46 @@
+import { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
 import { FaSearch } from "react-icons/fa";
-const Search = ({ setSearch }) => {
+
+const Search = ({ setSearch, columns }) => {
+  const [form, setForm] = useState({ column: "", input: "" });
+  const handleSearch = () => {
+    console.log(form);
+  };
+
   return (
-    <div className="input-group mb-3">
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Search"
-        // onChange={}
-      />
-      <div className="input-group-append">
-        <button
-          className="btn btn-outline-secondary"
-          type="button"
-          onClick={({ currentTarget: input }) => setSearch(input.value)}
+    <>
+      <InputGroup className="mb-3">
+        <Form.Select
+          style={{ maxWidth: "15rem" }}
+          onChange={({ currentTarget: input }) =>
+            setForm((prevState) => ({
+              ...prevState,
+              column: input.value,
+            }))
+          }
         >
+          {columns.map(({ label, accessor, searchable }) => {
+            return (
+              searchable && (
+                <option key={accessor} value={accessor}>
+                  {label}
+                </option>
+              )
+            );
+          })}
+        </Form.Select>
+        <Form.Control
+          placeholder="Search"
+          aria-label="Text input with dropdown button"
+        />
+        <Button variant="outline-primary" onClick={handleSearch}>
           <FaSearch />
-        </button>
-      </div>
-    </div>
+        </Button>
+      </InputGroup>
+    </>
   );
 };
 

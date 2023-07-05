@@ -20,8 +20,18 @@ const Index = () => {
   );
 
   const columns = [
-    { label: "Hotel Name", accessor: "hotelName", sortable: true },
-    { label: "Amenities", accessor: "amenity", sortable: true },
+    {
+      label: "Hotel Name",
+      accessor: "hotelName",
+      sortable: true,
+      searchable: true,
+    },
+    {
+      label: "Amenities",
+      accessor: "amenity",
+      sortable: true,
+      searchable: true,
+    },
   ];
 
   useEffect(() => {
@@ -49,7 +59,7 @@ const Index = () => {
         <div className="text-center">Loading</div>
       ) : (
         <>
-          <Search {...{ setSearch }} />
+          <Search {...{ setSearch, columns }} />
           <Table {...{ sort, setSort, columns, openModal, tableData }} />
           <Pagination
             {...{ page, limit }}
