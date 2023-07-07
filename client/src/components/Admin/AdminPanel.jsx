@@ -10,7 +10,7 @@ const AdminPanel = () => {
     <>
       <div className="row">
         <div className="col-md-2">
-          <Sidebar />
+          <Sidebar pageName={name} />
         </div>
         <div className="col-md-10">
           <h3 className="text-center">Admin Panel - {pageName}</h3>
