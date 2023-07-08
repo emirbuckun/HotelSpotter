@@ -1,5 +1,4 @@
 import { AmenityModel } from "../models/Amenity.js";
-import { HotelModel } from "../models/Hotel.js";
 
 export const insertAmenity = async (req, res, next) => {
   try {
