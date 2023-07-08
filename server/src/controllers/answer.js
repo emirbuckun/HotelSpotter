@@ -43,8 +43,38 @@ export const getAnswer = async (req, res, next) => {
 
 export const getAnswers = async (req, res, next) => {
   try {
-    const answers = await AnswerModel.find();
-    res.status(200).json(answers);
+    const { page, limit, sort } = req.query;
+
+    const sortArgs = sort ? sort.split(",") : ["_id", "asc"];
+    const sortField = sortArgs[0];
+    const sortOrder = sortArgs[1] == "desc" ? -1 : 1;
+
+    const query = await AnswerModel.aggregate()
+      .lookup({
+        from: "users",
+        localField: "userID",
+        foreignField: "_id",
+        as: "user",
+      })
+      .lookup({
+        from: "questions",
+        localField: "questionID",
+        foreignField: "_id",
+        as: "question",
+      })
+      .unwind("user")
+      .unwind("question")
+      .sort({ [sortField]: parseInt(sortOrder) })
+      .facet({
+        count: [{ $count: "total" }],
+        paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],
+      });
+
+    const result = query[0];
+    const list = result.paginated;
+    const total = result.count[0] != null ? result.count[0].total : 0;
+
+    res.status(200).json({ total, list });
   } catch (err) {
     next(err);
   }
