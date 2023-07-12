@@ -66,6 +66,15 @@ export const getQuestions = async (req, res, next) => {
       })
       .unwind("user")
       .unwind("hotel")
+      .project({
+        userID: "$userID",
+        hotelID: "$hotel._id",
+        hotelName: "$hotel.name",
+        userMail: "$user.mail",
+        userName: { $concat: ["$user.firstName", " ", "$user.lastName"] },
+        question: "$description",
+        createDate: "$createDate",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],

@@ -62,8 +62,26 @@ export const getAnswers = async (req, res, next) => {
         foreignField: "_id",
         as: "question",
       })
+      .lookup({
+        from: "hotels",
+        localField: "question.hotelID",
+        foreignField: "_id",
+        as: "hotel",
+      })
       .unwind("user")
       .unwind("question")
+      .unwind("hotel")
+      .project({
+        userID: "$userID",
+        questionID: "$questionID",
+        hotelID: "$hotel._id",
+        hotelName: "$hotel.name",
+        userMail: "$user.mail",
+        userName: { $concat: ["$user.firstName", " ", "$user.lastName"] },
+        question: "$question.description",
+        answer: "$description",
+        createDate: "$createDate",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],

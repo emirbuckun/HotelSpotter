@@ -68,6 +68,12 @@ export const getUserRoles = async (req, res, next) => {
         as: "user",
       })
       .unwind("user")
+      .project({
+        userID: "$userID",
+        mail: "$user.mail",
+        name: { $concat: ["$user.firstName", " ", "$user.lastName"] },
+        role: "$role",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],

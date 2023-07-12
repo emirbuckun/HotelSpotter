@@ -57,6 +57,17 @@ export const getRooms = async (req, res, next) => {
         as: "hotel",
       })
       .unwind("hotel")
+      .project({
+        hotelID: "$hotelID",
+        hotelName: "$hotel.name",
+        roomType: "$roomType",
+        price: "$price",
+        count: "$count",
+        personCapacity: "$personCapacity",
+        totalBed: "$totalBed",
+        totalBath: "$totalBath",
+        createDate: "$createDate",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],

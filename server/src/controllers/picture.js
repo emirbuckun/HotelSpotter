@@ -57,6 +57,12 @@ export const getPictures = async (req, res, next) => {
         as: "hotel",
       })
       .unwind("hotel")
+      .unwind("picture")
+      .project({
+        hotelID: "$hotelID",
+        hotelName: "$hotel.name",
+        picture: "$picture",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],

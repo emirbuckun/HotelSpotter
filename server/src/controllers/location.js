@@ -68,6 +68,17 @@ export const getLocations = async (req, res, next) => {
         as: "hotel",
       })
       .unwind("hotel")
+      .project({
+        hotelID: "$hotelID",
+        hotelName: "$hotel.name",
+        country: "$country",
+        city: "$city",
+        street: "$street",
+        number: "$number",
+        zip: "$zip",
+        latitude: "$latitude",
+        longitude: "$longitude",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],

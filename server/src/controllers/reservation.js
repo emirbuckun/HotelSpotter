@@ -92,6 +92,18 @@ export const getReservations = async (req, res, next) => {
       })
       .unwind("user")
       .unwind("hotel")
+      .project({
+        userID: "$userID",
+        hotelID: "$hotelID",
+        userMail: "$user.mail",
+        userName: { $concat: ["$user.firstName", " ", "$user.lastName"] },
+        hotelName: "$hotel.name",
+        checkIn: "$checkIn",
+        checkOut: "$checkOut",
+        guestCount: "$guestCount",
+        roomType: "$roomType",
+        createDate: "$createDate",
+      })
       .sort({ [sortField]: parseInt(sortOrder) })
       .facet({
         count: [{ $count: "total" }],
