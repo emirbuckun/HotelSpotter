@@ -43,8 +43,42 @@ export const getRoom = async (req, res, next) => {
 
 export const getRooms = async (req, res, next) => {
   try {
-    const rooms = await RoomModel.find();
-    res.status(200).json(rooms);
+    const { page, limit, sort } = req.query;
+
+    const sortArgs = sort ? sort.split(",") : ["_id", "asc"];
+    const sortField = sortArgs[0];
+    const sortOrder = sortArgs[1] == "desc" ? -1 : 1;
+
+    const query = await RoomModel.aggregate()
+      .lookup({
+        from: "hotels",
+        localField: "hotelID",
+        foreignField: "_id",
+        as: "hotel",
+      })
+      .unwind("hotel")
+      .project({
+        hotelID: "$hotelID",
+        hotelName: "$hotel.name",
+        roomType: "$roomType",
+        price: "$price",
+        count: "$count",
+        personCapacity: "$personCapacity",
+        totalBed: "$totalBed",
+        totalBath: "$totalBath",
+        createDate: "$createDate",
+      })
+      .sort({ [sortField]: parseInt(sortOrder) })
+      .facet({
+        count: [{ $count: "total" }],
+        paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],
+      });
+
+    const result = query[0];
+    const list = result.paginated;
+    const total = result.count[0] != null ? result.count[0].total : 0;
+
+    res.status(200).json({ total, list });
   } catch (err) {
     next(err);
   }

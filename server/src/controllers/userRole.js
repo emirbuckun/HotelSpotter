@@ -54,8 +54,37 @@ export const getUserRoleByUserID = async (req, res, next) => {
 
 export const getUserRoles = async (req, res, next) => {
   try {
-    const userRoles = await UserRoleModel.find();
-    res.status(200).json(userRoles);
+    const { page, limit, sort } = req.query;
+
+    const sortArgs = sort ? sort.split(",") : ["_id", "asc"];
+    const sortField = sortArgs[0];
+    const sortOrder = sortArgs[1] == "desc" ? -1 : 1;
+
+    const query = await UserRoleModel.aggregate()
+      .lookup({
+        from: "users",
+        localField: "userID",
+        foreignField: "_id",
+        as: "user",
+      })
+      .unwind("user")
+      .project({
+        userID: "$userID",
+        mail: "$user.mail",
+        name: { $concat: ["$user.firstName", " ", "$user.lastName"] },
+        role: "$role",
+      })
+      .sort({ [sortField]: parseInt(sortOrder) })
+      .facet({
+        count: [{ $count: "total" }],
+        paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],
+      });
+
+    const result = query[0];
+    const list = result.paginated;
+    const total = result.count[0] != null ? result.count[0].total : 0;
+
+    res.status(200).json({ total, list });
   } catch (err) {
     next(err);
   }

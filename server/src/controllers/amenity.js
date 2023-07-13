@@ -43,8 +43,48 @@ export const getAmenity = async (req, res, next) => {
 
 export const getAmenities = async (req, res, next) => {
   try {
-    const amenities = await AmenityModel.find();
-    res.status(200).json(amenities);
+    const { page, limit, search, sort } = req.query;
+
+    const sortArgs = sort ? sort.split(",") : ["_id", "asc"];
+    const sortField = sortArgs[0];
+    const sortOrder = sortArgs[1] == "desc" ? -1 : 1;
+
+    const searchArgs = search ? search.split(",") : ["", ""];
+    const searchHotel = searchArgs[0];
+    const searchAmenity = searchArgs[1];
+
+    const query = await AmenityModel.aggregate()
+      .match({
+        amenity: new RegExp(searchAmenity, "i"),
+      })
+      .lookup({
+        from: "hotels",
+        localField: "hotelID",
+        foreignField: "_id",
+        as: "hotel",
+      })
+      .match({
+        "hotel.name": new RegExp(searchHotel, "i"),
+      })
+      .unwind("hotel")
+      .project({
+        hotelID: "$hotelID",
+        hotelName: "$hotel.name",
+        hotelStar: "$hotel.star",
+        hotelRating: "$hotel.rating",
+        amenity: "$amenity",
+      })
+      .sort({ [sortField]: parseInt(sortOrder) })
+      .facet({
+        count: [{ $count: "total" }],
+        paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],
+      });
+
+    const result = query[0];
+    const list = result.paginated;
+    const total = result.count[0] != null ? result.count[0].total : 0;
+
+    res.status(200).json({ total, list });
   } catch (err) {
     next(err);
   }

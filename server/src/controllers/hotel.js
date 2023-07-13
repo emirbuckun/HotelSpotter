@@ -159,8 +159,24 @@ export const filterHotels = async (req, res, next) => {
 
 export const getHotels = async (req, res, next) => {
   try {
-    const hotels = await HotelModel.find();
-    res.status(200).json(hotels);
+    const { page, limit, sort } = req.query;
+
+    const sortArgs = sort ? sort.split(",") : ["_id", "asc"];
+    const sortField = sortArgs[0];
+    const sortOrder = sortArgs[1] == "desc" ? -1 : 1;
+
+    const query = await HotelModel.aggregate()
+      .sort({ [sortField]: parseInt(sortOrder) })
+      .facet({
+        count: [{ $count: "total" }],
+        paginated: [{ $skip: page * limit }, { $limit: parseInt(limit) }],
+      });
+
+    const result = query[0];
+    const list = result.paginated;
+    const total = result.count[0] != null ? result.count[0].total : 0;
+
+    res.status(200).json({ total, list });
   } catch (err) {
     next(err);
   }
