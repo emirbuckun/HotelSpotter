@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useFetch from "/src/hooks/useFetch";
 import Modal from "/src/components/Admin/Modal";
 import Table from "/src/components/Admin/Table";
-import Pagination from "/src/components/Admin/Pagination";
+import PaginationItem from "/src/components/Admin/PaginationItem";
 import Search from "./Search";
 
 const Index = ({ pageName }) => {
@@ -455,7 +455,7 @@ const Index = ({ pageName }) => {
         <>
           <Search {...{ setSearch, columns }} />
           <Table {...{ sort, setSort, columns, openModal, tableData }} />
-          <Pagination
+          <PaginationItem
             {...{ page, limit }}
             total={data.total ? data.total : 0}
             setPage={(page) => setPage(page)}
