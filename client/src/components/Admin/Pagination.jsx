@@ -1,10 +1,10 @@
-import Pagination from "@mui/material/Pagination";
+import MUIPagination from "@mui/material/Pagination";
 
-const PaginationItem = ({ page, total, limit, setPage }) => {
+const Pagination = ({ page, total, limit, setPage }) => {
   const totalPages = Math.ceil(total / limit);
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <Pagination
+      <MUIPagination
         count={totalPages}
         page={page + 1}
         onChange={(e, value) => setPage(value - 1)}
@@ -18,4 +18,4 @@ const PaginationItem = ({ page, total, limit, setPage }) => {
   );
 };
 
-export default PaginationItem;
+export default Pagination;

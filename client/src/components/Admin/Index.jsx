@@ -3,7 +3,7 @@ import useFetch from "/src/hooks/useFetch";
 import useTableColumns from "/src/hooks/useTableColumns";
 import Modal from "/src/components/Admin/Modal";
 import Table from "/src/components/Admin/Table";
-import PaginationItem from "/src/components/Admin/PaginationItem";
+import Pagination from "/src/components/Admin/Pagination";
 import Search from "./Search";
 
 const Index = ({ pageName }) => {
@@ -49,7 +49,7 @@ const Index = ({ pageName }) => {
         <>
           <Search {...{ setSearch, columns }} />
           <Table {...{ sort, setSort, columns, openModal, tableData }} />
-          <PaginationItem
+          <Pagination
             {...{ page, limit }}
             total={data.total ? data.total : 0}
             setPage={(page) => setPage(page)}
