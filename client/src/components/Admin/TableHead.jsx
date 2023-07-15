@@ -1,7 +1,7 @@
 import Button from "./Button";
 import { FaSort } from "react-icons/fa";
 
-const TableHead = ({ sort, setSort, columns, openModal, handleSorting }) => {
+const TableHead = ({ sort, setSort, columns, openModal }) => {
   const handleSort = (accessor) => {
     const sortOrder =
       accessor === sort.sort && sort.order === "asc" ? "desc" : "asc";
