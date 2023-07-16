@@ -55,7 +55,7 @@ const Index = ({ pageName }) => {
             setPage={(page) => setPage(page)}
           />
           <Modal
-            {...{ id, modalShow, operationType }}
+            {...{ id, modalShow, operationType, pageName }}
             onHide={() => setModalShow(false)}
           />
         </>
