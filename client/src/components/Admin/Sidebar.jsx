@@ -14,7 +14,7 @@ const Sidebar = ({ pageName }) => {
     "review",
     "room",
     "user",
-    "userrole",
+    "userRole",
   ];
   return (
     <Nav className="col-md-12 d-none d-md-block bg-white" activeKey={pageName}>
