@@ -18,7 +18,7 @@ const Modal = (props) => {
   const operationType = props.operationType;
   const [form, setForm] = useState(initialState);
   const [hotels, setHotels] = useState([]);
-  const hotelList = useFetch(serverURL + "/hotel").data;
+  const hotelList = useFetch(serverURL + "/hotel/getAllHotels").data;
 
   const { hotelID, amenity } = form;
 
