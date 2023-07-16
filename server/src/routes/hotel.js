@@ -7,6 +7,7 @@ import {
   getHotelList,
   filterHotels,
   getHotels,
+  getAllHotels,
   getHotelDetails,
 } from "../controllers/hotel.js";
 
@@ -33,7 +34,10 @@ router.get("/getHotelList", getHotelList);
 // FILTER HOTEL LIST
 router.post("/filterHotels", filterHotels);
 
-// GET ALL
+// GET HOTELS WITH PAGINATION
 router.get("/", getHotels);
+
+// GET ALL HOTELS
+router.get("/getAllHotels", getAllHotels);
 
 export { router as hotelRouter };

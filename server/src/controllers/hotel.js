@@ -181,3 +181,12 @@ export const getHotels = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getAllHotels = async (req, res, next) => {
+  try {
+    const hotels = await HotelModel.find();
+    res.status(200).json(hotels);
+  } catch (err) {
+    next(err);
+  }
+};
