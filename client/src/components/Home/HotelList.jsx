@@ -1,4 +1,5 @@
 import React from "react";
+import { Rating } from "@mui/material";
 
 const HotelList = ({ data, loading }) => {
   return (
@@ -48,18 +49,14 @@ const HotelCard = (data) => {
           <h5 className="card-title mb-0">{hotel.name}</h5>
           <p className="card-text">
             {hotel.location.city}, {hotel.location.country}
+            <br></br>
+            <Rating name="read-only" value={hotel.star} readOnly />
           </p>
         </div>
+
         <div className="d-flex align-items-center justify-content-between">
-          <div>
-            <span className="badge badge-primary"></span>
-            <strong>Rating: {hotel.rating}</strong>
-            <br></br>
-            <strong>Star: {hotel.star}</strong>
-          </div>
-          <div className="text-end">
-            <strong>$100</strong>
-          </div>
+          <strong>{hotel.rating}/5</strong>
+          <strong>$100</strong>
         </div>
       </div>
     </div>
