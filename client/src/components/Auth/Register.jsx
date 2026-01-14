@@ -134,9 +134,9 @@ function Register() {
                           <input
                             type="tel"
                             id="phoneNumber"
-                            placeholder="545-512-3224"
+                            placeholder="5455123224"
                             className="form-control"
-                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                            pattern="^[0-9]{10,15}$"
                             required
                             onChange={(event) =>
                               setPhoneNumber(event.target.value)
